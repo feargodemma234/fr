@@ -8,7 +8,7 @@
 
     <meta
         name="description"
-        content="Browse products and send a request for delivery."
+        content="Request products and services with your estimated budget."
     >
 
     <link rel="stylesheet" href="style.css">
@@ -23,14 +23,20 @@
     </div>
 
     <nav>
-        <a href="#products">Products</a>
+        <a href="#home">Home</a>
+        <a href="#request">Request</a>
         <a href="#how">How It Works</a>
+        <button id="navAccountButton" onclick="openAuth()">
+            Sign Up / Login
+        </button>
     </nav>
 
 </header>
 
 
-<section class="hero">
+<!-- HERO -->
+
+<section id="home" class="hero">
 
     <div class="hero-content">
 
@@ -39,17 +45,16 @@
         </div>
 
         <h1>
-            Find what you need.
-            Request it easily.
+            Tell us what you need.
         </h1>
 
         <p>
-            Browse our available products, choose what you want,
-            provide your delivery information and send your request.
+            Describe the product you want, set your estimated budget,
+            provide your location and send your request directly to us.
         </p>
 
-        <a href="#products" class="hero-button">
-            Browse Products
+        <a href="#request" class="hero-button">
+            Make a Request
         </a>
 
     </div>
@@ -57,158 +62,179 @@
 </section>
 
 
-<section id="products" class="products-section">
+<!-- REQUEST -->
+
+<section id="request" class="request-section">
 
     <div class="section-heading">
 
         <div class="small-title">
-            AVAILABLE PRODUCTS
+            MAKE A REQUEST
         </div>
 
         <h2>
-            Browse Products
+            Request a Product
         </h2>
 
         <p>
-            Choose a product and send a request.
+            Tell us what you're looking for and what you expect to spend.
         </p>
 
     </div>
 
 
-    <div class="products-grid">
+    <div class="request-card">
+
+        <form id="requestForm">
 
 
-        <!-- PRODUCT 1 -->
-
-        <div class="product-card">
-
-            <div class="product-number">
-                01
-            </div>
-
-            <div class="product-info">
-
-                <h3>
-                    Premium Product
-                </h3>
-
-                <p>
-                    A high-quality product available for
-                    request and delivery.
-                </p>
-
-                <div class="product-bottom">
-
-                    <strong>
-                        $50
-                    </strong>
-
-                    <button
-                        onclick="openRequestForm(
-                            'Premium Product',
-                            '$50',
-                            'A high-quality product available for request and delivery.'
-                        )"
-                    >
-                        Request
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
+            <h3>
+                Product Information
+            </h3>
 
 
-        <!-- PRODUCT 2 -->
+            <label>
+                Product Name
+            </label>
 
-        <div class="product-card">
+            <input
+                type="text"
+                id="productName"
+                placeholder="e.g. iPhone 15 Pro"
+                required
+            >
 
-            <div class="product-number">
-                02
-            </div>
 
-            <div class="product-info">
+            <label>
+                Estimated Budget (USD)
+            </label>
 
-                <h3>
-                    Smart Device
-                </h3>
+            <div class="budget-input">
 
-                <p>
-                    A modern smart device available for
-                    customers to request.
-                </p>
+                <span>$</span>
 
-                <div class="product-bottom">
-
-                    <strong>
-                        $120
-                    </strong>
-
-                    <button
-                        onclick="openRequestForm(
-                            'Smart Device',
-                            '$120',
-                            'A modern smart device available for customers to request.'
-                        )"
-                    >
-                        Request
-                    </button>
-
-                </div>
+                <input
+                    type="number"
+                    id="budget"
+                    placeholder="e.g. 800"
+                    min="0"
+                    step="0.01"
+                    required
+                >
 
             </div>
 
-        </div>
+
+            <label>
+                Product / Request Description
+            </label>
+
+            <textarea
+                id="description"
+                placeholder="Describe the product, preferred specifications, quantity, or anything else you need."
+                rows="6"
+                required
+            ></textarea>
 
 
-        <!-- PRODUCT 3 -->
+            <h3 class="customer-heading">
+                Your Information
+            </h3>
 
-        <div class="product-card">
 
-            <div class="product-number">
-                03
-            </div>
+            <label>
+                Full Name
+            </label>
 
-            <div class="product-info">
+            <input
+                type="text"
+                id="name"
+                placeholder="Your full name"
+                required
+            >
 
-                <h3>
-                    Special Package
-                </h3>
 
-                <p>
-                    A special package available for
-                    request and delivery.
-                </p>
+            <label>
+                Country
+            </label>
 
-                <div class="product-bottom">
+            <input
+                type="text"
+                id="country"
+                placeholder="Your country"
+                required
+            >
 
-                    <strong>
-                        $75
-                    </strong>
 
-                    <button
-                        onclick="openRequestForm(
-                            'Special Package',
-                            '$75',
-                            'A special package available for request and delivery.'
-                        )"
-                    >
-                        Request
-                    </button>
+            <label>
+                State
+            </label>
 
-                </div>
+            <input
+                type="text"
+                id="state"
+                placeholder="Your state"
+                required
+            >
 
-            </div>
 
-        </div>
+            <label>
+                City
+            </label>
 
+            <input
+                type="text"
+                id="city"
+                placeholder="Your city"
+                required
+            >
+
+
+            <label>
+                Phone Number
+            </label>
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Your phone number"
+                required
+            >
+
+
+            <label>
+                Email
+                <span>(Optional for request)</span>
+            </label>
+
+            <input
+                type="email"
+                id="requestEmail"
+                placeholder="Your email address"
+            >
+
+
+            <button
+                type="submit"
+                class="submit-button"
+            >
+                Send Request
+            </button>
+
+
+            <p class="form-note">
+                Your email app will open with the request information
+                already prepared.
+            </p>
+
+        </form>
 
     </div>
 
 </section>
 
+
+<!-- HOW IT WORKS -->
 
 <section id="how" class="how-section">
 
@@ -235,11 +261,12 @@
             </div>
 
             <h3>
-                Choose
+                Describe
             </h3>
 
             <p>
-                Select the product you want.
+                Tell us the product you are looking for and
+                your estimated budget.
             </p>
 
         </div>
@@ -252,11 +279,12 @@
             </div>
 
             <h3>
-                Enter Details
+                Add Details
             </h3>
 
             <p>
-                Enter your delivery information.
+                Enter your name, location and phone number
+                for delivery.
             </p>
 
         </div>
@@ -273,7 +301,8 @@
             </h3>
 
             <p>
-                Your email app opens with the request prepared.
+                Your email app opens with the request
+                information ready to send.
             </p>
 
         </div>
@@ -284,163 +313,157 @@
 </section>
 
 
-<!-- REQUEST FORM -->
+<!-- AUTH MODAL -->
 
-<div id="requestModal" class="modal">
+<div id="authModal" class="modal">
 
     <div class="modal-box">
 
         <button
             class="close-button"
-            onclick="closeRequestForm()"
+            onclick="closeAuth()"
         >
             ×
         </button>
 
 
-        <h2>
-            Request Product
-        </h2>
+        <div class="auth-tabs">
 
-        <p class="modal-subtitle">
-            Enter your information below.
-        </p>
+            <button
+                id="signupTab"
+                class="active-tab"
+                onclick="showSignup()"
+            >
+                Sign Up
+            </button>
 
-
-        <!-- SELECTED PRODUCT -->
-
-        <div class="selected-product">
-
-            <div>
-
-                <span>
-                    PRODUCT
-                </span>
-
-                <h3 id="selectedProductName">
-                    Product
-                </h3>
-
-                <p id="selectedProductDescription"></p>
-
-            </div>
-
-            <strong id="selectedProductPrice">
-                $0
-            </strong>
+            <button
+                id="loginTab"
+                onclick="showLogin()"
+            >
+                Login
+            </button>
 
         </div>
 
 
-        <!-- CUSTOMER FORM -->
+        <!-- SIGN UP -->
 
-        <form id="requestForm">
+        <div id="signupBox">
 
+            <h2>
+                Create Account
+            </h2>
 
-            <label>
-                Full Name
-            </label>
-
-            <input
-                type="text"
-                id="name"
-                placeholder="Enter your full name"
-                required
-            >
+            <p class="modal-subtitle">
+                Create your account using an email and a 3-word phrase.
+            </p>
 
 
-            <label>
-                Country
-            </label>
+            <form id="signupForm">
 
-            <input
-                type="text"
-                id="country"
-                placeholder="Enter your country"
-                required
-            >
+                <label>
+                    Email
+                </label>
 
-
-            <label>
-                State
-            </label>
-
-            <input
-                type="text"
-                id="state"
-                placeholder="Enter your state"
-                required
-            >
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="you@example.com"
+                    required
+                >
 
 
-            <label>
-                City
-            </label>
+                <label>
+                    3-Word Phrase
+                </label>
 
-            <input
-                type="text"
-                id="city"
-                placeholder="Enter your city"
-                required
-            >
+                <input
+                    type="text"
+                    id="signupPhrase"
+                    placeholder="e.g. blue river house"
+                    required
+                >
 
-
-            <label>
-                Phone Number
-            </label>
-
-            <input
-                type="tel"
-                id="phone"
-                placeholder="Enter your phone number"
-                required
-            >
+                <p class="phrase-note">
+                    Your phrase must contain exactly 3 words.
+                </p>
 
 
-            <label>
-                Email
-                <span>(Optional)</span>
-            </label>
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Create Account
+                </button>
 
-            <input
-                type="email"
-                id="email"
-                placeholder="Enter your email"
-            >
+            </form>
 
-
-            <label>
-                Additional Request
-                <span>(Optional)</span>
-            </label>
-
-            <textarea
-                id="message"
-                placeholder="Anything else you want us to know?"
-                rows="4"
-            ></textarea>
+        </div>
 
 
-            <button
-                type="submit"
-                class="submit-button"
-            >
-                Send Request
-            </button>
+        <!-- LOGIN -->
+
+        <div id="loginBox" class="hidden">
+
+            <h2>
+                Welcome Back
+            </h2>
+
+            <p class="modal-subtitle">
+                Login with your email and 3-word phrase.
+            </p>
 
 
-        </form>
+            <form id="loginForm">
+
+                <label>
+                    Email
+                </label>
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="you@example.com"
+                    required
+                >
 
 
-        <p class="email-note">
-            Your email app will open with the request
-            information already prepared.
-        </p>
+                <label>
+                    3-Word Phrase
+                </label>
+
+                <input
+                    type="text"
+                    id="loginPhrase"
+                    placeholder="Enter your 3-word phrase"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                    class="submit-button"
+                >
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <p
+            id="authMessage"
+            class="auth-message"
+        ></p>
 
     </div>
 
 </div>
 
+
+<!-- FOOTER -->
 
 <footer>
 
