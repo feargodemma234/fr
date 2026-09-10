@@ -2,7 +2,7 @@
 // YOUR RECEIVING EMAIL
 // ==========================================
 
-const RECEIVING_EMAIL = "yourbusiness@gmail.com";
+const RECEIVING_EMAIL = "fedexempresaderepartoparatodaslascajas@gmail.com";
 
 
 // ==========================================
