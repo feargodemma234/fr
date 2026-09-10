@@ -1,104 +1,369 @@
 // ==========================================
 // YOUR RECEIVING EMAIL
 // ==========================================
-//
-// CHANGE THIS TO YOUR REAL EMAIL ADDRESS
-//
 
 const RECEIVING_EMAIL = "yourbusiness@gmail.com";
 
 
 // ==========================================
-// SELECTED PRODUCT
+// AUTH
 // ==========================================
 
-let selectedProduct = {
-    name: "",
-    price: "",
-    description: ""
-};
+let users = JSON.parse(
+    localStorage.getItem("requestHubUsers") || "[]"
+);
 
 
 // ==========================================
-// OPEN REQUEST FORM
+// OPEN AUTH
 // ==========================================
 
-function openRequestForm(name, price, description) {
-
-    selectedProduct.name = name;
-    selectedProduct.price = price;
-    selectedProduct.description = description;
-
-
-    document.getElementById(
-        "selectedProductName"
-    ).textContent = name;
-
-
-    document.getElementById(
-        "selectedProductPrice"
-    ).textContent = price;
-
-
-    document.getElementById(
-        "selectedProductDescription"
-    ).textContent = description;
-
+function openAuth() {
 
     document
-        .getElementById("requestModal")
+        .getElementById("authModal")
         .classList.add("active");
-
 
     document.body.style.overflow = "hidden";
 }
 
 
 // ==========================================
-// CLOSE REQUEST FORM
+// CLOSE AUTH
 // ==========================================
 
-function closeRequestForm() {
+function closeAuth() {
 
     document
-        .getElementById("requestModal")
+        .getElementById("authModal")
         .classList.remove("active");
 
-
     document.body.style.overflow = "auto";
+
+    clearAuthMessage();
 }
 
 
 // ==========================================
-// CLOSE WHEN CLICKING OUTSIDE
+// CLICK OUTSIDE MODAL
 // ==========================================
 
 document
-    .getElementById("requestModal")
+    .getElementById("authModal")
     .addEventListener("click", function(event) {
 
         if (event.target === this) {
-            closeRequestForm();
+            closeAuth();
         }
 
     });
 
 
 // ==========================================
-// ESC KEY CLOSES FORM
+// SIGNUP TAB
 // ==========================================
 
-document.addEventListener("keydown", function(event) {
+function showSignup() {
 
-    if (event.key === "Escape") {
-        closeRequestForm();
+    document
+        .getElementById("signupBox")
+        .classList.remove("hidden");
+
+    document
+        .getElementById("loginBox")
+        .classList.add("hidden");
+
+
+    document
+        .getElementById("signupTab")
+        .classList.add("active-tab");
+
+    document
+        .getElementById("loginTab")
+        .classList.remove("active-tab");
+
+
+    clearAuthMessage();
+}
+
+
+// ==========================================
+// LOGIN TAB
+// ==========================================
+
+function showLogin() {
+
+    document
+        .getElementById("signupBox")
+        .classList.add("hidden");
+
+    document
+        .getElementById("loginBox")
+        .classList.remove("hidden");
+
+
+    document
+        .getElementById("signupTab")
+        .classList.remove("active-tab");
+
+    document
+        .getElementById("loginTab")
+        .classList.add("active-tab");
+
+
+    clearAuthMessage();
+}
+
+
+// ==========================================
+// AUTH MESSAGE
+// ==========================================
+
+function showAuthMessage(message) {
+
+    document
+        .getElementById("authMessage")
+        .textContent = message;
+}
+
+
+function clearAuthMessage() {
+
+    document
+        .getElementById("authMessage")
+        .textContent = "";
+}
+
+
+// ==========================================
+// CHECK 3-WORD PHRASE
+// ==========================================
+
+function isThreeWordPhrase(phrase) {
+
+    const words = phrase
+        .trim()
+        .split(/\s+/)
+        .filter(word => word.length > 0);
+
+    return words.length === 3;
+}
+
+
+// ==========================================
+// SIGN UP
+// ==========================================
+
+document
+    .getElementById("signupForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document
+                .getElementById("signupEmail")
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        const phrase =
+            document
+                .getElementById("signupPhrase")
+                .value
+                .trim();
+
+
+        // CHECK PHRASE
+
+        if (!isThreeWordPhrase(phrase)) {
+
+            showAuthMessage(
+                "Your phrase must contain exactly 3 words."
+            );
+
+            return;
+        }
+
+
+        // CHECK EXISTING ACCOUNT
+
+        const existingUser =
+            users.find(user => user.email === email);
+
+
+        if (existingUser) {
+
+            showAuthMessage(
+                "An account with this email already exists."
+            );
+
+            return;
+        }
+
+
+        // CREATE ACCOUNT
+
+        users.push({
+            email: email,
+            phrase: phrase
+        });
+
+
+        localStorage.setItem(
+            "requestHubUsers",
+            JSON.stringify(users)
+        );
+
+
+        localStorage.setItem(
+            "requestHubLoggedIn",
+            email
+        );
+
+
+        showAuthMessage(
+            "Account created successfully."
+        );
+
+
+        document
+            .getElementById("signupForm")
+            .reset();
+
+
+        setTimeout(function() {
+
+            closeAuth();
+
+            updateAccountButton();
+
+        }, 900);
+
+    });
+
+
+// ==========================================
+// LOGIN
+// ==========================================
+
+document
+    .getElementById("loginForm")
+    .addEventListener("submit", function(event) {
+
+        event.preventDefault();
+
+
+        const email =
+            document
+                .getElementById("loginEmail")
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        const phrase =
+            document
+                .getElementById("loginPhrase")
+                .value
+                .trim();
+
+
+        const user =
+            users.find(
+                user =>
+                    user.email === email &&
+                    user.phrase === phrase
+            );
+
+
+        if (!user) {
+
+            showAuthMessage(
+                "Incorrect email or 3-word phrase."
+            );
+
+            return;
+        }
+
+
+        localStorage.setItem(
+            "requestHubLoggedIn",
+            email
+        );
+
+
+        showAuthMessage(
+            "Login successful."
+        );
+
+
+        document
+            .getElementById("loginForm")
+            .reset();
+
+
+        setTimeout(function() {
+
+            closeAuth();
+
+            updateAccountButton();
+
+        }, 700);
+
+    });
+
+
+// ==========================================
+// ACCOUNT BUTTON
+// ==========================================
+
+function updateAccountButton() {
+
+    const loggedInEmail =
+        localStorage.getItem("requestHubLoggedIn");
+
+
+    const button =
+        document.getElementById("navAccountButton");
+
+
+    if (loggedInEmail) {
+
+        button.textContent = "Logout";
+
+        button.onclick = logout;
+
+    } else {
+
+        button.textContent = "Sign Up / Login";
+
+        button.onclick = openAuth;
+
     }
 
-});
+}
 
 
 // ==========================================
-// SUBMIT REQUEST
+// LOGOUT
+// ==========================================
+
+function logout() {
+
+    localStorage.removeItem(
+        "requestHubLoggedIn"
+    );
+
+    updateAccountButton();
+
+}
+
+
+// ==========================================
+// REQUEST FORM
 // ==========================================
 
 document
@@ -108,41 +373,71 @@ document
         event.preventDefault();
 
 
-        // CUSTOMER INFORMATION
+        // PRODUCT
+
+        const productName =
+            document
+                .getElementById("productName")
+                .value
+                .trim();
+
+
+        const budget =
+            document
+                .getElementById("budget")
+                .value
+                .trim();
+
+
+        const description =
+            document
+                .getElementById("description")
+                .value
+                .trim();
+
+
+        // CUSTOMER
 
         const name =
-            document.getElementById("name")
-                .value.trim();
+            document
+                .getElementById("name")
+                .value
+                .trim();
 
 
         const country =
-            document.getElementById("country")
-                .value.trim();
+            document
+                .getElementById("country")
+                .value
+                .trim();
 
 
         const state =
-            document.getElementById("state")
-                .value.trim();
+            document
+                .getElementById("state")
+                .value
+                .trim();
 
 
         const city =
-            document.getElementById("city")
-                .value.trim();
+            document
+                .getElementById("city")
+                .value
+                .trim();
 
 
         const phone =
-            document.getElementById("phone")
-                .value.trim();
+            document
+                .getElementById("phone")
+                .value
+                .trim();
 
 
-        const email =
-            document.getElementById("email")
-                .value.trim();
-
-
-        const message =
-            document.getElementById("message")
-                .value.trim();
+        const requestEmail =
+            document
+                .getElementById("requestEmail")
+                .value
+                .trim();
 
 
         // ======================================
@@ -150,8 +445,8 @@ document
         // ======================================
 
         const subject =
-            "Product Request - " +
-            selectedProduct.name;
+            "New Product Request - " +
+            productName;
 
 
         // ======================================
@@ -161,55 +456,51 @@ document
         let body = "";
 
 
-        body += "PRODUCT REQUEST\n";
+        body += "NEW PRODUCT REQUEST\n";
         body += "==============================\n\n";
 
 
+        body += "PRODUCT INFORMATION\n";
+        body += "------------------------------\n";
+
         body +=
-            "Product: " +
-            selectedProduct.name +
+            "Product Name: " +
+            productName +
             "\n";
 
+        body +=
+            "Estimated Budget: $" +
+            budget +
+            " USD\n";
 
         body +=
-            "Price: " +
-            selectedProduct.price +
-            "\n";
-
-
-        body +=
-            "Description: " +
-            selectedProduct.description +
+            "Description:\n" +
+            description +
             "\n\n";
 
 
         body += "CUSTOMER INFORMATION\n";
-        body += "==============================\n\n";
-
+        body += "------------------------------\n";
 
         body +=
             "Name: " +
             name +
             "\n";
 
-
         body +=
             "Country: " +
             country +
             "\n";
-
 
         body +=
             "State: " +
             state +
             "\n";
 
-
         body +=
             "City: " +
             city +
             "\n";
-
 
         body +=
             "Phone: " +
@@ -217,11 +508,11 @@ document
             "\n";
 
 
-        if (email !== "") {
+        if (requestEmail !== "") {
 
             body +=
                 "Email: " +
-                email +
+                requestEmail +
                 "\n";
 
         } else {
@@ -233,34 +524,12 @@ document
 
 
         body += "\n";
-
-        body += "CUSTOMER REQUEST\n";
-        body += "==============================\n\n";
-
-
-        if (message !== "") {
-
-            body +=
-                message +
-                "\n";
-
-        } else {
-
-            body +=
-                "I would like to request this product.\n";
-
-        }
-
-
-        body += "\n";
-
-
-        body +=
-            "Please contact me regarding this request.\n";
+        body += "==============================\n";
+        body += "Please contact the customer regarding this request.\n";
 
 
         // ======================================
-        // CREATE EMAIL LINK
+        // CREATE MAILTO
         // ======================================
 
         const mailto =
@@ -279,3 +548,10 @@ document
         window.location.href = mailto;
 
     });
+
+
+// ==========================================
+// INITIALIZE
+// ==========================================
+
+updateAccountButton();
