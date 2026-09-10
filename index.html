@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RequestHub</title>
+    <meta name="description" content="Request products and services easily.">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="navbar">
+    <div class="logo">Request<span>Hub</span></div>
+
+    <nav>
+        <a href="#products">Products</a>
+        <a href="#how">How It Works</a>
+    </nav>
+</header>
+
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="badge">📦 SIMPLE REQUEST & DELIVERY</p>
+
+        <h1>Request what you need.</h1>
+
+        <p>
+            Browse our products and send a request directly to our email.
+            Fast, simple and easy.
+        </p>
+
+        <a href="#products" class="hero-button">Browse Products</a>
+    </div>
+</section>
+
+
+<section id="products" class="products-section">
+
+    <div class="section-heading">
+        <p class="small-title">OUR PRODUCTS</p>
+        <h2>Available Products</h2>
+        <p>Select a product and send your request.</p>
+    </div>
+
+    <div class="products-grid">
+
+        <!-- PRODUCT 1 -->
+        <div class="product-card">
+
+            <div class="product-image">
+                <img src="images/product1.jpg" alt="Product 1">
+            </div>
+
+            <div class="product-info">
+                <h3>Premium Product</h3>
+
+                <p class="description">
+                    A high-quality product available for request and delivery.
+                </p>
+
+                <div class="product-bottom">
+                    <strong>₦50,000</strong>
+
+                    <button
+                        class="request-button"
+                        onclick="openRequestForm(
+                            'Premium Product',
+                            '₦50,000',
+                            'A high-quality product available for request and delivery.'
+                        )">
+                        Request
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 2 -->
+        <div class="product-card">
+
+            <div class="product-image">
+                <img src="images/product2.jpg" alt="Product 2">
+            </div>
+
+            <div class="product-info">
+                <h3>Smart Device</h3>
+
+                <p class="description">
+                    Modern smart device available for customers.
+                </p>
+
+                <div class="product-bottom">
+                    <strong>₦120,000</strong>
+
+                    <button
+                        class="request-button"
+                        onclick="openRequestForm(
+                            'Smart Device',
+                            '₦120,000',
+                            'Modern smart device available for customers.'
+                        )">
+                        Request
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+
+        <!-- PRODUCT 3 -->
+        <div class="product-card">
+
+            <div class="product-image">
+                <img src="images/product3.jpg" alt="Product 3">
+            </div>
+
+            <div class="product-info">
+                <h3>Special Package</h3>
+
+                <p class="description">
+                    A special package available for request.
+                </p>
+
+                <div class="product-bottom">
+                    <strong>₦75,000</strong>
+
+                    <button
+                        class="request-button"
+                        onclick="openRequestForm(
+                            'Special Package',
+                            '₦75,000',
+                            'A special package available for request.'
+                        )">
+                        Request
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="how" class="how-section">
+
+    <div class="section-heading">
+        <p class="small-title">HOW IT WORKS</p>
+        <h2>Request in 3 simple steps</h2>
+    </div>
+
+    <div class="steps">
+
+        <div class="step">
+            <div>1</div>
+            <h3>Choose</h3>
+            <p>Select the product you want.</p>
+        </div>
+
+        <div class="step">
+            <div>2</div>
+            <h3>Fill the form</h3>
+            <p>Enter your delivery information.</p>
+        </div>
+
+        <div class="step">
+            <div>3</div>
+            <h3>Send request</h3>
+            <p>Your email app opens with the request prepared.</p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REQUEST MODAL -->
+
+<div id="requestModal" class="modal">
+
+    <div class="modal-box">
+
+        <button class="close-button" onclick="closeRequestForm()">×</button>
+
+        <h2>Request Product</h2>
+
+        <p class="modal-subtitle">
+            Enter your information and send your request.
+        </p>
+
+
+        <div class="selected-product">
+
+            <img id="modalProductImage" src="" alt="Product">
+
+            <div>
+                <h3 id="selectedProductName"></h3>
+                <p id="selectedProductPrice"></p>
+            </div>
+
+        </div>
+
+
+        <form id="requestForm">
+
+            <input
+                type="text"
+                id="name"
+                placeholder="Full Name"
+                required
+            >
+
+
+            <input
+                type="text"
+                id="country"
+                placeholder="Country"
+                required
+            >
+
+
+            <input
+                type="text"
+                id="state"
+                placeholder="State"
+                required
+            >
+
+
+            <input
+                type="text"
+                id="city"
+                placeholder="City"
+                required
+            >
+
+
+            <input
+                type="tel"
+                id="phone"
+                placeholder="Phone Number"
+                required
+            >
+
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Email Address (Optional)"
+            >
+
+
+            <textarea
+                id="message"
+                placeholder="Additional request information (Optional)"
+                rows="4"
+            ></textarea>
+
+
+            <button type="submit" class="submit-button">
+                Send Request
+            </button>
+
+        </form>
+
+        <p class="email-note">
+            Your email app will open with the request already prepared.
+        </p>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    <div class="footer-logo">
+        Request<span>Hub</span>
+    </div>
+
+    <p>© 2026 RequestHub. All rights reserved.</p>
+
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
