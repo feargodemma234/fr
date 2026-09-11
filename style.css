@@ -1,618 +1,621 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+// ==========================================
+// REQUESTHUB SETTINGS
+// ==========================================
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f6f8fc;
-    color: #111827;
-}
+// YOUR RECEIVING WHATSAPP NUMBER
+const RECEIVING_WHATSAPP = "2349040071415";
 
 
-/* NAVBAR */
+// ==========================================
+// ACCOUNT STORAGE
+// ==========================================
 
-.navbar {
-    height: 72px;
-    background: white;
-    border-bottom: 1px solid #e5e7eb;
+let users = JSON.parse(
+    localStorage.getItem("requestHubUsers") || "[]"
+);
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 
-    padding: 0 7%;
+// ==========================================
+// AUTH MODAL
+// ==========================================
 
-    position: sticky;
-    top: 0;
-    z-index: 100;
-}
+function openAuth() {
 
-.logo {
-    font-size: 24px;
-    font-weight: 800;
-}
+    const modal =
+        document.getElementById("authModal");
 
-.logo span,
-.footer-logo span {
-    color: #2563eb;
-}
+    modal.classList.add("show");
 
-.navbar nav {
-    display: flex;
-    align-items: center;
-    gap: 25px;
-}
 
-.navbar nav a {
-    color: #374151;
-    text-decoration: none;
-    font-weight: 600;
-}
+    if (isLoggedIn()) {
 
-.navbar nav a:hover {
-    color: #2563eb;
-}
+        showAccount();
 
-#navAccountButton {
-    border: none;
-    background: #2563eb;
-    color: white;
-    padding: 10px 16px;
-    border-radius: 8px;
-    font-weight: bold;
-    cursor: pointer;
-}
+    } else {
 
-#navAccountButton:hover {
-    background: #1d4ed8;
+        showSignup();
+
+    }
 }
 
 
-/* HERO */
+function closeAuth() {
 
-.hero {
-    min-height: 520px;
+    document
+        .getElementById("authModal")
+        .classList.remove("show");
 
-    background:
-        linear-gradient(
-            135deg,
-            #111827,
-            #1d4ed8
+}
+
+
+// ==========================================
+// AUTH TABS
+// ==========================================
+
+function showSignup() {
+
+    document
+        .getElementById("signupForm")
+        .style.display = "block";
+
+    document
+        .getElementById("loginForm")
+        .style.display = "none";
+
+
+    document
+        .getElementById("signupTab")
+        .classList.add("active");
+
+    document
+        .getElementById("loginTab")
+        .classList.remove("active");
+
+
+    clearAuthMessage();
+}
+
+
+function showLogin() {
+
+    document
+        .getElementById("signupForm")
+        .style.display = "none";
+
+    document
+        .getElementById("loginForm")
+        .style.display = "block";
+
+
+    document
+        .getElementById("signupTab")
+        .classList.remove("active");
+
+    document
+        .getElementById("loginTab")
+        .classList.add("active");
+
+
+    clearAuthMessage();
+}
+
+
+// ==========================================
+// AUTH MESSAGES
+// ==========================================
+
+function showAuthMessage(
+    message,
+    success = false
+) {
+
+    const box =
+        document.getElementById("authMessage");
+
+    box.textContent = message;
+
+    box.className =
+        success
+            ? "success-message"
+            : "error-message";
+}
+
+
+function clearAuthMessage() {
+
+    const box =
+        document.getElementById("authMessage");
+
+    box.textContent = "";
+
+    box.className = "";
+}
+
+
+// ==========================================
+// 3 WORD PHRASE
+// ==========================================
+
+function isThreeWordPhrase(phrase) {
+
+    const words =
+        phrase
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+    return words.length === 3;
+}
+
+
+// ==========================================
+// SIGN UP
+// ==========================================
+
+document
+    .getElementById("signupForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const email =
+                document
+                    .getElementById("signupEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            const phrase =
+                document
+                    .getElementById("signupPhrase")
+                    .value
+                    .trim();
+
+
+            if (!isThreeWordPhrase(phrase)) {
+
+                showAuthMessage(
+                    "Your phrase must contain exactly 3 words."
+                );
+
+                return;
+            }
+
+
+            const existingUser =
+                users.find(
+                    user =>
+                        user.email === email
+                );
+
+
+            if (existingUser) {
+
+                showAuthMessage(
+                    "An account with this email already exists."
+                );
+
+                return;
+            }
+
+
+            users.push({
+
+                email: email,
+
+                phrase: phrase
+
+            });
+
+
+            localStorage.setItem(
+                "requestHubUsers",
+                JSON.stringify(users)
+            );
+
+
+            localStorage.setItem(
+                "requestHubLoggedIn",
+                email
+            );
+
+
+            showAuthMessage(
+                "Account created successfully!",
+                true
+            );
+
+
+            updateAccountButton();
+
+
+            setTimeout(
+                () => closeAuth(),
+                800
+            );
+
+        }
+    );
+
+
+// ==========================================
+// LOGIN
+// ==========================================
+
+document
+    .getElementById("loginForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim()
+                    .toLowerCase();
+
+
+            const phrase =
+                document
+                    .getElementById("loginPhrase")
+                    .value
+                    .trim();
+
+
+            const user =
+                users.find(
+                    user =>
+                        user.email === email &&
+                        user.phrase === phrase
+                );
+
+
+            if (!user) {
+
+                showAuthMessage(
+                    "Incorrect email or 3-word phrase."
+                );
+
+                return;
+            }
+
+
+            localStorage.setItem(
+                "requestHubLoggedIn",
+                email
+            );
+
+
+            showAuthMessage(
+                "Login successful!",
+                true
+            );
+
+
+            updateAccountButton();
+
+
+            setTimeout(
+                () => closeAuth(),
+                800
+            );
+
+        }
+    );
+
+
+// ==========================================
+// CHECK LOGIN
+// ==========================================
+
+function isLoggedIn() {
+
+    return Boolean(
+        localStorage.getItem(
+            "requestHubLoggedIn"
+        )
+    );
+}
+
+
+// ==========================================
+// ACCOUNT BUTTON
+// ==========================================
+
+function updateAccountButton() {
+
+    const button =
+        document.getElementById("accountBtn");
+
+
+    if (isLoggedIn()) {
+
+        button.textContent = "Logout";
+
+        button.onclick = logout;
+
+    } else {
+
+        button.textContent =
+            "Sign Up / Login";
+
+        button.onclick = openAuth;
+    }
+}
+
+
+// ==========================================
+// LOGOUT
+// ==========================================
+
+function logout() {
+
+    localStorage.removeItem(
+        "requestHubLoggedIn"
+    );
+
+    updateAccountButton();
+
+    alert("You have been logged out.");
+}
+
+
+// ==========================================
+// ACCOUNT VIEW
+// ==========================================
+
+function showAccount() {
+
+    const email =
+        localStorage.getItem(
+            "requestHubLoggedIn"
         );
 
-    color: white;
 
-    display: flex;
-    align-items: center;
+    const modalContent =
+        document.querySelector(
+            ".modal-content"
+        );
 
-    padding: 80px 7%;
-}
 
-.hero-content {
-    max-width: 800px;
-}
+    modalContent.innerHTML = `
 
-.badge {
-    display: inline-block;
+        <button
+            class="close-modal"
+            onclick="closeAuth()"
+        >
+            ×
+        </button>
 
-    padding: 9px 15px;
+        <div class="account-view">
 
-    border-radius: 50px;
+            <div class="account-icon">
+                👤
+            </div>
 
-    background: rgba(255,255,255,0.12);
+            <h2>
+                Your Account
+            </h2>
 
-    font-size: 12px;
-    font-weight: bold;
+            <p>
+                ${email}
+            </p>
 
-    letter-spacing: 1px;
+            <button
+                class="auth-btn"
+                onclick="logout(); closeAuth();"
+            >
+                Logout
+            </button>
 
-    margin-bottom: 25px;
-}
+        </div>
 
-.hero h1 {
-    font-size: clamp(45px, 7vw, 76px);
-    line-height: 1.02;
-
-    margin-bottom: 25px;
-}
-
-.hero p {
-    color: #dbeafe;
-
-    font-size: 19px;
-    line-height: 1.7;
-
-    max-width: 650px;
-}
-
-.hero-button {
-    display: inline-block;
-
-    margin-top: 30px;
-
-    padding: 15px 25px;
-
-    background: white;
-    color: #1d4ed8;
-
-    border-radius: 10px;
-
-    text-decoration: none;
-
-    font-weight: bold;
+    `;
 }
 
 
-/* SECTIONS */
+// ==========================================
+// SEND REQUEST TO WHATSAPP
+// ==========================================
 
-.request-section,
-.how-section {
-    padding: 90px 7%;
-}
+document
+    .getElementById("requestForm")
+    .addEventListener(
+        "submit",
+        function(event) {
 
-.section-heading {
-    text-align: center;
-    margin-bottom: 45px;
-}
+            event.preventDefault();
 
-.small-title {
-    color: #2563eb;
 
-    font-size: 12px;
-    font-weight: bold;
+            // PRODUCT
 
-    letter-spacing: 2px;
+            const productName =
+                document
+                    .getElementById("productName")
+                    .value
+                    .trim();
 
-    margin-bottom: 10px;
-}
 
-.section-heading h2 {
-    font-size: 40px;
-    margin-bottom: 12px;
-}
+            const budget =
+                document
+                    .getElementById("budget")
+                    .value
+                    .trim();
 
-.section-heading p {
-    color: #6b7280;
-}
 
+            const description =
+                document
+                    .getElementById("description")
+                    .value
+                    .trim();
 
-/* REQUEST CARD */
 
-.request-card {
-    max-width: 650px;
+            // CUSTOMER
 
-    margin: auto;
+            const fullName =
+                document
+                    .getElementById("fullName")
+                    .value
+                    .trim();
 
-    background: white;
 
-    padding: 35px;
+            const country =
+                document
+                    .getElementById("country")
+                    .value
+                    .trim();
 
-    border-radius: 20px;
 
-    border: 1px solid #e5e7eb;
+            const state =
+                document
+                    .getElementById("state")
+                    .value
+                    .trim();
 
-    box-shadow:
-        0 10px 30px rgba(0,0,0,0.05);
-}
 
-#requestForm {
-    display: flex;
-    flex-direction: column;
-    gap: 9px;
-}
+            const city =
+                document
+                    .getElementById("city")
+                    .value
+                    .trim();
 
-#requestForm h3 {
-    font-size: 21px;
-    margin-bottom: 8px;
-}
 
-.customer-heading {
-    margin-top: 25px;
-}
+            // PHONE
 
-#requestForm label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 7px;
-}
+            const phoneCode =
+                document
+                    .getElementById("phoneCode")
+                    .value;
 
-#requestForm label span {
-    color: #9ca3af;
-    font-weight: normal;
-}
 
-#requestForm input,
-#requestForm textarea {
-    width: 100%;
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
 
-    padding: 14px;
 
-    border: 1px solid #d1d5db;
+            // WHATSAPP
 
-    border-radius: 9px;
+            const whatsappCode =
+                document
+                    .getElementById("whatsappCode")
+                    .value;
 
-    outline: none;
 
-    font-family: inherit;
+            const whatsappNumber =
+                document
+                    .getElementById("whatsappNumber")
+                    .value
+                    .trim();
 
-    font-size: 15px;
-}
 
-#requestForm input:focus,
-#requestForm textarea:focus {
-    border-color: #2563eb;
-}
+            // COMPLETE NUMBERS
 
-#requestForm textarea {
-    resize: vertical;
-}
+            const fullPhone =
+                phoneCode + phone;
 
 
-/* BUDGET */
+            const fullWhatsApp =
+                whatsappCode + whatsappNumber;
 
-.budget-input {
-    display: flex;
-    align-items: center;
 
-    border: 1px solid #d1d5db;
+            // MESSAGE
 
-    border-radius: 9px;
+            const message =
 
-    overflow: hidden;
-}
+`NEW PRODUCT REQUEST
 
-.budget-input span {
-    padding-left: 14px;
+━━━━━━━━━━━━━━━━━━━━
 
-    color: #2563eb;
+PRODUCT INFORMATION
 
-    font-weight: bold;
+Product Name:
+${productName}
 
-    font-size: 17px;
-}
+Estimated Budget:
+$${budget} USD
 
-.budget-input input {
-    border: none !important;
-}
+Description:
+${description}
 
+━━━━━━━━━━━━━━━━━━━━
 
-/* BUTTON */
+CUSTOMER INFORMATION
 
-.submit-button {
-    margin-top: 15px;
+Full Name:
+${fullName}
 
-    border: none;
+Country:
+${country}
 
-    background: #2563eb;
+State:
+${state}
 
-    color: white;
+City:
+${city}
 
-    padding: 15px;
+Phone Number:
+${fullPhone}
 
-    border-radius: 9px;
+WhatsApp Number:
+${fullWhatsApp}
 
-    font-size: 16px;
+━━━━━━━━━━━━━━━━━━━━
 
-    font-weight: bold;
+Sent from RequestHub`;
 
-    cursor: pointer;
-}
 
-.submit-button:hover {
-    background: #1d4ed8;
-}
+            // WHATSAPP LINK
 
-.form-note {
-    text-align: center;
+            const whatsappURL =
+                "https://wa.me/" +
+                RECEIVING_WHATSAPP +
+                "?text=" +
+                encodeURIComponent(message);
 
-    color: #9ca3af;
 
-    font-size: 11px;
+            // OPEN WHATSAPP
 
-    line-height: 1.5;
+            window.open(
+                whatsappURL,
+                "_blank"
+            );
 
-    margin-top: 10px;
-}
+        }
+    );
 
 
-/* HOW IT WORKS */
+// ==========================================
+// CLOSE MODAL WHEN CLICKING OUTSIDE
+// ==========================================
 
-.how-section {
-    background: white;
-}
+document
+    .getElementById("authModal")
+    .addEventListener(
+        "click",
+        function(event) {
 
-.steps {
-    max-width: 1000px;
+            if (event.target === this) {
 
-    margin: auto;
+                closeAuth();
 
-    display: grid;
+            }
 
-    grid-template-columns:
-        repeat(3, 1fr);
+        }
+    );
 
-    gap: 35px;
 
-    text-align: center;
-}
+// ==========================================
+// START
+// ==========================================
 
-.step-number {
-    width: 55px;
-    height: 55px;
-
-    margin: 0 auto 18px;
-
-    border-radius: 50%;
-
-    background: #2563eb;
-    color: white;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.step h3 {
-    margin-bottom: 10px;
-}
-
-.step p {
-    color: #6b7280;
-    line-height: 1.6;
-}
-
-
-/* AUTH MODAL */
-
-.modal {
-    position: fixed;
-
-    inset: 0;
-
-    background: rgba(0,0,0,0.65);
-
-    display: none;
-
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    z-index: 1000;
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-box {
-    width: 100%;
-    max-width: 450px;
-
-    max-height: 90vh;
-
-    overflow-y: auto;
-
-    background: white;
-
-    border-radius: 20px;
-
-    padding: 30px;
-
-    position: relative;
-}
-
-.close-button {
-    position: absolute;
-
-    top: 12px;
-    right: 18px;
-
-    border: none;
-
-    background: transparent;
-
-    font-size: 32px;
-
-    color: #6b7280;
-
-    cursor: pointer;
-}
-
-
-/* AUTH TABS */
-
-.auth-tabs {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    background: #f3f4f6;
-
-    padding: 4px;
-
-    border-radius: 10px;
-
-    margin-bottom: 25px;
-}
-
-.auth-tabs button {
-    border: none;
-
-    padding: 11px;
-
-    border-radius: 7px;
-
-    background: transparent;
-
-    cursor: pointer;
-
-    font-weight: bold;
-}
-
-.auth-tabs .active-tab {
-    background: white;
-
-    color: #2563eb;
-
-    box-shadow:
-        0 2px 6px rgba(0,0,0,0.08);
-}
-
-
-/* AUTH FORMS */
-
-#signupBox h2,
-#loginBox h2 {
-    font-size: 28px;
-    margin-bottom: 8px;
-}
-
-.modal-subtitle {
-    color: #6b7280;
-
-    line-height: 1.5;
-
-    margin-bottom: 20px;
-}
-
-#signupForm,
-#loginForm {
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
-}
-
-#signupForm label,
-#loginForm label {
-    font-size: 14px;
-    font-weight: 600;
-    margin-top: 7px;
-}
-
-#signupForm input,
-#loginForm input {
-    padding: 14px;
-
-    border: 1px solid #d1d5db;
-
-    border-radius: 9px;
-
-    outline: none;
-
-    font-size: 15px;
-}
-
-#signupForm input:focus,
-#loginForm input:focus {
-    border-color: #2563eb;
-}
-
-.phrase-note {
-    color: #9ca3af;
-
-    font-size: 11px;
-
-    margin-top: 3px;
-}
-
-.hidden {
-    display: none;
-}
-
-.auth-message {
-    text-align: center;
-
-    margin-top: 15px;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-
-/* FOOTER */
-
-footer {
-    background: #111827;
-
-    color: white;
-
-    text-align: center;
-
-    padding: 40px 20px;
-}
-
-.footer-logo {
-    font-size: 24px;
-
-    font-weight: bold;
-
-    margin-bottom: 10px;
-}
-
-footer p {
-    color: #9ca3af;
-    font-size: 13px;
-}
-
-
-/* MOBILE */
-
-@media (max-width: 700px) {
-
-    .navbar {
-        padding: 0 5%;
-    }
-
-    .navbar nav {
-        gap: 8px;
-    }
-
-    .navbar nav a {
-        display: none;
-    }
-
-    #navAccountButton {
-        font-size: 12px;
-        padding: 9px 12px;
-    }
-
-    .hero {
-        padding: 65px 5%;
-    }
-
-    .request-section,
-    .how-section {
-        padding: 70px 5%;
-    }
-
-    .request-card {
-        padding: 23px;
-    }
-
-    .section-heading h2 {
-        font-size: 32px;
-    }
-
-    .steps {
-        grid-template-columns: 1fr;
-
-        max-width: 500px;
-    }
-
-    .modal-box {
-        padding: 23px;
-    }
-}
+updateAccountButton();
