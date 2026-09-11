@@ -462,10 +462,12 @@ WhatsApp Number: ${whatsappNumber}`;
 
 
         const whatsappURL =
-            "https://wa.me/" +
-            RECEIVING_WHATSAPP +
-            "?text=" +
-            encodeURIComponent(message);
+    "https://wa.me/" +
+    RECEIVING_WHATSAPP +
+    "?text=" +
+    encodeURIComponent(message);
+
+window.location.href = whatsappURL;
 
 
         window.open(
