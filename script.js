@@ -1,12 +1,12 @@
 // ==========================================
-// YOUR RECEIVING EMAIL
+// REQUESTHUB SETTINGS
 // ==========================================
 
-const RECEIVING_EMAIL = "fedexempresaderepartoparatodaslascajas@gmail.com";
+const RECEIVING_WHATSAPP = "2349040071415";
 
 
 // ==========================================
-// AUTH
+// SIMPLE ACCOUNT SYSTEM
 // ==========================================
 
 let users = JSON.parse(
@@ -15,101 +15,64 @@ let users = JSON.parse(
 
 
 // ==========================================
-// OPEN AUTH
+// AUTH MODAL
 // ==========================================
 
 function openAuth() {
+    const modal = document.getElementById("authModal");
 
-    document
-        .getElementById("authModal")
-        .classList.add("active");
+    modal.classList.add("show");
 
-    document.body.style.overflow = "hidden";
+    if (isLoggedIn()) {
+        showAccount();
+    } else {
+        showSignup();
+    }
 }
 
-
-// ==========================================
-// CLOSE AUTH
-// ==========================================
 
 function closeAuth() {
-
     document
         .getElementById("authModal")
-        .classList.remove("active");
-
-    document.body.style.overflow = "auto";
-
-    clearAuthMessage();
+        .classList.remove("show");
 }
 
 
 // ==========================================
-// CLICK OUTSIDE MODAL
-// ==========================================
-
-document
-    .getElementById("authModal")
-    .addEventListener("click", function(event) {
-
-        if (event.target === this) {
-            closeAuth();
-        }
-
-    });
-
-
-// ==========================================
-// SIGNUP TAB
+// AUTH TABS
 // ==========================================
 
 function showSignup() {
 
-    document
-        .getElementById("signupBox")
-        .classList.remove("hidden");
+    document.getElementById("signupForm").style.display = "block";
 
-    document
-        .getElementById("loginBox")
-        .classList.add("hidden");
-
+    document.getElementById("loginForm").style.display = "none";
 
     document
         .getElementById("signupTab")
-        .classList.add("active-tab");
+        .classList.add("active");
 
     document
         .getElementById("loginTab")
-        .classList.remove("active-tab");
-
+        .classList.remove("active");
 
     clearAuthMessage();
 }
 
 
-// ==========================================
-// LOGIN TAB
-// ==========================================
-
 function showLogin() {
 
-    document
-        .getElementById("signupBox")
-        .classList.add("hidden");
+    document.getElementById("signupForm").style.display = "none";
 
-    document
-        .getElementById("loginBox")
-        .classList.remove("hidden");
-
+    document.getElementById("loginForm").style.display = "block";
 
     document
         .getElementById("signupTab")
-        .classList.remove("active-tab");
+        .classList.remove("active");
 
     document
         .getElementById("loginTab")
-        .classList.add("active-tab");
-
+        .classList.add("active");
 
     clearAuthMessage();
 }
@@ -119,19 +82,23 @@ function showLogin() {
 // AUTH MESSAGE
 // ==========================================
 
-function showAuthMessage(message) {
+function showAuthMessage(message, success = false) {
 
-    document
-        .getElementById("authMessage")
-        .textContent = message;
+    const box = document.getElementById("authMessage");
+
+    box.textContent = message;
+
+    box.className = success ? "success-message" : "error-message";
 }
 
 
 function clearAuthMessage() {
 
-    document
-        .getElementById("authMessage")
-        .textContent = "";
+    const box = document.getElementById("authMessage");
+
+    box.textContent = "";
+
+    box.className = "";
 }
 
 
@@ -144,7 +111,7 @@ function isThreeWordPhrase(phrase) {
     const words = phrase
         .trim()
         .split(/\s+/)
-        .filter(word => word.length > 0);
+        .filter(Boolean);
 
     return words.length === 3;
 }
@@ -160,7 +127,6 @@ document
 
         event.preventDefault();
 
-
         const email =
             document
                 .getElementById("signupEmail")
@@ -168,15 +134,12 @@ document
                 .trim()
                 .toLowerCase();
 
-
         const phrase =
             document
                 .getElementById("signupPhrase")
                 .value
                 .trim();
 
-
-        // CHECK PHRASE
 
         if (!isThreeWordPhrase(phrase)) {
 
@@ -188,10 +151,9 @@ document
         }
 
 
-        // CHECK EXISTING ACCOUNT
-
-        const existingUser =
-            users.find(user => user.email === email);
+        const existingUser = users.find(
+            user => user.email === email
+        );
 
 
         if (existingUser) {
@@ -203,8 +165,6 @@ document
             return;
         }
 
-
-        // CREATE ACCOUNT
 
         users.push({
             email: email,
@@ -225,22 +185,19 @@ document
 
 
         showAuthMessage(
-            "Account created successfully."
+            "Account created successfully!",
+            true
         );
 
 
-        document
-            .getElementById("signupForm")
-            .reset();
+        updateAccountButton();
 
 
-        setTimeout(function() {
+        setTimeout(() => {
 
             closeAuth();
 
-            updateAccountButton();
-
-        }, 900);
+        }, 800);
 
     });
 
@@ -271,12 +228,11 @@ document
                 .trim();
 
 
-        const user =
-            users.find(
-                user =>
-                    user.email === email &&
-                    user.phrase === phrase
-            );
+        const user = users.find(
+            user =>
+                user.email === email &&
+                user.phrase === phrase
+        );
 
 
         if (!user) {
@@ -296,24 +252,33 @@ document
 
 
         showAuthMessage(
-            "Login successful."
+            "Login successful!",
+            true
         );
 
 
-        document
-            .getElementById("loginForm")
-            .reset();
+        updateAccountButton();
 
 
-        setTimeout(function() {
+        setTimeout(() => {
 
             closeAuth();
 
-            updateAccountButton();
-
-        }, 700);
+        }, 800);
 
     });
+
+
+// ==========================================
+// LOGIN CHECK
+// ==========================================
+
+function isLoggedIn() {
+
+    return Boolean(
+        localStorage.getItem("requestHubLoggedIn")
+    );
+}
 
 
 // ==========================================
@@ -322,15 +287,11 @@ document
 
 function updateAccountButton() {
 
-    const loggedInEmail =
-        localStorage.getItem("requestHubLoggedIn");
-
-
     const button =
-        document.getElementById("navAccountButton");
+        document.getElementById("accountBtn");
 
 
-    if (loggedInEmail) {
+    if (isLoggedIn()) {
 
         button.textContent = "Logout";
 
@@ -341,9 +302,7 @@ function updateAccountButton() {
         button.textContent = "Sign Up / Login";
 
         button.onclick = openAuth;
-
     }
-
 }
 
 
@@ -353,17 +312,54 @@ function updateAccountButton() {
 
 function logout() {
 
-    localStorage.removeItem(
-        "requestHubLoggedIn"
-    );
+    localStorage.removeItem("requestHubLoggedIn");
 
     updateAccountButton();
 
+    alert("You have been logged out.");
 }
 
 
 // ==========================================
-// REQUEST FORM
+// ACCOUNT VIEW
+// ==========================================
+
+function showAccount() {
+
+    const email =
+        localStorage.getItem("requestHubLoggedIn");
+
+
+    const modalContent =
+        document.querySelector(".modal-content");
+
+
+    modalContent.innerHTML = `
+
+        <button class="close-modal" onclick="closeAuth()">×</button>
+
+        <div class="account-view">
+
+            <div class="account-icon">👤</div>
+
+            <h2>Your Account</h2>
+
+            <p>${email}</p>
+
+            <button
+                class="auth-btn"
+                onclick="logout(); closeAuth();"
+            >
+                Logout
+            </button>
+
+        </div>
+    `;
+}
+
+
+// ==========================================
+// SEND REQUEST THROUGH WHATSAPP
 // ==========================================
 
 document
@@ -372,8 +368,6 @@ document
 
         event.preventDefault();
 
-
-        // PRODUCT
 
         const productName =
             document
@@ -396,11 +390,9 @@ document
                 .trim();
 
 
-        // CUSTOMER
-
-        const name =
+        const fullName =
             document
-                .getElementById("name")
+                .getElementById("fullName")
                 .value
                 .trim();
 
@@ -433,119 +425,70 @@ document
                 .trim();
 
 
-        const requestEmail =
+        const whatsappNumber =
             document
-                .getElementById("requestEmail")
+                .getElementById("whatsappNumber")
                 .value
                 .trim();
 
 
-        // ======================================
-        // EMAIL SUBJECT
-        // ======================================
+        const message =
 
-        const subject =
-            "New Product Request - " +
-            productName;
+`NEW PRODUCT REQUEST
 
+PRODUCT INFORMATION
 
-        // ======================================
-        // EMAIL BODY
-        // ======================================
+Product Name: ${productName}
 
-        let body = "";
+Estimated Budget: $${budget} USD
+
+Description:
+${description}
 
 
-        body += "NEW PRODUCT REQUEST\n";
-        body += "==============================\n\n";
+CUSTOMER INFORMATION
+
+Full Name: ${fullName}
+
+Country: ${country}
+
+State: ${state}
+
+City: ${city}
+
+Phone Number: ${phone}
+
+WhatsApp Number: ${whatsappNumber}`;
 
 
-        body += "PRODUCT INFORMATION\n";
-        body += "------------------------------\n";
-
-        body +=
-            "Product Name: " +
-            productName +
-            "\n";
-
-        body +=
-            "Estimated Budget: $" +
-            budget +
-            " USD\n";
-
-        body +=
-            "Description:\n" +
-            description +
-            "\n\n";
+        const whatsappURL =
+            "https://wa.me/" +
+            RECEIVING_WHATSAPP +
+            "?text=" +
+            encodeURIComponent(message);
 
 
-        body += "CUSTOMER INFORMATION\n";
-        body += "------------------------------\n";
+        window.open(
+            whatsappURL,
+            "_blank"
+        );
 
-        body +=
-            "Name: " +
-            name +
-            "\n";
-
-        body +=
-            "Country: " +
-            country +
-            "\n";
-
-        body +=
-            "State: " +
-            state +
-            "\n";
-
-        body +=
-            "City: " +
-            city +
-            "\n";
-
-        body +=
-            "Phone: " +
-            phone +
-            "\n";
+    });
 
 
-        if (requestEmail !== "") {
+// ==========================================
+// CLOSE MODAL WHEN CLICKING OUTSIDE
+// ==========================================
 
-            body +=
-                "Email: " +
-                requestEmail +
-                "\n";
+document
+    .getElementById("authModal")
+    .addEventListener("click", function(event) {
 
-        } else {
+        if (event.target === this) {
 
-            body +=
-                "Email: Not provided\n";
+            closeAuth();
 
         }
-
-
-        body += "\n";
-        body += "==============================\n";
-        body += "Please contact the customer regarding this request.\n";
-
-
-        // ======================================
-        // CREATE MAILTO
-        // ======================================
-
-        const mailto =
-            "mailto:" +
-            RECEIVING_EMAIL +
-            "?subject=" +
-            encodeURIComponent(subject) +
-            "&body=" +
-            encodeURIComponent(body);
-
-
-        // ======================================
-        // OPEN EMAIL APP
-        // ======================================
-
-        window.location.href = mailto;
 
     });
 
