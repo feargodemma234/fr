@@ -362,121 +362,89 @@ function showAccount() {
 // SEND REQUEST THROUGH WHATSAPP
 // ==========================================
 
-document
-    .getElementById("requestForm")
-    .addEventListener("submit", function(event) {
+const requestForm = document.getElementById("requestForm");
 
-        event.preventDefault();
+if (requestForm) {
+    requestForm.addEventListener("submit", function (e) {
+        e.preventDefault();
 
+        const productName = document.getElementById("productName").value.trim();
+        const budget = document.getElementById("budget").value.trim();
+        const description = document.getElementById("description").value.trim();
 
-        const productName =
-            document
-                .getElementById("productName")
-                .value
-                .trim();
+        const fullName = document.getElementById("fullName").value.trim();
+        const country = document.getElementById("country").value.trim();
+        const state = document.getElementById("state").value.trim();
+        const city = document.getElementById("city").value.trim();
 
+        const phoneCode = document.getElementById("phoneCode").value;
+        const phone = document.getElementById("phone").value.trim();
 
-        const budget =
-            document
-                .getElementById("budget")
-                .value
-                .trim();
+        const whatsappCode = document.getElementById("whatsappCode").value;
+        const whatsappNumber = document.getElementById("whatsappNumber").value.trim();
 
+        if (
+            !productName ||
+            !budget ||
+            !description ||
+            !fullName ||
+            !country ||
+            !state ||
+            !city ||
+            !phone ||
+            !whatsappNumber
+        ) {
+            alert("Please fill in all required fields.");
+            return;
+        }
 
-        const description =
-            document
-                .getElementById("description")
-                .value
-                .trim();
-
-
-        const fullName =
-            document
-                .getElementById("fullName")
-                .value
-                .trim();
-
-
-        const country =
-            document
-                .getElementById("country")
-                .value
-                .trim();
-
-
-        const state =
-            document
-                .getElementById("state")
-                .value
-                .trim();
-
-
-        const city =
-            document
-                .getElementById("city")
-                .value
-                .trim();
-
-
-        const phone =
-            document
-                .getElementById("phone")
-                .value
-                .trim();
-
-
-        const whatsappNumber =
-            document
-                .getElementById("whatsappNumber")
-                .value
-                .trim();
-
+        const fullPhone = phoneCode + phone;
+        const fullWhatsApp = whatsappCode + whatsappNumber;
 
         const message =
-
 `NEW PRODUCT REQUEST
 
 PRODUCT INFORMATION
 
-Product Name: ${productName}
+Product Name:
+${productName}
 
-Estimated Budget: $${budget} USD
+Estimated Budget:
+$${budget} USD
 
 Description:
 ${description}
 
-
 CUSTOMER INFORMATION
 
-Full Name: ${fullName}
+Full Name:
+${fullName}
 
-Country: ${country}
+Country:
+${country}
 
-State: ${state}
+State:
+${state}
 
-City: ${city}
+City:
+${city}
 
-Phone Number: ${phone}
+Phone Number:
+${fullPhone}
 
-WhatsApp Number: ${whatsappNumber}`;
+WhatsApp Number:
+${fullWhatsApp}
 
+Sent from RequestHub`;
 
         const whatsappURL =
-    "https://wa.me/" +
-    RECEIVING_WHATSAPP +
-    "?text=" +
-    encodeURIComponent(message);
+            "https://wa.me/2349040071415?text=" +
+            encodeURIComponent(message);
 
-window.location.href = whatsappURL;
-
-
-        window.open(
-            whatsappURL,
-            "_blank"
-        );
-
+        // Redirect directly to WhatsApp
+        window.location.assign(whatsappURL);
     });
-
+}
 
 // ==========================================
 // CLOSE MODAL WHEN CLICKING OUTSIDE
