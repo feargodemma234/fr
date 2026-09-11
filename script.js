@@ -1,20 +1,34 @@
-/* =====================================================
-   REQUESTHUB - SCRIPT.JS
-   ===================================================== */
+/* =========================================
+   SUPABASE
+========================================= */
+
+const SUPABASE_URL =
+    "https://igikusqecnenjwbjoocf.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_-jFClaoda0zrYZ1V7q3qcg_tKNVPfdO";
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
 
 
-/* =====================================================
-   WHATSAPP RECEIVING NUMBER
-   ===================================================== */
+/* =========================================
+   WHATSAPP
+========================================= */
 
-const RECEIVING_WHATSAPP = "2349040071415";
+const RECEIVING_WHATSAPP =
+    "2349040071415";
 
 
-/* =====================================================
-   ALL COUNTRY CALLING CODES
-   ===================================================== */
+/* =========================================
+   COUNTRY CODES
+========================================= */
 
 const countries = [
+
     ["🇦🇫", "Afghanistan", "+93"],
     ["🇦🇱", "Albania", "+355"],
     ["🇩🇿", "Algeria", "+213"],
@@ -45,7 +59,7 @@ const countries = [
     ["🇧🇫", "Burkina Faso", "+226"],
     ["🇧🇮", "Burundi", "+257"],
 
-    ["🇨🇻", "Cape Verde", "+238"],
+    ["🇨🇻", "Cabo Verde", "+238"],
     ["🇰🇭", "Cambodia", "+855"],
     ["🇨🇲", "Cameroon", "+237"],
     ["🇨🇦", "Canada", "+1"],
@@ -162,7 +176,6 @@ const countries = [
 
     ["🇵🇰", "Pakistan", "+92"],
     ["🇵🇼", "Palau", "+680"],
-    ["🇵🇸", "Palestine", "+970"],
     ["🇵🇦", "Panama", "+507"],
     ["🇵🇬", "Papua New Guinea", "+675"],
     ["🇵🇾", "Paraguay", "+595"],
@@ -208,11 +221,12 @@ const countries = [
     ["🇹🇯", "Tajikistan", "+992"],
     ["🇹🇿", "Tanzania", "+255"],
     ["🇹🇭", "Thailand", "+66"],
+    ["🇹🇱", "Timor-Leste", "+670"],
     ["🇹🇬", "Togo", "+228"],
     ["🇹🇴", "Tonga", "+676"],
     ["🇹🇹", "Trinidad and Tobago", "+1"],
     ["🇹🇳", "Tunisia", "+216"],
-    ["🇹🇷", "Türkiye", "+90"],
+    ["🇹🇷", "Turkey", "+90"],
     ["🇹🇲", "Turkmenistan", "+993"],
     ["🇹🇻", "Tuvalu", "+688"],
 
@@ -233,340 +247,517 @@ const countries = [
 
     ["🇿🇲", "Zambia", "+260"],
     ["🇿🇼", "Zimbabwe", "+263"]
+
 ];
 
 
-/* =====================================================
-   POPULATE COUNTRY SELECTORS
-   ===================================================== */
+/* =========================================
+   COUNTRY SELECTORS
+========================================= */
 
 function populateCountryCodes() {
 
-    const phoneCode = document.getElementById("phoneCode");
-    const whatsappCode = document.getElementById("whatsappCode");
+    const phoneCode =
+        document.getElementById("phoneCode");
 
-    if (!phoneCode || !whatsappCode) return;
+    const whatsappCode =
+        document.getElementById("whatsappCode");
 
-    countries.forEach(([flag, country, code]) => {
+    if (!phoneCode || !whatsappCode) {
+        return;
+    }
 
-        const option1 = document.createElement("option");
+    countries.forEach(
+        ([flag, country, code]) => {
 
-        option1.value = code;
-        option1.textContent = `${flag} ${country} ${code}`;
+            const option1 =
+                document.createElement("option");
 
-        phoneCode.appendChild(option1);
+            option1.value = code;
 
+            option1.textContent =
+                `${flag} ${country} ${code}`;
 
-        const option2 = document.createElement("option");
-
-        option2.value = code;
-        option2.textContent = `${flag} ${country} ${code}`;
-
-        whatsappCode.appendChild(option2);
-
-    });
+            phoneCode.appendChild(option1);
 
 
-    // Nigeria by default
+            const option2 =
+                document.createElement("option");
+
+            option2.value = code;
+
+            option2.textContent =
+                `${flag} ${country} ${code}`;
+
+            whatsappCode.appendChild(option2);
+
+        }
+    );
+
+
     phoneCode.value = "+234";
     whatsappCode.value = "+234";
 }
 
 
-/* =====================================================
-   ACCOUNT SYSTEM
-   ===================================================== */
-
-let users = JSON.parse(
-    localStorage.getItem("requestHubUsers") || "[]"
-);
-
-
-/* =====================================================
+/* =========================================
    AUTH MODAL
-   ===================================================== */
+========================================= */
+
+const authModal =
+    document.getElementById("authModal");
+
+const accountButton =
+    document.getElementById("accountButton");
+
+const closeAuth =
+    document.getElementById("closeAuth");
+
+const modalOverlay =
+    document.getElementById("modalOverlay");
+
 
 function openAuth() {
 
-    const modal = document.getElementById("authModal");
+    authModal.classList.add("active");
 
-    if (!modal) return;
+    showLogin();
 
-    modal.style.display = "flex";
-
-    if (isLoggedIn()) {
-        showAccount();
-    } else {
-        showSignup();
-    }
 }
 
 
-function closeAuth() {
+function closeAuthModal() {
 
-    const modal = document.getElementById("authModal");
+    authModal.classList.remove("active");
 
-    if (modal) {
-        modal.style.display = "none";
-    }
 }
 
+
+if (accountButton) {
+
+    accountButton.addEventListener(
+        "click",
+        async function () {
+
+            const {
+                data: { user }
+            } = await supabaseClient.auth.getUser();
+
+            if (user) {
+
+                authModal.classList.add("active");
+
+                showAccount(user);
+
+            } else {
+
+                openAuth();
+
+            }
+
+        }
+    );
+
+}
+
+
+if (closeAuth) {
+
+    closeAuth.addEventListener(
+        "click",
+        closeAuthModal
+    );
+
+}
+
+
+if (modalOverlay) {
+
+    modalOverlay.addEventListener(
+        "click",
+        closeAuthModal
+    );
+
+}
+
+
+/* =========================================
+   AUTH VIEWS
+========================================= */
 
 function showSignup() {
 
-    document.getElementById("signupView").style.display = "block";
-    document.getElementById("loginView").style.display = "none";
-    document.getElementById("accountView").style.display = "none";
+    document.getElementById("signupView")
+        .style.display = "block";
 
-    clearAuthMessage();
+    document.getElementById("loginView")
+        .style.display = "none";
+
+    document.getElementById("accountView")
+        .style.display = "none";
+
 }
 
 
 function showLogin() {
 
-    document.getElementById("signupView").style.display = "none";
-    document.getElementById("loginView").style.display = "block";
-    document.getElementById("accountView").style.display = "none";
+    document.getElementById("signupView")
+        .style.display = "none";
 
-    clearAuthMessage();
+    document.getElementById("loginView")
+        .style.display = "block";
+
+    document.getElementById("accountView")
+        .style.display = "none";
+
 }
 
 
-function showAccount() {
+function showAccount(user) {
 
-    document.getElementById("signupView").style.display = "none";
-    document.getElementById("loginView").style.display = "none";
-    document.getElementById("accountView").style.display = "block";
+    document.getElementById("signupView")
+        .style.display = "none";
 
-    const email = localStorage.getItem("requestHubLoggedIn");
+    document.getElementById("loginView")
+        .style.display = "none";
 
-    const accountEmail =
+    document.getElementById("accountView")
+        .style.display = "block";
+
+
+    const email =
         document.getElementById("accountEmail");
 
-    if (accountEmail) {
-        accountEmail.textContent = email || "—";
+    if (email) {
+
+        email.textContent =
+            user.email || "";
+
     }
+
 }
 
 
-function clearAuthMessage() {
+/* =========================================
+   AUTH NAVIGATION
+========================================= */
 
-    const signupMessage =
-        document.getElementById("signupMessage");
-
-    const loginMessage =
-        document.getElementById("loginMessage");
-
-    if (signupMessage) signupMessage.textContent = "";
-    if (loginMessage) loginMessage.textContent = "";
-}
+document.getElementById("goLogin")
+    ?.addEventListener(
+        "click",
+        showLogin
+    );
 
 
-function showAuthMessage(element, message) {
+document.getElementById("goSignup")
+    ?.addEventListener(
+        "click",
+        showSignup
+    );
 
-    if (element) {
-        element.textContent = message;
-    }
-}
 
+/* =========================================
+   3-WORD PASSWORD CHECK
+========================================= */
 
-function isThreeWordPhrase(phrase) {
+function isThreeWordPhrase(value) {
 
-    return phrase
+    return value
         .trim()
         .split(/\s+/)
         .filter(Boolean)
         .length === 3;
+
 }
 
 
-/* =====================================================
+/* =========================================
    SIGN UP
-   ===================================================== */
+========================================= */
 
 const signupForm =
     document.getElementById("signupForm");
 
+
 if (signupForm) {
 
-    signupForm.addEventListener("submit", function (e) {
+    signupForm.addEventListener(
+        "submit",
+        async function (e) {
 
-        e.preventDefault();
-
-        const email =
-            document.getElementById("signupEmail")
-                .value
-                .trim()
-                .toLowerCase();
-
-        const phrase =
-            document.getElementById("signupPhrase")
-                .value
-                .trim();
+            e.preventDefault();
 
 
-        if (!isThreeWordPhrase(phrase)) {
+            const email =
+                document
+                    .getElementById("signupEmail")
+                    .value
+                    .trim();
 
-            showAuthMessage(
-                document.getElementById("signupMessage"),
-                "Your phrase must contain exactly 3 words."
-            );
 
-            return;
+            const phrase =
+                document
+                    .getElementById("signupPhrase")
+                    .value
+                    .trim();
+
+
+            const message =
+                document.getElementById(
+                    "signupMessage"
+                );
+
+
+            if (!isThreeWordPhrase(phrase)) {
+
+                message.textContent =
+                    "Your password must contain exactly 3 words.";
+
+                message.className =
+                    "auth-message error";
+
+                return;
+
+            }
+
+
+            message.textContent =
+                "Creating your account...";
+
+            message.className =
+                "auth-message";
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: phrase
+
+                });
+
+
+            if (error) {
+
+                message.textContent =
+                    error.message;
+
+                message.className =
+                    "auth-message error";
+
+                return;
+
+            }
+
+
+            message.textContent =
+                "Account created! Check your email and tap the confirmation link before logging in.";
+
+            message.className =
+                "auth-message success";
+
+
+            signupForm.reset();
+
         }
+    );
 
-
-        const existingUser =
-            users.find(user => user.email === email);
-
-
-        if (existingUser) {
-
-            showAuthMessage(
-                document.getElementById("signupMessage"),
-                "An account with this email already exists."
-            );
-
-            return;
-        }
-
-
-        users.push({
-            email: email,
-            phrase: phrase
-        });
-
-
-        localStorage.setItem(
-            "requestHubUsers",
-            JSON.stringify(users)
-        );
-
-
-        localStorage.setItem(
-            "requestHubLoggedIn",
-            email
-        );
-
-
-        updateAccountButton();
-
-        showAccount();
-
-    });
 }
 
 
-/* =====================================================
+/* =========================================
    LOGIN
-   ===================================================== */
+========================================= */
 
 const loginForm =
     document.getElementById("loginForm");
 
+
 if (loginForm) {
 
-    loginForm.addEventListener("submit", function (e) {
+    loginForm.addEventListener(
+        "submit",
+        async function (e) {
 
-        e.preventDefault();
-
-        const email =
-            document.getElementById("loginEmail")
-                .value
-                .trim()
-                .toLowerCase();
-
-        const phrase =
-            document.getElementById("loginPhrase")
-                .value
-                .trim();
+            e.preventDefault();
 
 
-        const user =
-            users.find(
-                user =>
-                    user.email === email &&
-                    user.phrase === phrase
-            );
+            const email =
+                document
+                    .getElementById("loginEmail")
+                    .value
+                    .trim();
 
 
-        if (!user) {
+            const phrase =
+                document
+                    .getElementById("loginPhrase")
+                    .value
+                    .trim();
 
-            showAuthMessage(
-                document.getElementById("loginMessage"),
-                "Incorrect email or 3-word phrase."
-            );
 
-            return;
+            const message =
+                document.getElementById(
+                    "loginMessage"
+                );
+
+
+            message.textContent =
+                "Logging in...";
+
+            message.className =
+                "auth-message";
+
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signInWithPassword({
+
+                    email: email,
+
+                    password: phrase
+
+                });
+
+
+            if (error) {
+
+                message.textContent =
+                    error.message;
+
+                message.className =
+                    "auth-message error";
+
+                return;
+
+            }
+
+
+            if (!data.user) {
+
+                message.textContent =
+                    "Login failed. Please try again.";
+
+                message.className =
+                    "auth-message error";
+
+                return;
+
+            }
+
+
+            message.textContent =
+                "";
+
+            showAccount(data.user);
+
+            updateAccountButton(data.user);
+
         }
-
-
-        localStorage.setItem(
-            "requestHubLoggedIn",
-            email
-        );
-
-
-        updateAccountButton();
-
-        showAccount();
-
-    });
-}
-
-
-/* =====================================================
-   LOGIN STATUS
-   ===================================================== */
-
-function isLoggedIn() {
-
-    return !!localStorage.getItem(
-        "requestHubLoggedIn"
     );
+
 }
 
 
-function updateAccountButton() {
+/* =========================================
+   LOGOUT
+========================================= */
 
-    const button =
-        document.getElementById("accountBtn");
-
-    if (!button) return;
+const logoutButton =
+    document.getElementById("logoutButton");
 
 
-    if (isLoggedIn()) {
+if (logoutButton) {
 
-        button.textContent = "My Account";
+    logoutButton.addEventListener(
+        "click",
+        async function () {
+
+            const { error } =
+                await supabaseClient.auth.signOut();
+
+
+            if (error) {
+
+                alert(error.message);
+
+                return;
+
+            }
+
+
+            closeAuthModal();
+
+            updateAccountButton(null);
+
+        }
+    );
+
+}
+
+
+/* =========================================
+   UPDATE ACCOUNT BUTTON
+========================================= */
+
+async function updateAccountButton(user = null) {
+
+    if (!user) {
+
+        const {
+            data
+        } =
+            await supabaseClient.auth.getUser();
+
+        user = data.user;
+
+    }
+
+
+    if (!accountButton) {
+        return;
+    }
+
+
+    if (user) {
+
+        accountButton.textContent =
+            "My Account";
 
     } else {
 
-        button.textContent = "Sign Up / Login";
+        accountButton.textContent =
+            "Sign Up / Login";
 
     }
-}
-
-
-/* =====================================================
-   LOGOUT
-   ===================================================== */
-
-function logout() {
-
-    localStorage.removeItem(
-        "requestHubLoggedIn"
-    );
-
-    updateAccountButton();
-
-    closeAuth();
 
 }
 
 
-/* =====================================================
-   SEND REQUEST TO WHATSAPP
-   ===================================================== */
+/* =========================================
+   AUTH SESSION CHANGES
+========================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function (event, session) {
+
+        updateAccountButton(
+            session?.user || null
+        );
+
+    }
+);
+
+
+/* =========================================
+   REQUEST → WHATSAPP
+========================================= */
 
 const requestForm =
     document.getElementById("requestForm");
@@ -574,115 +765,126 @@ const requestForm =
 
 if (requestForm) {
 
-    requestForm.addEventListener("submit", function (e) {
+    requestForm.addEventListener(
+        "submit",
+        function (e) {
 
-        e.preventDefault();
-
-
-        const productName =
-            document.getElementById("productName")
-                .value
-                .trim();
+            e.preventDefault();
 
 
-        const budget =
-            document.getElementById("budget")
-                .value
-                .trim();
+            const productName =
+                document
+                    .getElementById("productName")
+                    .value
+                    .trim();
 
 
-        const description =
-            document.getElementById("description")
-                .value
-                .trim();
+            const budget =
+                document
+                    .getElementById("budget")
+                    .value
+                    .trim();
 
 
-        const fullName =
-            document.getElementById("fullName")
-                .value
-                .trim();
+            const description =
+                document
+                    .getElementById("description")
+                    .value
+                    .trim();
 
 
-        const country =
-            document.getElementById("country")
-                .value
-                .trim();
+            const fullName =
+                document
+                    .getElementById("fullName")
+                    .value
+                    .trim();
 
 
-        const state =
-            document.getElementById("state")
-                .value
-                .trim();
+            const country =
+                document
+                    .getElementById("country")
+                    .value
+                    .trim();
 
 
-        const city =
-            document.getElementById("city")
-                .value
-                .trim();
+            const state =
+                document
+                    .getElementById("state")
+                    .value
+                    .trim();
 
 
-        const phoneCode =
-            document.getElementById("phoneCode")
-                .value;
+            const city =
+                document
+                    .getElementById("city")
+                    .value
+                    .trim();
 
 
-        const phone =
-            document.getElementById("phone")
-                .value
-                .trim();
+            const phoneCode =
+                document
+                    .getElementById("phoneCode")
+                    .value;
 
 
-        const whatsappCode =
-            document.getElementById("whatsappCode")
-                .value;
+            const phone =
+                document
+                    .getElementById("phone")
+                    .value
+                    .trim();
 
 
-        const whatsappNumber =
-            document.getElementById("whatsappNumber")
-                .value
-                .trim();
+            const whatsappCode =
+                document
+                    .getElementById("whatsappCode")
+                    .value;
 
 
-        if (
-            !productName ||
-            !budget ||
-            !description ||
-            !fullName ||
-            !country ||
-            !state ||
-            !city ||
-            !phone ||
-            !whatsappNumber
-        ) {
-
-            alert("Please fill in all required fields.");
-
-            return;
-        }
+            const whatsappNumber =
+                document
+                    .getElementById("whatsappNumber")
+                    .value
+                    .trim();
 
 
-        /*
-           Remove spaces and symbols from the
-           customer's phone numbers so WhatsApp
-           receives proper international numbers.
-        */
+            if (
+                !productName ||
+                !budget ||
+                !description ||
+                !fullName ||
+                !country ||
+                !state ||
+                !city ||
+                !phone ||
+                !whatsappNumber
+            ) {
 
-        const cleanPhone =
-            phone.replace(/\D/g, "");
+                alert(
+                    "Please fill in all required fields."
+                );
 
-        const cleanWhatsApp =
-            whatsappNumber.replace(/\D/g, "");
+                return;
 
-
-        const fullPhone =
-            phoneCode + cleanPhone;
+            }
 
 
-        const fullWhatsApp =
-            whatsappCode + cleanWhatsApp;
+            const cleanPhone =
+                phone.replace(/\D/g, "");
 
 
-        const message =
+            const cleanWhatsApp =
+                whatsappNumber.replace(/\D/g, "");
+
+
+            const fullPhone =
+                phoneCode + cleanPhone;
+
+
+            const fullWhatsApp =
+                whatsappCode + cleanWhatsApp;
+
+
+            const message =
 `NEW PRODUCT REQUEST
 
 ━━━━━━━━━━━━━━━━━━━━
@@ -725,36 +927,25 @@ ${fullWhatsApp}
 Sent from RequestHub`;
 
 
-        /*
-           Direct WhatsApp link.
-
-           The receiving number is:
-           +234 904 007 1415
-        */
-
-        const whatsappURL =
-            "https://wa.me/" +
-            RECEIVING_WHATSAPP +
-            "?text=" +
-            encodeURIComponent(message);
+            const whatsappURL =
+                "https://wa.me/" +
+                RECEIVING_WHATSAPP +
+                "?text=" +
+                encodeURIComponent(message);
 
 
-        /*
-           Use location.assign instead of window.open.
-           This works better on mobile browsers because
-           it is a direct navigation.
-        */
+            window.location.href =
+                whatsappURL;
 
-        window.location.assign(whatsappURL);
-
-    });
+        }
+    );
 
 }
 
 
-/* =====================================================
-   START APP
-   ===================================================== */
+/* =========================================
+   START
+========================================= */
 
 document.addEventListener(
     "DOMContentLoaded",
