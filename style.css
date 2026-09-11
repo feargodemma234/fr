@@ -613,7 +613,47 @@ document
         }
     );
 
+/* PHONE COUNTRY CODE */
 
+.phone-input {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+}
+
+.phone-input select {
+    width: 125px;
+    min-width: 125px;
+    padding: 13px 8px;
+    border: 1px solid #d9e1ec;
+    border-radius: 10px;
+    background: white;
+    font-size: 14px;
+    outline: none;
+}
+
+.phone-input input {
+    flex: 1;
+    min-width: 0;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 600px) {
+
+    .phone-input {
+        gap: 7px;
+    }
+
+    .phone-input select {
+        width: 105px;
+        min-width: 105px;
+        font-size: 13px;
+        padding: 12px 5px;
+    }
+
+}
 // ==========================================
 // START
 // ==========================================
