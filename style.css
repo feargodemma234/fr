@@ -1,635 +1,390 @@
-// ==========================================
-// REQUESTHUB SETTINGS
-// ==========================================
+/* ==========================================
+   REQUESTHUB - GLOBAL
+========================================== */
 
-// YOUR RECEIVING WHATSAPP NUMBER
-const RECEIVING_WHATSAPP = "2349040071415";
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
+html {
+    scroll-behavior: smooth;
+}
 
-// ==========================================
-// ACCOUNT STORAGE
-// ==========================================
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f8fc;
+    color: #172033;
+    line-height: 1.6;
+}
 
-let users = JSON.parse(
-    localStorage.getItem("requestHubUsers") || "[]"
-);
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
-
-// ==========================================
-// AUTH MODAL
-// ==========================================
-
-function openAuth() {
-
-    const modal =
-        document.getElementById("authModal");
-
-    modal.classList.add("show");
-
-
-    if (isLoggedIn()) {
-
-        showAccount();
-
-    } else {
-
-        showSignup();
-
-    }
+button,
+input,
+textarea,
+select {
+    font-family: inherit;
 }
 
 
-function closeAuth() {
+/* ==========================================
+   NAVBAR
+========================================== */
 
-    document
-        .getElementById("authModal")
-        .classList.remove("show");
+.navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid #e7edf5;
+}
 
+.nav-container {
+    max-width: 1150px;
+    margin: auto;
+    padding: 16px 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 800;
+    color: #1769e0;
+    letter-spacing: -0.5px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    font-size: 14px;
+    font-weight: 600;
+    color: #536174;
+    transition: 0.2s;
+}
+
+.nav-links a:hover {
+    color: #1769e0;
+}
+
+.account-btn {
+    border: none;
+    background: #1769e0;
+    color: white;
+    padding: 11px 18px;
+    border-radius: 9px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.account-btn:hover {
+    background: #0d55bd;
+    transform: translateY(-1px);
 }
 
 
-// ==========================================
-// AUTH TABS
-// ==========================================
-
-function showSignup() {
-
-    document
-        .getElementById("signupForm")
-        .style.display = "block";
-
-    document
-        .getElementById("loginForm")
-        .style.display = "none";
-
-
-    document
-        .getElementById("signupTab")
-        .classList.add("active");
-
-    document
-        .getElementById("loginTab")
-        .classList.remove("active");
-
-
-    clearAuthMessage();
-}
-
-
-function showLogin() {
-
-    document
-        .getElementById("signupForm")
-        .style.display = "none";
-
-    document
-        .getElementById("loginForm")
-        .style.display = "block";
-
-
-    document
-        .getElementById("signupTab")
-        .classList.remove("active");
-
-    document
-        .getElementById("loginTab")
-        .classList.add("active");
-
-
-    clearAuthMessage();
-}
-
-
-// ==========================================
-// AUTH MESSAGES
-// ==========================================
-
-function showAuthMessage(
-    message,
-    success = false
-) {
-
-    const box =
-        document.getElementById("authMessage");
-
-    box.textContent = message;
-
-    box.className =
-        success
-            ? "success-message"
-            : "error-message";
-}
-
-
-function clearAuthMessage() {
-
-    const box =
-        document.getElementById("authMessage");
-
-    box.textContent = "";
-
-    box.className = "";
-}
-
-
-// ==========================================
-// 3 WORD PHRASE
-// ==========================================
-
-function isThreeWordPhrase(phrase) {
-
-    const words =
-        phrase
-            .trim()
-            .split(/\s+/)
-            .filter(Boolean);
-
-    return words.length === 3;
-}
-
-
-// ==========================================
-// SIGN UP
-// ==========================================
-
-document
-    .getElementById("signupForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-
-            const email =
-                document
-                    .getElementById("signupEmail")
-                    .value
-                    .trim()
-                    .toLowerCase();
-
-
-            const phrase =
-                document
-                    .getElementById("signupPhrase")
-                    .value
-                    .trim();
-
-
-            if (!isThreeWordPhrase(phrase)) {
-
-                showAuthMessage(
-                    "Your phrase must contain exactly 3 words."
-                );
-
-                return;
-            }
-
-
-            const existingUser =
-                users.find(
-                    user =>
-                        user.email === email
-                );
-
-
-            if (existingUser) {
-
-                showAuthMessage(
-                    "An account with this email already exists."
-                );
-
-                return;
-            }
-
-
-            users.push({
-
-                email: email,
-
-                phrase: phrase
-
-            });
-
-
-            localStorage.setItem(
-                "requestHubUsers",
-                JSON.stringify(users)
-            );
-
-
-            localStorage.setItem(
-                "requestHubLoggedIn",
-                email
-            );
-
-
-            showAuthMessage(
-                "Account created successfully!",
-                true
-            );
-
-
-            updateAccountButton();
-
-
-            setTimeout(
-                () => closeAuth(),
-                800
-            );
-
-        }
-    );
-
-
-// ==========================================
-// LOGIN
-// ==========================================
-
-document
-    .getElementById("loginForm")
-    .addEventListener(
-        "submit",
-        function(event) {
-
-            event.preventDefault();
-
-
-            const email =
-                document
-                    .getElementById("loginEmail")
-                    .value
-                    .trim()
-                    .toLowerCase();
-
-
-            const phrase =
-                document
-                    .getElementById("loginPhrase")
-                    .value
-                    .trim();
-
-
-            const user =
-                users.find(
-                    user =>
-                        user.email === email &&
-                        user.phrase === phrase
-                );
-
-
-            if (!user) {
-
-                showAuthMessage(
-                    "Incorrect email or 3-word phrase."
-                );
-
-                return;
-            }
-
-
-            localStorage.setItem(
-                "requestHubLoggedIn",
-                email
-            );
-
-
-            showAuthMessage(
-                "Login successful!",
-                true
-            );
-
-
-            updateAccountButton();
-
-
-            setTimeout(
-                () => closeAuth(),
-                800
-            );
-
-        }
-    );
-
-
-// ==========================================
-// CHECK LOGIN
-// ==========================================
-
-function isLoggedIn() {
-
-    return Boolean(
-        localStorage.getItem(
-            "requestHubLoggedIn"
-        )
-    );
-}
-
-
-// ==========================================
-// ACCOUNT BUTTON
-// ==========================================
-
-function updateAccountButton() {
-
-    const button =
-        document.getElementById("accountBtn");
-
-
-    if (isLoggedIn()) {
-
-        button.textContent = "Logout";
-
-        button.onclick = logout;
-
-    } else {
-
-        button.textContent =
-            "Sign Up / Login";
-
-        button.onclick = openAuth;
-    }
-}
-
-
-// ==========================================
-// LOGOUT
-// ==========================================
-
-function logout() {
-
-    localStorage.removeItem(
-        "requestHubLoggedIn"
-    );
-
-    updateAccountButton();
-
-    alert("You have been logged out.");
-}
-
-
-// ==========================================
-// ACCOUNT VIEW
-// ==========================================
-
-function showAccount() {
-
-    const email =
-        localStorage.getItem(
-            "requestHubLoggedIn"
+/* ==========================================
+   HERO
+========================================== */
+
+.hero {
+    min-height: 620px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(84, 145, 255, 0.35),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #102a56,
+            #1769e0 55%,
+            #4f46e5
         );
 
+    color: white;
+}
 
-    const modalContent =
-        document.querySelector(
-            ".modal-content"
-        );
+.hero-content {
+    width: 100%;
+    max-width: 1150px;
+    margin: auto;
+    padding: 90px 24px;
+}
 
+.hero-badge {
+    display: inline-block;
 
-    modalContent.innerHTML = `
+    padding: 7px 12px;
+    margin-bottom: 22px;
 
-        <button
-            class="close-modal"
-            onclick="closeAuth()"
-        >
-            ×
-        </button>
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 30px;
 
-        <div class="account-view">
+    background: rgba(255,255,255,0.1);
 
-            <div class="account-icon">
-                👤
-            </div>
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
 
-            <h2>
-                Your Account
-            </h2>
+.hero h1 {
+    max-width: 700px;
 
-            <p>
-                ${email}
-            </p>
+    font-size: clamp(48px, 7vw, 82px);
+    line-height: 0.98;
+    letter-spacing: -3px;
 
-            <button
-                class="auth-btn"
-                onclick="logout(); closeAuth();"
-            >
-                Logout
-            </button>
+    margin-bottom: 25px;
+}
 
-        </div>
+.hero h1 span {
+    color: #9ed0ff;
+}
 
-    `;
+.hero p {
+    max-width: 600px;
+
+    font-size: 18px;
+    color: rgba(255,255,255,0.86);
+
+    margin-bottom: 35px;
+}
+
+.hero-btn {
+    display: inline-block;
+
+    background: white;
+    color: #1769e0;
+
+    padding: 14px 24px;
+
+    border-radius: 10px;
+
+    font-weight: 800;
+
+    transition: 0.2s;
+}
+
+.hero-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
 }
 
 
-// ==========================================
-// SEND REQUEST TO WHATSAPP
-// ==========================================
+/* ==========================================
+   SECTION HEADINGS
+========================================== */
 
-document
-    .getElementById("requestForm")
-    .addEventListener(
-        "submit",
-        function(event) {
+.section-heading {
+    max-width: 700px;
+    margin: auto;
+    text-align: center;
+    padding: 0 20px 35px;
+}
 
-            event.preventDefault();
+.section-heading > span {
+    color: #1769e0;
 
+    font-size: 12px;
+    font-weight: 800;
 
-            // PRODUCT
+    letter-spacing: 1.5px;
+}
 
-            const productName =
-                document
-                    .getElementById("productName")
-                    .value
-                    .trim();
+.section-heading h2 {
+    margin-top: 8px;
+    margin-bottom: 12px;
 
+    font-size: clamp(30px, 5vw, 45px);
+    letter-spacing: -1.5px;
 
-            const budget =
-                document
-                    .getElementById("budget")
-                    .value
-                    .trim();
+    color: #172033;
+}
 
+.section-heading p {
+    color: #68768a;
+}
 
-            const description =
-                document
-                    .getElementById("description")
-                    .value
-                    .trim();
 
+/* ==========================================
+   REQUEST SECTION
+========================================== */
 
-            // CUSTOMER
+.request-section {
+    padding: 90px 20px;
+    background: #f5f8fc;
+}
 
-            const fullName =
-                document
-                    .getElementById("fullName")
-                    .value
-                    .trim();
+.request-card {
+    max-width: 720px;
+    margin: auto;
 
+    background: white;
 
-            const country =
-                document
-                    .getElementById("country")
-                    .value
-                    .trim();
+    padding: 35px;
 
+    border-radius: 18px;
 
-            const state =
-                document
-                    .getElementById("state")
-                    .value
-                    .trim();
+    box-shadow:
+        0 20px 60px rgba(25, 55, 100, 0.08);
 
+    border: 1px solid #e8eef6;
+}
 
-            const city =
-                document
-                    .getElementById("city")
-                    .value
-                    .trim();
 
+/* ==========================================
+   FORM
+========================================== */
 
-            // PHONE
+.form-group {
+    margin-bottom: 20px;
+}
 
-            const phoneCode =
-                document
-                    .getElementById("phoneCode")
-                    .value;
+.form-group label {
+    display: block;
 
+    margin-bottom: 8px;
 
-            const phone =
-                document
-                    .getElementById("phone")
-                    .value
-                    .trim();
+    font-size: 14px;
+    font-weight: 700;
 
+    color: #26344a;
+}
 
-            // WHATSAPP
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
 
-            const whatsappCode =
-                document
-                    .getElementById("whatsappCode")
-                    .value;
+    border: 1px solid #d8e1ec;
 
+    background: #fbfcfe;
 
-            const whatsappNumber =
-                document
-                    .getElementById("whatsappNumber")
-                    .value
-                    .trim();
+    border-radius: 10px;
 
+    padding: 13px 14px;
 
-            // COMPLETE NUMBERS
+    font-size: 15px;
 
-            const fullPhone =
-                phoneCode + phone;
+    color: #172033;
 
+    outline: none;
 
-            const fullWhatsApp =
-                whatsappCode + whatsappNumber;
+    transition: 0.2s;
+}
 
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #1769e0;
 
-            // MESSAGE
+    background: white;
 
-            const message =
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 224, 0.09);
+}
 
-`NEW PRODUCT REQUEST
+.form-group textarea {
+    resize: vertical;
+    min-height: 120px;
+}
 
-━━━━━━━━━━━━━━━━━━━━
 
-PRODUCT INFORMATION
+/* ==========================================
+   BUDGET
+========================================== */
 
-Product Name:
-${productName}
+.budget-input {
+    display: flex;
+    align-items: center;
 
-Estimated Budget:
-$${budget} USD
+    border: 1px solid #d8e1ec;
 
-Description:
-${description}
+    background: #fbfcfe;
 
-━━━━━━━━━━━━━━━━━━━━
+    border-radius: 10px;
 
-CUSTOMER INFORMATION
+    overflow: hidden;
+}
 
-Full Name:
-${fullName}
+.budget-input:focus-within {
+    border-color: #1769e0;
 
-Country:
-${country}
+    box-shadow:
+        0 0 0 3px rgba(23, 105, 224, 0.09);
 
-State:
-${state}
+    background: white;
+}
 
-City:
-${city}
+.budget-input span {
+    padding-left: 14px;
 
-Phone Number:
-${fullPhone}
+    font-weight: 800;
 
-WhatsApp Number:
-${fullWhatsApp}
+    color: #1769e0;
+}
 
-━━━━━━━━━━━━━━━━━━━━
+.budget-input input {
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
 
-Sent from RequestHub`;
 
+/* ==========================================
+   FORM TITLE
+========================================== */
 
-            // WHATSAPP LINK
+.form-title {
+    margin: 30px 0 20px;
 
-            const whatsappURL =
-                "https://wa.me/" +
-                RECEIVING_WHATSAPP +
-                "?text=" +
-                encodeURIComponent(message);
+    padding-top: 25px;
 
+    border-top: 1px solid #e7edf5;
 
-            // OPEN WHATSAPP
+    font-size: 19px;
 
-            window.open(
-                whatsappURL,
-                "_blank"
-            );
+    color: #172033;
+}
 
-        }
-    );
 
-
-// ==========================================
-// CLOSE MODAL WHEN CLICKING OUTSIDE
-// ==========================================
-
-document
-    .getElementById("authModal")
-    .addEventListener(
-        "click",
-        function(event) {
-
-            if (event.target === this) {
-
-                closeAuth();
-
-            }
-
-        }
-    );
-
-/* PHONE COUNTRY CODE */
+/* ==========================================
+   PHONE + COUNTRY CODE
+========================================== */
 
 .phone-input {
     display: flex;
-    gap: 10px;
+    align-items: stretch;
+    gap: 9px;
     width: 100%;
 }
 
 .phone-input select {
     width: 125px;
     min-width: 125px;
+
+    cursor: pointer;
+
     padding: 13px 8px;
-    border: 1px solid #d9e1ec;
-    border-radius: 10px;
-    background: white;
-    font-size: 14px;
-    outline: none;
 }
 
 .phone-input input {
@@ -638,9 +393,452 @@ document
 }
 
 
-/* MOBILE */
+/* ==========================================
+   SEND BUTTON
+========================================== */
+
+.send-btn {
+    width: 100%;
+
+    border: none;
+
+    background: #1769e0;
+    color: white;
+
+    padding: 15px 20px;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    cursor: pointer;
+
+    margin-top: 8px;
+
+    transition: 0.2s;
+}
+
+.send-btn:hover {
+    background: #0d55bd;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 10px 25px rgba(23, 105, 224, 0.22);
+}
+
+.send-btn:active {
+    transform: translateY(0);
+}
+
+
+/* ==========================================
+   HOW IT WORKS
+========================================== */
+
+.how-section {
+    padding: 90px 20px;
+
+    background: white;
+}
+
+.steps {
+    max-width: 1000px;
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.step {
+    text-align: center;
+
+    padding: 30px 22px;
+
+    border: 1px solid #e5ebf3;
+
+    border-radius: 15px;
+
+    background: #fbfcfe;
+}
+
+.step-number {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 18px;
+
+    border-radius: 50%;
+
+    background: #1769e0;
+    color: white;
+
+    font-weight: 800;
+}
+
+.step h3 {
+    margin-bottom: 8px;
+
+    font-size: 19px;
+}
+
+.step p {
+    color: #68768a;
+    font-size: 14px;
+}
+
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+footer {
+    background: #101a2b;
+    color: white;
+
+    padding: 35px 20px;
+}
+
+.footer-content {
+    max-width: 1150px;
+    margin: auto;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 25px;
+}
+
+.footer-content h3 {
+    color: #75b4ff;
+    margin-bottom: 3px;
+}
+
+.footer-content p {
+    color: #aeb9c9;
+    font-size: 13px;
+}
+
+
+/* ==========================================
+   AUTH MODAL
+========================================== */
+
+.modal {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 2000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(7, 18, 36, 0.65);
+
+    backdrop-filter: blur(5px);
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    position: relative;
+
+    width: 100%;
+    max-width: 430px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
+    background: white;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,0.25);
+}
+
+.close-modal {
+    position: absolute;
+
+    top: 12px;
+    right: 15px;
+
+    width: 35px;
+    height: 35px;
+
+    border: none;
+
+    background: #f0f3f7;
+
+    border-radius: 50%;
+
+    font-size: 24px;
+
+    cursor: pointer;
+
+    color: #526174;
+}
+
+.close-modal:hover {
+    background: #e4e9f0;
+}
+
+
+/* ==========================================
+   AUTH TABS
+========================================== */
+
+.auth-tabs {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 5px;
+
+    padding: 5px;
+
+    background: #f0f4f9;
+
+    border-radius: 10px;
+
+    margin-bottom: 25px;
+}
+
+.auth-tabs button {
+    border: none;
+
+    padding: 10px;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: #66758a;
+
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+.auth-tabs button.active {
+    background: white;
+
+    color: #1769e0;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,0.07);
+}
+
+.modal-content h2 {
+    font-size: 26px;
+
+    margin-bottom: 7px;
+}
+
+.auth-description {
+    color: #68768a;
+
+    font-size: 14px;
+
+    margin-bottom: 23px;
+}
+
+.modal-content small {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #8491a3;
+
+    font-size: 12px;
+}
+
+
+/* ==========================================
+   AUTH BUTTON
+========================================== */
+
+.auth-btn {
+    width: 100%;
+
+    border: none;
+
+    padding: 13px;
+
+    border-radius: 9px;
+
+    background: #1769e0;
+
+    color: white;
+
+    font-weight: 800;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.auth-btn:hover {
+    background: #0d55bd;
+}
+
+
+/* ==========================================
+   AUTH MESSAGES
+========================================== */
+
+#authMessage {
+    margin-top: 15px;
+
+    font-size: 13px;
+
+    text-align: center;
+}
+
+.error-message {
+    padding: 10px;
+
+    border-radius: 8px;
+
+    background: #fff0f0;
+
+    color: #c0392b;
+}
+
+.success-message {
+    padding: 10px;
+
+    border-radius: 8px;
+
+    background: #edfdf3;
+
+    color: #16803c;
+}
+
+
+/* ==========================================
+   ACCOUNT
+========================================== */
+
+.account-view {
+    text-align: center;
+
+    padding-top: 15px;
+}
+
+.account-icon {
+    width: 70px;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin: 0 auto 15px;
+
+    border-radius: 50%;
+
+    background: #eaf3ff;
+
+    font-size: 30px;
+}
+
+.account-view p {
+    color: #68768a;
+
+    margin-bottom: 25px;
+}
+
+
+/* ==========================================
+   TABLET
+========================================== */
+
+@media (max-width: 800px) {
+
+    .nav-links {
+        display: none;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        max-width: 600px;
+    }
+
+    .hero {
+        min-height: 550px;
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
 
 @media (max-width: 600px) {
+
+    .nav-container {
+        padding: 13px 15px;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .account-btn {
+        padding: 9px 12px;
+
+        font-size: 12px;
+    }
+
+
+    .hero-content {
+        padding: 70px 20px;
+    }
+
+    .hero h1 {
+        font-size: 52px;
+
+        letter-spacing: -2px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+
+    .request-section,
+    .how-section {
+        padding: 65px 15px;
+    }
+
+
+    .request-card {
+        padding: 22px 18px;
+
+        border-radius: 14px;
+    }
+
 
     .phone-input {
         gap: 7px;
@@ -649,13 +847,51 @@ document
     .phone-input select {
         width: 105px;
         min-width: 105px;
-        font-size: 13px;
+
+        font-size: 12px;
+
         padding: 12px 5px;
     }
 
-}
-// ==========================================
-// START
-// ==========================================
 
-updateAccountButton();
+    .footer-content {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .modal-content {
+        padding: 25px 18px;
+    }
+
+}
+
+
+/* ==========================================
+   SMALL PHONES
+========================================== */
+
+@media (max-width: 380px) {
+
+    .logo {
+        font-size: 18px;
+    }
+
+    .account-btn {
+        padding: 8px 9px;
+        font-size: 11px;
+    }
+
+    .phone-input select {
+        width: 90px;
+        min-width: 90px;
+
+        font-size: 11px;
+    }
+
+    .hero h1 {
+        font-size: 45px;
+    }
+
+}
