@@ -11,717 +11,420 @@
 
 <body>
 
-    <!-- NAVBAR -->
-    <header class="navbar">
-        <div class="nav-container">
+<!-- ================= NAVBAR ================= -->
 
-            <a href="#home" class="logo">
-                RequestHub
-            </a>
+<header class="navbar">
+    <div class="nav-container">
 
-            <nav class="nav-links">
-                <a href="#home">Home</a>
-                <a href="#request">Request</a>
-                <a href="#how-it-works">How It Works</a>
-            </nav>
+        <a href="#home" class="logo">
+            RequestHub
+        </a>
 
-            <button class="account-btn" id="accountBtn" onclick="openAuth()">
-                Sign Up / Login
-            </button>
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#request">Request</a>
+            <a href="#how-it-works">How It Works</a>
+        </nav>
 
+        <button
+            type="button"
+            class="account-btn"
+            id="accountBtn"
+            onclick="openAuth()"
+        >
+            Sign Up / Login
+        </button>
+
+    </div>
+</header>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero" id="home">
+
+    <div class="hero-content">
+
+        <div class="hero-badge">
+            PRODUCT REQUEST PLATFORM
         </div>
-    </header>
+
+        <h1>
+            Tell us what<br>
+            <span>you need.</span>
+        </h1>
+
+        <p>
+            Can't find what you're looking for?
+            Send us a request and tell us exactly
+            what you need.
+        </p>
+
+        <a href="#request" class="hero-btn">
+            Make a Request
+        </a>
+
+    </div>
+
+</section>
 
 
-    <!-- HERO -->
-    <section class="hero" id="home">
+<!-- ================= REQUEST ================= -->
 
-        <div class="hero-content">
+<section class="request-section" id="request">
 
-            <div class="hero-badge">
-                PRODUCT REQUEST PLATFORM
-            </div>
+    <div class="section-container">
 
-            <h1>
-                Tell us what<br>
-                <span>you need.</span>
-            </h1>
+        <div class="section-heading">
+
+            <span class="small-title">
+                REQUEST SOMETHING
+            </span>
+
+            <h2>
+                What are you looking for?
+            </h2>
 
             <p>
-                Can't find what you're looking for?
-                Send us a request and tell us exactly
-                what you need.
-            </p>
-
-            <a href="#request" class="hero-btn">
-                Make a Request
-            </a>
-
-        </div>
-
-    </section>
-
-
-    <!-- REQUEST SECTION -->
-    <section class="request-section" id="request">
-
-        <div class="section-container">
-
-            <div class="section-heading">
-
-                <span class="small-title">
-                    REQUEST SOMETHING
-                </span>
-
-                <h2>
-                    What are you looking for?
-                </h2>
-
-                <p>
-                    Fill in the details below and send your
-                    request directly to us on WhatsApp.
-                </p>
-
-            </div>
-
-
-            <!-- REQUEST FORM -->
-            <form id="requestForm" class="request-form">
-
-                <!-- PRODUCT INFORMATION -->
-                <div class="form-card">
-
-                    <h3>Product Information</h3>
-
-                    <div class="form-group">
-
-                        <label for="productName">
-                            Product Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="productName"
-                            placeholder="What product do you need?"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="budget">
-                            Estimated Budget
-                        </label>
-
-                        <div class="budget-input">
-
-                            <span>$</span>
-
-                            <input
-                                type="number"
-                                id="budget"
-                                placeholder="Enter your budget"
-                                min="0"
-                                step="0.01"
-                                required
-                            >
-
-                            <small>USD</small>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="description">
-                            Product / Request Description
-                        </label>
-
-                        <textarea
-                            id="description"
-                            rows="5"
-                            placeholder="Describe the product or anything else we should know..."
-                            required
-                        ></textarea>
-
-                    </div>
-
-                </div>
-
-
-                <!-- CUSTOMER INFORMATION -->
-                <div class="form-card">
-
-                    <h3>Customer Information</h3>
-
-
-                    <div class="form-group">
-
-                        <label for="fullName">
-                            Full Name
-                        </label>
-
-                        <input
-                            type="text"
-                            id="fullName"
-                            placeholder="Your full name"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-row">
-
-                        <div class="form-group">
-
-                            <label for="country">
-                                Country
-                            </label>
-
-                            <input
-                                type="text"
-                                id="country"
-                                placeholder="Country"
-                                required
-                            >
-
-                        </div>
-
-
-                        <div class="form-group">
-
-                            <label for="state">
-                                State
-                            </label>
-
-                            <input
-                                type="text"
-                                id="state"
-                                placeholder="State"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="city">
-                            City
-                        </label>
-
-                        <input
-                            type="text"
-                            id="city"
-                            placeholder="City"
-                            required
-                        >
-
-                    </div>
-
-
-                    <!-- PHONE -->
-                    <div class="form-group">
-
-                        <label for="phone">
-                            Phone Number
-                        </label>
-
-                        <div class="phone-input">
-
-                            <select id="phoneCode" required>
-                                <option value="+234" selected>
-                                    🇳🇬 +234
-                                </option>
-
-                                <option value="+1">
-                                    🇺🇸 +1
-                                </option>
-
-                                <option value="+44">
-                                    🇬🇧 +44
-                                </option>
-
-                                <option value="+1">
-                                    🇨🇦 +1
-                                </option>
-
-                                <option value="+61">
-                                    🇦🇺 +61
-                                </option>
-
-                                <option value="+27">
-                                    🇿🇦 +27
-                                </option>
-
-                                <option value="+254">
-                                    🇰🇪 +254
-                                </option>
-
-                                <option value="+233">
-                                    🇬🇭 +233
-                                </option>
-
-                                <option value="+91">
-                                    🇮🇳 +91
-                                </option>
-
-                                <option value="+971">
-                                    🇦🇪 +971
-                                </option>
-
-                                <option value="+49">
-                                    🇩🇪 +49
-                                </option>
-
-                                <option value="+33">
-                                    🇫🇷 +33
-                                </option>
-
-                                <option value="+81">
-                                    🇯🇵 +81
-                                </option>
-
-                                <option value="+86">
-                                    🇨🇳 +86
-                                </option>
-                            </select>
-
-
-                            <input
-                                type="tel"
-                                id="phone"
-                                placeholder="Phone number"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- WHATSAPP -->
-                    <div class="form-group">
-
-                        <label for="whatsappNumber">
-                            WhatsApp Number
-                        </label>
-
-                        <div class="phone-input">
-
-                            <select id="whatsappCode" required>
-                                <option value="+234" selected>
-                                    🇳🇬 +234
-                                </option>
-
-                                <option value="+1">
-                                    🇺🇸 +1
-                                </option>
-
-                                <option value="+44">
-                                    🇬🇧 +44
-                                </option>
-
-                                <option value="+1">
-                                    🇨🇦 +1
-                                </option>
-
-                                <option value="+61">
-                                    🇦🇺 +61
-                                </option>
-
-                                <option value="+27">
-                                    🇿🇦 +27
-                                </option>
-
-                                <option value="+254">
-                                    🇰🇪 +254
-                                </option>
-
-                                <option value="+233">
-                                    🇬🇭 +233
-                                </option>
-
-                                <option value="+91">
-                                    🇮🇳 +91
-                                </option>
-
-                                <option value="+971">
-                                    🇦🇪 +971
-                                </option>
-
-                                <option value="+49">
-                                    🇩🇪 +49
-                                </option>
-
-                                <option value="+33">
-                                    🇫🇷 +33
-                                </option>
-
-                                <option value="+81">
-                                    🇯🇵 +81
-                                </option>
-
-                                <option value="+86">
-                                    🇨🇳 +86
-                                </option>
-                            </select>
-
-
-                            <input
-                                type="tel"
-                                id="whatsappNumber"
-                                placeholder="WhatsApp number"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- SUBMIT -->
-                <button
-                    type="submit"
-                    class="submit-btn"
-                >
-                    <span>Send Request on WhatsApp</span>
-                    <span class="arrow">→</span>
-                </button>
-
-
-                <p class="form-note">
-                    Your request will open in WhatsApp with
-                    the information you entered already filled in.
-                </p>
-
-            </form>
-
-        </div>
-
-    </section>
-
-
-    <!-- HOW IT WORKS -->
-    <section class="how-section" id="how-it-works">
-
-        <div class="section-container">
-
-            <div class="section-heading">
-
-                <span class="small-title">
-                    HOW IT WORKS
-                </span>
-
-                <h2>
-                    Simple. Fast. Direct.
-                </h2>
-
-            </div>
-
-
-            <div class="steps">
-
-                <div class="step">
-
-                    <div class="step-number">
-                        01
-                    </div>
-
-                    <h3>
-                        Tell us what you need
-                    </h3>
-
-                    <p>
-                        Enter the product you're looking
-                        for and provide a description.
-                    </p>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        02
-                    </div>
-
-                    <h3>
-                        Set your budget
-                    </h3>
-
-                    <p>
-                        Give us your estimated budget so
-                        we know what you're looking for.
-                    </p>
-
-                </div>
-
-
-                <div class="step">
-
-                    <div class="step-number">
-                        03
-                    </div>
-
-                    <h3>
-                        Send through WhatsApp
-                    </h3>
-
-                    <p>
-                        Your request opens directly in
-                        WhatsApp ready to send.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-    <!-- FOOTER -->
-    <footer class="footer">
-
-        <div class="footer-container">
-
-            <div>
-                <strong>RequestHub</strong>
-
-                <p>
-                    Request what you need.
-                </p>
-            </div>
-
-            <p>
-                © 2026 RequestHub. All rights reserved.
+                Tell us what you need and we'll receive
+                your request directly through WhatsApp.
             </p>
 
         </div>
 
-    </footer>
+
+        <!-- REQUEST FORM -->
+
+        <form
+            id="requestForm"
+            class="request-form"
+        >
+
+            <!-- PRODUCT INFORMATION -->
+
+            <div class="form-card">
+
+                <h3>
+                    Product Information
+                </h3>
 
 
-    <!-- AUTH MODAL -->
-    <div class="modal" id="authModal">
+                <div class="form-group">
 
-        <div class="modal-overlay" onclick="closeAuth()"></div>
+                    <label for="productName">
+                        Product Name
+                    </label>
 
-        <div class="auth-box">
+                    <input
+                        type="text"
+                        id="productName"
+                        name="productName"
+                        placeholder="What product do you need?"
+                        required
+                    >
 
-            <button
-                class="close-modal"
-                onclick="closeAuth()"
-                type="button"
-            >
-                ×
-            </button>
-
-
-            <!-- SIGN UP -->
-            <div id="signupView">
-
-                <h2>
-                    Create Account
-                </h2>
-
-                <p>
-                    Create your RequestHub account.
-                </p>
-
-                <form id="signupForm">
-
-                    <div class="form-group">
-
-                        <label for="signupEmail">
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            id="signupEmail"
-                            placeholder="you@example.com"
-                            required
-                        >
-
-                    </div>
+                </div>
 
 
-                    <div class="form-group">
+                <div class="form-group">
 
-                        <label for="signupPhrase">
-                            3-Word Phrase
-                        </label>
+                    <label for="budget">
+                        Estimated Budget
+                    </label>
+
+                    <div class="budget-input">
+
+                        <span>$</span>
 
                         <input
-                            type="text"
-                            id="signupPhrase"
-                            placeholder="Example: blue ocean star"
+                            type="number"
+                            id="budget"
+                            name="budget"
+                            placeholder="Enter your estimated budget"
+                            min="0"
+                            step="0.01"
                             required
                         >
 
                         <small>
-                            Enter exactly three words.
+                            USD
                         </small>
 
                     </div>
 
-
-                    <button
-                        type="submit"
-                        class="auth-submit"
-                    >
-                        Create Account
-                    </button>
-
-                </form>
+                </div>
 
 
-                <p
-                    class="auth-switch"
-                    id="signupMessage"
-                ></p>
+                <div class="form-group">
 
+                    <label for="description">
+                        Product / Request Description
+                    </label>
 
-                <p class="switch-text">
+                    <textarea
+                        id="description"
+                        name="description"
+                        rows="5"
+                        placeholder="Describe the product you want or add any important details..."
+                        required
+                    ></textarea>
 
-                    Already have an account?
-
-                    <button
-                        type="button"
-                        onclick="showLogin()"
-                    >
-                        Login
-                    </button>
-
-                </p>
+                </div>
 
             </div>
 
 
-            <!-- LOGIN -->
-            <div id="loginView" style="display:none;">
+            <!-- CUSTOMER INFORMATION -->
 
-                <h2>
-                    Welcome Back
-                </h2>
+            <div class="form-card">
 
-                <p>
-                    Login to your RequestHub account.
-                </p>
+                <h3>
+                    Customer Information
+                </h3>
 
 
-                <form id="loginForm">
+                <div class="form-group">
 
-                    <div class="form-group">
+                    <label for="fullName">
+                        Full Name
+                    </label>
 
-                        <label for="loginEmail">
-                            Email
-                        </label>
-
-                        <input
-                            type="email"
-                            id="loginEmail"
-                            placeholder="you@example.com"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="loginPhrase">
-                            3-Word Phrase
-                        </label>
-
-                        <input
-                            type="text"
-                            id="loginPhrase"
-                            placeholder="Your 3-word phrase"
-                            required
-                        >
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="auth-submit"
+                    <input
+                        type="text"
+                        id="fullName"
+                        name="fullName"
+                        placeholder="Your full name"
+                        required
                     >
-                        Login
-                    </button>
-
-                </form>
-
-
-                <p
-                    class="auth-switch"
-                    id="loginMessage"
-                ></p>
-
-
-                <p class="switch-text">
-
-                    Don't have an account?
-
-                    <button
-                        type="button"
-                        onclick="showSignup()"
-                    >
-                        Create Account
-                    </button>
-
-                </p>
-
-            </div>
-
-
-            <!-- ACCOUNT -->
-            <div
-                id="accountView"
-                style="display:none;"
-            >
-
-                <h2>
-                    Your Account
-                </h2>
-
-                <p>
-                    You are logged in.
-                </p>
-
-                <div class="account-info">
-
-                    <strong>
-                        Email
-                    </strong>
-
-                    <span id="accountEmail">
-                        —
-                    </span>
 
                 </div>
 
 
-                <button
-                    type="button"
-                    class="auth-submit"
-                    onclick="logout()"
-                >
-                    Logout
-                </button>
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="country">
+                            Country
+                        </label>
+
+                        <input
+                            type="text"
+                            id="country"
+                            name="country"
+                            placeholder="Country"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="state">
+                            State
+                        </label>
+
+                        <input
+                            type="text"
+                            id="state"
+                            name="state"
+                            placeholder="State"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="city">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="city"
+                        name="city"
+                        placeholder="City"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PHONE NUMBER -->
+
+                <div class="form-group">
+
+                    <label for="phone">
+                        Phone Number
+                    </label>
+
+                    <div class="phone-input">
+
+                        <select
+                            id="phoneCode"
+                            name="phoneCode"
+                            required
+                        >
+                            <option value="">
+                                Select country code
+                            </option>
+                        </select>
+
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Phone number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- WHATSAPP NUMBER -->
+
+                <div class="form-group">
+
+                    <label for="whatsappNumber">
+                        WhatsApp Number
+                    </label>
+
+                    <div class="phone-input">
+
+                        <select
+                            id="whatsappCode"
+                            name="whatsappCode"
+                            required
+                        >
+                            <option value="">
+                                Select country code
+                            </option>
+                        </select>
+
+                        <input
+                            type="tel"
+                            id="whatsappNumber"
+                            name="whatsappNumber"
+                            placeholder="WhatsApp number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- SEND BUTTON -->
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                <span>
+                    Send Request on WhatsApp
+                </span>
+
+                <span class="arrow">
+                    →
+                </span>
+            </button>
+
+
+            <p class="form-note">
+                Tapping the button will open WhatsApp
+                with your request already filled in.
+            </p>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+<!-- ================= HOW IT WORKS ================= -->
+
+<section
+    class="how-section"
+    id="how-it-works"
+>
+
+    <div class="section-container">
+
+        <div class="section-heading">
+
+            <span class="small-title">
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                Simple. Fast. Direct.
+            </h2>
+
+        </div>
+
+
+        <div class="steps">
+
+            <div class="step">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <h3>
+                    Tell us what you need
+                </h3>
+
+                <p>
+                    Enter the product name and
+                    describe exactly what you're looking for.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <h3>
+                    Set your budget
+                </h3>
+
+                <p>
+                    Enter the estimated amount you
+                    are willing to spend.
+                </p>
+
+            </div>
+
+
+            <div class="step">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <h3>
+                    Send on WhatsApp
+                </h3>
+
+                <p>
+                    Your completed request opens
+                    directly in WhatsApp.
+                </p>
 
             </div>
 
@@ -729,26 +432,299 @@
 
     </div>
 
+</section>
 
-    <!-- JAVASCRIPT -->
-    <script src="script.js"></script>
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+        <div>
+
+            <strong>
+                RequestHub
+            </strong>
+
+            <p>
+                Request what you need.
+            </p>
+
+        </div>
+
+
+        <p>
+            © 2026 RequestHub. All rights reserved.
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- ================= AUTH MODAL ================= -->
+
+<div
+    class="modal"
+    id="authModal"
+>
+
+    <div
+        class="modal-overlay"
+        onclick="closeAuth()"
+    ></div>
+
+
+    <div class="auth-box">
+
+        <button
+            type="button"
+            class="close-modal"
+            onclick="closeAuth()"
+        >
+            ×
+        </button>
+
+
+        <!-- SIGN UP -->
+
+        <div id="signupView">
+
+            <h2>
+                Create Account
+            </h2>
+
+            <p>
+                Create your RequestHub account.
+            </p>
+
+
+            <form id="signupForm">
+
+                <div class="form-group">
+
+                    <label for="signupEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="signupPhrase">
+                        3-Word Phrase
+                    </label>
+
+                    <input
+                        type="text"
+                        id="signupPhrase"
+                        placeholder="blue ocean star"
+                        required
+                    >
+
+                    <small>
+                        Enter exactly three words.
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p
+                class="auth-switch"
+                id="signupMessage"
+            ></p>
+
+
+            <p class="switch-text">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    onclick="showLogin()"
+                >
+                    Login
+                </button>
+
+            </p>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div
+            id="loginView"
+            style="display:none;"
+        >
+
+            <h2>
+                Welcome Back
+            </h2>
+
+            <p>
+                Login to your RequestHub account.
+            </p>
+
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="you@example.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="loginPhrase">
+                        3-Word Phrase
+                    </label>
+
+                    <input
+                        type="text"
+                        id="loginPhrase"
+                        placeholder="Your 3-word phrase"
+                        required
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <p
+                class="auth-switch"
+                id="loginMessage"
+            ></p>
+
+
+            <p class="switch-text">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    onclick="showSignup()"
+                >
+                    Create Account
+                </button>
+
+            </p>
+
+        </div>
+
+
+        <!-- ACCOUNT -->
+
+        <div
+            id="accountView"
+            style="display:none;"
+        >
+
+            <h2>
+                Your Account
+            </h2>
+
+            <p>
+                You are logged in.
+            </p>
+
+
+            <div class="account-info">
+
+                <strong>
+                    Email
+                </strong>
+
+                <span id="accountEmail">
+                    —
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="auth-submit"
+                onclick="logout()"
+            >
+                Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script src="script.js"></script>
 
 </body>
 </html>
 
-Important: keep the updated "script.js" from my previous message. The IDs in this HTML now match it exactly, especially:
+Important
 
-requestForm
-productName
-budget
-description
-fullName
-country
-state
-city
-phoneCode
-phone
-whatsappCode
-whatsappNumber
+This "index.html" expects the all-country code list to be generated by "script.js". So you don't need to put 200+ "<option>" lines inside the HTML.
 
-The WhatsApp destination is hardcoded in "script.js" as "2349040071415", so it won't accidentally use the customer's WhatsApp number as the destination.
+The two selectors will automatically become:
+
+- 🇳🇬 Nigeria "+234"
+- 🇬🇧 United Kingdom "+44"
+- 🇺🇸 United States "+1"
+- 🇨🇦 Canada "+1"
+- 🇬🇭 Ghana "+233"
+- 🇰🇪 Kenya "+254"
+- 🇿🇦 South Africa "+27"
+- 🇮🇳 India "+91"
+- …and the rest of the countries.
+
+Also, the request button is now a real:
+
+<button type="submit">
+
+inside:
+
+<form id="requestForm">
+
+so the WhatsApp JavaScript handler can catch the submission correctly.
