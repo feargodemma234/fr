@@ -11,727 +11,744 @@
 
 <body>
 
-<header class="navbar">
-
-    <div class="nav-container">
-
-        <a href="#" class="logo">RequestHub</a>
-
-        <nav class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#request">Request</a>
-            <a href="#how">How It Works</a>
-        </nav>
-
-        <button
-            class="account-btn"
-            id="accountBtn"
-            onclick="openAuth()"
-        >
-            Sign Up / Login
-        </button>
-
-    </div>
-
-</header>
-
-
-<main>
-
-<!-- HERO -->
-
-<section class="hero" id="home">
-
-    <div class="hero-content">
-
-        <span class="hero-badge">
-            PRODUCT REQUEST PLATFORM
-        </span>
-
-        <h1>
-            Tell us what<br>
-            you <span>need.</span>
-        </h1>
-
-        <p>
-            Describe the product you're looking for, set your
-            estimated budget, and send your request directly
-            through WhatsApp.
-        </p>
-
-        <a href="#request" class="hero-btn">
-            Make a Request
-        </a>
-
-    </div>
-
-</section>
-
-
-<!-- REQUEST -->
-
-<section class="request-section" id="request">
-
-    <div class="section-heading">
-
-        <span>REQUEST A PRODUCT</span>
-
-        <h2>What are you looking for?</h2>
-
-        <p>
-            Give us the details and we'll receive your request
-            on WhatsApp.
-        </p>
-
-    </div>
-
-
-    <div class="request-card">
-
-        <form id="requestForm">
-
-
-            <!-- PRODUCT NAME -->
-
-            <div class="form-group">
-
-                <label for="productName">
-                    Product Name
-                </label>
-
-                <input
-                    type="text"
-                    id="productName"
-                    placeholder="What product do you need?"
-                    required
-                >
-
-            </div>
-
-
-            <!-- BUDGET -->
-
-            <div class="form-group">
-
-                <label for="budget">
-                    Estimated Budget (USD)
-                </label>
-
-                <div class="budget-input">
-
-                    <span>$</span>
-
-                    <input
-                        type="number"
-                        id="budget"
-                        placeholder="0.00"
-                        min="0"
-                        step="0.01"
-                        required
-                    >
-
-                </div>
-
-            </div>
-
-
-            <!-- DESCRIPTION -->
-
-            <div class="form-group">
-
-                <label for="description">
-                    Product / Request Description
-                </label>
-
-                <textarea
-                    id="description"
-                    rows="5"
-                    placeholder="Describe the product or exactly what you need..."
-                    required
-                ></textarea>
-
-            </div>
-
-
-            <h3 class="form-title">
-                Your Information
-            </h3>
-
-
-            <!-- NAME -->
-
-            <div class="form-group">
-
-                <label for="fullName">
-                    Full Name
-                </label>
-
-                <input
-                    type="text"
-                    id="fullName"
-                    placeholder="Your full name"
-                    required
-                >
-
-            </div>
-
-
-            <!-- COUNTRY -->
-
-            <div class="form-group">
-
-                <label for="country">
-                    Country
-                </label>
-
-                <input
-                    type="text"
-                    id="country"
-                    placeholder="Your country"
-                    required
-                >
-
-            </div>
-
-
-            <!-- STATE -->
-
-            <div class="form-group">
-
-                <label for="state">
-                    State
-                </label>
-
-                <input
-                    type="text"
-                    id="state"
-                    placeholder="Your state"
-                    required
-                >
-
-            </div>
-
-
-            <!-- CITY -->
-
-            <div class="form-group">
-
-                <label for="city">
-                    City
-                </label>
-
-                <input
-                    type="text"
-                    id="city"
-                    placeholder="Your city"
-                    required
-                >
-
-            </div>
-
-
-            <!-- PHONE -->
-
-            <div class="form-group">
-
-                <label for="phone">
-                    Phone Number
-                </label>
-
-                <div class="phone-input">
-
-                    <select id="phoneCode" required>
-    <option value="+93">🇦🇫 +93 Afghanistan</option>
-    <option value="+355">🇦🇱 +355 Albania</option>
-    <option value="+213">🇩🇿 +213 Algeria</option>
-    <option value="+376">🇦🇩 +376 Andorra</option>
-    <option value="+244">🇦🇴 +244 Angola</option>
-    <option value="+1">🇦🇬 +1 Antigua and Barbuda</option>
-    <option value="+54">🇦🇷 +54 Argentina</option>
-    <option value="+374">🇦🇲 +374 Armenia</option>
-    <option value="+61">🇦🇺 +61 Australia</option>
-    <option value="+43">🇦🇹 +43 Austria</option>
-    <option value="+994">🇦🇿 +994 Azerbaijan</option>
-    <option value="+1">🇧🇸 +1 Bahamas</option>
-    <option value="+973">🇧🇭 +973 Bahrain</option>
-    <option value="+880">🇧🇩 +880 Bangladesh</option>
-    <option value="+1">🇧🇧 +1 Barbados</option>
-    <option value="+375">🇧🇾 +375 Belarus</option>
-    <option value="+32">🇧🇪 +32 Belgium</option>
-    <option value="+501">🇧🇿 +501 Belize</option>
-    <option value="+229">🇧🇯 +229 Benin</option>
-    <option value="+975">🇧🇹 +975 Bhutan</option>
-    <option value="+591">🇧🇴 +591 Bolivia</option>
-    <option value="+387">🇧🇦 +387 Bosnia and Herzegovina</option>
-    <option value="+267">🇧🇼 +267 Botswana</option>
-    <option value="+55">🇧🇷 +55 Brazil</option>
-    <option value="+673">🇧🇳 +673 Brunei</option>
-    <option value="+359">🇧🇬 +359 Bulgaria</option>
-    <option value="+226">🇧🇫 +226 Burkina Faso</option>
-    <option value="+257">🇧🇮 +257 Burundi</option>
-    <option value="+855">🇰🇭 +855 Cambodia</option>
-    <option value="+237">🇨🇲 +237 Cameroon</option>
-    <option value="+1">🇨🇦 +1 Canada</option>
-    <option value="+238">🇨🇻 +238 Cape Verde</option>
-    <option value="+236">🇨🇫 +236 Central African Republic</option>
-    <option value="+235">🇹🇩 +235 Chad</option>
-    <option value="+56">🇨🇱 +56 Chile</option>
-    <option value="+86">🇨🇳 +86 China</option>
-    <option value="+57">🇨🇴 +57 Colombia</option>
-    <option value="+269">🇰🇲 +269 Comoros</option>
-    <option value="+242">🇨🇬 +242 Congo</option>
-    <option value="+243">🇨🇩 +243 DR Congo</option>
-    <option value="+506">🇨🇷 +506 Costa Rica</option>
-    <option value="+385">🇭🇷 +385 Croatia</option>
-    <option value="+53">🇨🇺 +53 Cuba</option>
-    <option value="+357">🇨🇾 +357 Cyprus</option>
-    <option value="+420">🇨🇿 +420 Czechia</option>
-    <option value="+45">🇩🇰 +45 Denmark</option>
-    <option value="+253">🇩🇯 +253 Djibouti</option>
-    <option value="+1">🇩🇲 +1 Dominica</option>
-    <option value="+1">🇩🇴 +1 Dominican Republic</option>
-    <option value="+593">🇪🇨 +593 Ecuador</option>
-    <option value="+20">🇪🇬 +20 Egypt</option>
-    <option value="+503">🇸🇻 +503 El Salvador</option>
-    <option value="+240">🇬🇶 +240 Equatorial Guinea</option>
-    <option value="+291">🇪🇷 +291 Eritrea</option>
-    <option value="+372">🇪🇪 +372 Estonia</option>
-    <option value="+268">🇸🇿 +268 Eswatini</option>
-    <option value="+251">🇪🇹 +251 Ethiopia</option>
-    <option value="+679">🇫🇯 +679 Fiji</option>
-    <option value="+358">🇫🇮 +358 Finland</option>
-    <option value="+33">🇫🇷 +33 France</option>
-    <option value="+241">🇬🇦 +241 Gabon</option>
-    <option value="+220">🇬🇲 +220 Gambia</option>
-    <option value="+995">🇬🇪 +995 Georgia</option>
-    <option value="+49">🇩🇪 +49 Germany</option>
-    <option value="+233">🇬🇭 +233 Ghana</option>
-    <option value="+30">🇬🇷 +30 Greece</option>
-    <option value="+1">🇬🇩 +1 Grenada</option>
-    <option value="+502">🇬🇹 +502 Guatemala</option>
-    <option value="+224">🇬🇳 +224 Guinea</option>
-    <option value="+245">🇬🇼 +245 Guinea-Bissau</option>
-    <option value="+592">🇬🇾 +592 Guyana</option>
-    <option value="+509">🇭🇹 +509 Haiti</option>
-    <option value="+504">🇭🇳 +504 Honduras</option>
-    <option value="+36">🇭🇺 +36 Hungary</option>
-    <option value="+354">🇮🇸 +354 Iceland</option>
-    <option value="+91">🇮🇳 +91 India</option>
-    <option value="+62">🇮🇩 +62 Indonesia</option>
-    <option value="+98">🇮🇷 +98 Iran</option>
-    <option value="+964">🇮🇶 +964 Iraq</option>
-    <option value="+353">🇮🇪 +353 Ireland</option>
-    <option value="+972">🇮🇱 +972 Israel</option>
-    <option value="+39">🇮🇹 +39 Italy</option>
-    <option value="+1">🇯🇲 +1 Jamaica</option>
-    <option value="+81">🇯🇵 +81 Japan</option>
-    <option value="+962">🇯🇴 +962 Jordan</option>
-    <option value="+7">🇰🇿 +7 Kazakhstan</option>
-    <option value="+254">🇰🇪 +254 Kenya</option>
-    <option value="+686">🇰🇮 +686 Kiribati</option>
-    <option value="+965">🇰🇼 +965 Kuwait</option>
-    <option value="+996">🇰🇬 +996 Kyrgyzstan</option>
-    <option value="+856">🇱🇦 +856 Laos</option>
-    <option value="+371">🇱🇻 +371 Latvia</option>
-    <option value="+961">🇱🇧 +961 Lebanon</option>
-    <option value="+266">🇱🇸 +266 Lesotho</option>
-    <option value="+231">🇱🇷 +231 Liberia</option>
-    <option value="+218">🇱🇾 +218 Libya</option>
-    <option value="+423">🇱🇮 +423 Liechtenstein</option>
-    <option value="+370">🇱🇹 +370 Lithuania</option>
-    <option value="+352">🇱🇺 +352 Luxembourg</option>
-    <option value="+261">🇲🇬 +261 Madagascar</option>
-    <option value="+265">🇲🇼 +265 Malawi</option>
-    <option value="+60">🇲🇾 +60 Malaysia</option>
-    <option value="+960">🇲🇻 +960 Maldives</option>
-    <option value="+223">🇲🇱 +223 Mali</option>
-    <option value="+356">🇲🇹 +356 Malta</option>
-    <option value="+692">🇲🇭 +692 Marshall Islands</option>
-    <option value="+222">🇲🇷 +222 Mauritania</option>
-    <option value="+230">🇲🇺 +230 Mauritius</option>
-    <option value="+52">🇲🇽 +52 Mexico</option>
-    <option value="+691">🇫🇲 +691 Micronesia</option>
-    <option value="+373">🇲🇩 +373 Moldova</option>
-    <option value="+377">🇲🇨 +377 Monaco</option>
-    <option value="+976">🇲🇳 +976 Mongolia</option>
-    <option value="+382">🇲🇪 +382 Montenegro</option>
-    <option value="+212">🇲🇦 +212 Morocco</option>
-    <option value="+258">🇲🇿 +258 Mozambique</option>
-    <option value="+95">🇲🇲 +95 Myanmar</option>
-    <option value="+264">🇳🇦 +264 Namibia</option>
-    <option value="+674">🇳🇷 +674 Nauru</option>
-    <option value="+977">🇳🇵 +977 Nepal</option>
-    <option value="+31">🇳🇱 +31 Netherlands</option>
-    <option value="+64">🇳🇿 +64 New Zealand</option>
-    <option value="+505">🇳🇮 +505 Nicaragua</option>
-    <option value="+227">🇳🇪 +227 Niger</option>
-    <option value="+234" selected>🇳🇬 +234 Nigeria</option>
-    <option value="+389">🇲🇰 +389 North Macedonia</option>
-    <option value="+47">🇳🇴 +47 Norway</option>
-    <option value="+968">🇴🇲 +968 Oman</option>
-    <option value="+92">🇵🇰 +92 Pakistan</option>
-    <option value="+680">🇵🇼 +680 Palau</option>
-    <option value="+970">🇵🇸 +970 Palestine</option>
-    <option value="+507">🇵🇦 +507 Panama</option>
-    <option value="+675">🇵🇬 +675 Papua New Guinea</option>
-    <option value="+595">🇵🇾 +595 Paraguay</option>
-    <option value="+51">🇵🇪 +51 Peru</option>
-    <option value="+63">🇵🇭 +63 Philippines</option>
-    <option value="+48">🇵🇱 +48 Poland</option>
-    <option value="+351">🇵🇹 +351 Portugal</option>
-    <option value="+974">🇶🇦 +974 Qatar</option>
-    <option value="+40">🇷🇴 +40 Romania</option>
-    <option value="+7">🇷🇺 +7 Russia</option>
-    <option value="+250">🇷🇼 +250 Rwanda</option>
-    <option value="+1">🇰🇳 +1 Saint Kitts and Nevis</option>
-    <option value="+1">🇱🇨 +1 Saint Lucia</option>
-    <option value="+1">🇻🇨 +1 Saint Vincent and the Grenadines</option>
-    <option value="+685">🇼🇸 +685 Samoa</option>
-    <option value="+378">🇸🇲 +378 San Marino</option>
-    <option value="+239">🇸🇹 +239 Sao Tome and Principe</option>
-    <option value="+966">🇸🇦 +966 Saudi Arabia</option>
-    <option value="+221">🇸🇳 +221 Senegal</option>
-    <option value="+381">🇷🇸 +381 Serbia</option>
-    <option value="+248">🇸🇨 +248 Seychelles</option>
-    <option value="+232">🇸🇱 +232 Sierra Leone</option>
-    <option value="+65">🇸🇬 +65 Singapore</option>
-    <option value="+421">🇸🇰 +421 Slovakia</option>
-    <option value="+386">🇸🇮 +386 Slovenia</option>
-    <option value="+677">🇸🇧 +677 Solomon Islands</option>
-    <option value="+252">🇸🇴 +252 Somalia</option>
-    <option value="+27">🇿🇦 +27 South Africa</option>
-    <option value="+82">🇰🇷 +82 South Korea</option>
-    <option value="+211">🇸🇸 +211 South Sudan</option>
-    <option value="+34">🇪🇸 +34 Spain</option>
-    <option value="+94">🇱🇰 +94 Sri Lanka</option>
-    <option value="+249">🇸🇩 +249 Sudan</option>
-    <option value="+597">🇸🇷 +597 Suriname</option>
-    <option value="+46">🇸🇪 +46 Sweden</option>
-    <option value="+41">🇨🇭 +41 Switzerland</option>
-    <option value="+963">🇸🇾 +963 Syria</option>
-    <option value="+886">🇹🇼 +886 Taiwan</option>
-    <option value="+992">🇹🇯 +992 Tajikistan</option>
-    <option value="+255">🇹🇿 +255 Tanzania</option>
-    <option value="+66">🇹🇭 +66 Thailand</option>
-    <option value="+228">🇹🇬 +228 Togo</option>
-    <option value="+676">🇹🇴 +676 Tonga</option>
-    <option value="+1">🇹🇹 +1 Trinidad and Tobago</option>
-    <option value="+216">🇹🇳 +216 Tunisia</option>
-    <option value="+90">🇹🇷 +90 Turkey</option>
-    <option value="+993">🇹🇲 +993 Turkmenistan</option>
-    <option value="+688">🇹🇻 +688 Tuvalu</option>
-    <option value="+256">🇺🇬 +256 Uganda</option>
-    <option value="+380">🇺🇦 +380 Ukraine</option>
-    <option value="+971">🇦🇪 +971 United Arab Emirates</option>
-    <option value="+44">🇬🇧 +44 United Kingdom</option>
-    <option value="+1">🇺🇸 +1 United States</option>
-    <option value="+598">🇺🇾 +598 Uruguay</option>
-    <option value="+998">🇺🇿 +998 Uzbekistan</option>
-    <option value="+678">🇻🇺 +678 Vanuatu</option>
-    <option value="+379">🇻🇦 +379 Vatican City</option>
-    <option value="+58">🇻🇪 +58 Venezuela</option>
-    <option value="+84">🇻🇳 +84 Vietnam</option>
-    <option value="+967">🇾🇪 +967 Yemen</option>
-    <option value="+260">🇿🇲 +260 Zambia</option>
-    <option value="+263">🇿🇼 +263 Zimbabwe</option>
-</select>
-
-                    <input
-                        type="tel"
-                        id="whatsappNumber"
-                        placeholder="WhatsApp number"
-                        required
-                    >
-
-                </div>
-
-            </div>
-
-
-            <!-- SEND -->
-
-            <button
-                type="submit"
-                class="send-btn"
-            >
-                Send Request on WhatsApp
-            </button>
-
-
-        </form>
-
-    </div>
-
-</section>
-
-
-<!-- HOW IT WORKS -->
-
-<section class="how-section" id="how">
-
-    <div class="section-heading">
-
-        <span>HOW IT WORKS</span>
-
-        <h2>Simple. Fast. Direct.</h2>
-
-    </div>
-
-
-    <div class="steps">
-
-
-        <div class="step">
-
-            <div class="step-number">
-                1
-            </div>
-
-            <h3>
-                Describe
-            </h3>
-
-            <p>
-                Tell us the product you want and provide
-                a description.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">
-                2
-            </div>
-
-            <h3>
-                Set Your Budget
-            </h3>
-
-            <p>
-                Enter your estimated budget in USD.
-            </p>
-
-        </div>
-
-
-        <div class="step">
-
-            <div class="step-number">
-                3
-            </div>
-
-            <h3>
-                Send
-            </h3>
-
-            <p>
-                Your request opens directly in WhatsApp.
-            </p>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-</main>
-
-
-<!-- FOOTER -->
-
-<footer>
-
-    <div class="footer-content">
-
-        <div>
-
-            <h3>
+    <!-- NAVBAR -->
+    <header class="navbar">
+        <div class="nav-container">
+
+            <a href="#home" class="logo">
                 RequestHub
-            </h3>
+            </a>
+
+            <nav class="nav-links">
+                <a href="#home">Home</a>
+                <a href="#request">Request</a>
+                <a href="#how-it-works">How It Works</a>
+            </nav>
+
+            <button class="account-btn" id="accountBtn" onclick="openAuth()">
+                Sign Up / Login
+            </button>
+
+        </div>
+    </header>
+
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                PRODUCT REQUEST PLATFORM
+            </div>
+
+            <h1>
+                Tell us what<br>
+                <span>you need.</span>
+            </h1>
 
             <p>
-                Tell us what you need.
+                Can't find what you're looking for?
+                Send us a request and tell us exactly
+                what you need.
+            </p>
+
+            <a href="#request" class="hero-btn">
+                Make a Request
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- REQUEST SECTION -->
+    <section class="request-section" id="request">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span class="small-title">
+                    REQUEST SOMETHING
+                </span>
+
+                <h2>
+                    What are you looking for?
+                </h2>
+
+                <p>
+                    Fill in the details below and send your
+                    request directly to us on WhatsApp.
+                </p>
+
+            </div>
+
+
+            <!-- REQUEST FORM -->
+            <form id="requestForm" class="request-form">
+
+                <!-- PRODUCT INFORMATION -->
+                <div class="form-card">
+
+                    <h3>Product Information</h3>
+
+                    <div class="form-group">
+
+                        <label for="productName">
+                            Product Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="productName"
+                            placeholder="What product do you need?"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="budget">
+                            Estimated Budget
+                        </label>
+
+                        <div class="budget-input">
+
+                            <span>$</span>
+
+                            <input
+                                type="number"
+                                id="budget"
+                                placeholder="Enter your budget"
+                                min="0"
+                                step="0.01"
+                                required
+                            >
+
+                            <small>USD</small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="description">
+                            Product / Request Description
+                        </label>
+
+                        <textarea
+                            id="description"
+                            rows="5"
+                            placeholder="Describe the product or anything else we should know..."
+                            required
+                        ></textarea>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CUSTOMER INFORMATION -->
+                <div class="form-card">
+
+                    <h3>Customer Information</h3>
+
+
+                    <div class="form-group">
+
+                        <label for="fullName">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="fullName"
+                            placeholder="Your full name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="country">
+                                Country
+                            </label>
+
+                            <input
+                                type="text"
+                                id="country"
+                                placeholder="Country"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <label for="state">
+                                State
+                            </label>
+
+                            <input
+                                type="text"
+                                id="state"
+                                placeholder="State"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="city">
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            id="city"
+                            placeholder="City"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- PHONE -->
+                    <div class="form-group">
+
+                        <label for="phone">
+                            Phone Number
+                        </label>
+
+                        <div class="phone-input">
+
+                            <select id="phoneCode" required>
+                                <option value="+234" selected>
+                                    🇳🇬 +234
+                                </option>
+
+                                <option value="+1">
+                                    🇺🇸 +1
+                                </option>
+
+                                <option value="+44">
+                                    🇬🇧 +44
+                                </option>
+
+                                <option value="+1">
+                                    🇨🇦 +1
+                                </option>
+
+                                <option value="+61">
+                                    🇦🇺 +61
+                                </option>
+
+                                <option value="+27">
+                                    🇿🇦 +27
+                                </option>
+
+                                <option value="+254">
+                                    🇰🇪 +254
+                                </option>
+
+                                <option value="+233">
+                                    🇬🇭 +233
+                                </option>
+
+                                <option value="+91">
+                                    🇮🇳 +91
+                                </option>
+
+                                <option value="+971">
+                                    🇦🇪 +971
+                                </option>
+
+                                <option value="+49">
+                                    🇩🇪 +49
+                                </option>
+
+                                <option value="+33">
+                                    🇫🇷 +33
+                                </option>
+
+                                <option value="+81">
+                                    🇯🇵 +81
+                                </option>
+
+                                <option value="+86">
+                                    🇨🇳 +86
+                                </option>
+                            </select>
+
+
+                            <input
+                                type="tel"
+                                id="phone"
+                                placeholder="Phone number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- WHATSAPP -->
+                    <div class="form-group">
+
+                        <label for="whatsappNumber">
+                            WhatsApp Number
+                        </label>
+
+                        <div class="phone-input">
+
+                            <select id="whatsappCode" required>
+                                <option value="+234" selected>
+                                    🇳🇬 +234
+                                </option>
+
+                                <option value="+1">
+                                    🇺🇸 +1
+                                </option>
+
+                                <option value="+44">
+                                    🇬🇧 +44
+                                </option>
+
+                                <option value="+1">
+                                    🇨🇦 +1
+                                </option>
+
+                                <option value="+61">
+                                    🇦🇺 +61
+                                </option>
+
+                                <option value="+27">
+                                    🇿🇦 +27
+                                </option>
+
+                                <option value="+254">
+                                    🇰🇪 +254
+                                </option>
+
+                                <option value="+233">
+                                    🇬🇭 +233
+                                </option>
+
+                                <option value="+91">
+                                    🇮🇳 +91
+                                </option>
+
+                                <option value="+971">
+                                    🇦🇪 +971
+                                </option>
+
+                                <option value="+49">
+                                    🇩🇪 +49
+                                </option>
+
+                                <option value="+33">
+                                    🇫🇷 +33
+                                </option>
+
+                                <option value="+81">
+                                    🇯🇵 +81
+                                </option>
+
+                                <option value="+86">
+                                    🇨🇳 +86
+                                </option>
+                            </select>
+
+
+                            <input
+                                type="tel"
+                                id="whatsappNumber"
+                                placeholder="WhatsApp number"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+                <button
+                    type="submit"
+                    class="submit-btn"
+                >
+                    <span>Send Request on WhatsApp</span>
+                    <span class="arrow">→</span>
+                </button>
+
+
+                <p class="form-note">
+                    Your request will open in WhatsApp with
+                    the information you entered already filled in.
+                </p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- HOW IT WORKS -->
+    <section class="how-section" id="how-it-works">
+
+        <div class="section-container">
+
+            <div class="section-heading">
+
+                <span class="small-title">
+                    HOW IT WORKS
+                </span>
+
+                <h2>
+                    Simple. Fast. Direct.
+                </h2>
+
+            </div>
+
+
+            <div class="steps">
+
+                <div class="step">
+
+                    <div class="step-number">
+                        01
+                    </div>
+
+                    <h3>
+                        Tell us what you need
+                    </h3>
+
+                    <p>
+                        Enter the product you're looking
+                        for and provide a description.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        02
+                    </div>
+
+                    <h3>
+                        Set your budget
+                    </h3>
+
+                    <p>
+                        Give us your estimated budget so
+                        we know what you're looking for.
+                    </p>
+
+                </div>
+
+
+                <div class="step">
+
+                    <div class="step-number">
+                        03
+                    </div>
+
+                    <h3>
+                        Send through WhatsApp
+                    </h3>
+
+                    <p>
+                        Your request opens directly in
+                        WhatsApp ready to send.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <div>
+                <strong>RequestHub</strong>
+
+                <p>
+                    Request what you need.
+                </p>
+            </div>
+
+            <p>
+                © 2026 RequestHub. All rights reserved.
             </p>
 
         </div>
 
-
-        <p>
-            © 2026 RequestHub. All rights reserved.
-        </p>
-
-    </div>
-
-</footer>
+    </footer>
 
 
-<!-- AUTH MODAL -->
+    <!-- AUTH MODAL -->
+    <div class="modal" id="authModal">
 
-<div
-    class="modal"
-    id="authModal"
->
+        <div class="modal-overlay" onclick="closeAuth()"></div>
 
-    <div class="modal-content">
-
-
-        <button
-            class="close-modal"
-            onclick="closeAuth()"
-        >
-            ×
-        </button>
-
-
-        <div class="auth-tabs">
+        <div class="auth-box">
 
             <button
-                id="signupTab"
-                class="active"
-                onclick="showSignup()"
+                class="close-modal"
+                onclick="closeAuth()"
+                type="button"
             >
-                Sign Up
+                ×
             </button>
 
-            <button
-                id="loginTab"
-                onclick="showLogin()"
+
+            <!-- SIGN UP -->
+            <div id="signupView">
+
+                <h2>
+                    Create Account
+                </h2>
+
+                <p>
+                    Create your RequestHub account.
+                </p>
+
+                <form id="signupForm">
+
+                    <div class="form-group">
+
+                        <label for="signupEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="signupEmail"
+                            placeholder="you@example.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="signupPhrase">
+                            3-Word Phrase
+                        </label>
+
+                        <input
+                            type="text"
+                            id="signupPhrase"
+                            placeholder="Example: blue ocean star"
+                            required
+                        >
+
+                        <small>
+                            Enter exactly three words.
+                        </small>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit"
+                    >
+                        Create Account
+                    </button>
+
+                </form>
+
+
+                <p
+                    class="auth-switch"
+                    id="signupMessage"
+                ></p>
+
+
+                <p class="switch-text">
+
+                    Already have an account?
+
+                    <button
+                        type="button"
+                        onclick="showLogin()"
+                    >
+                        Login
+                    </button>
+
+                </p>
+
+            </div>
+
+
+            <!-- LOGIN -->
+            <div id="loginView" style="display:none;">
+
+                <h2>
+                    Welcome Back
+                </h2>
+
+                <p>
+                    Login to your RequestHub account.
+                </p>
+
+
+                <form id="loginForm">
+
+                    <div class="form-group">
+
+                        <label for="loginEmail">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="loginEmail"
+                            placeholder="you@example.com"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="loginPhrase">
+                            3-Word Phrase
+                        </label>
+
+                        <input
+                            type="text"
+                            id="loginPhrase"
+                            placeholder="Your 3-word phrase"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="auth-submit"
+                    >
+                        Login
+                    </button>
+
+                </form>
+
+
+                <p
+                    class="auth-switch"
+                    id="loginMessage"
+                ></p>
+
+
+                <p class="switch-text">
+
+                    Don't have an account?
+
+                    <button
+                        type="button"
+                        onclick="showSignup()"
+                    >
+                        Create Account
+                    </button>
+
+                </p>
+
+            </div>
+
+
+            <!-- ACCOUNT -->
+            <div
+                id="accountView"
+                style="display:none;"
             >
-                Login
-            </button>
+
+                <h2>
+                    Your Account
+                </h2>
+
+                <p>
+                    You are logged in.
+                </p>
+
+                <div class="account-info">
+
+                    <strong>
+                        Email
+                    </strong>
+
+                    <span id="accountEmail">
+                        —
+                    </span>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="auth-submit"
+                    onclick="logout()"
+                >
+                    Logout
+                </button>
+
+            </div>
 
         </div>
 
-
-        <!-- SIGNUP -->
-
-        <form id="signupForm">
-
-            <h2>
-                Create Account
-            </h2>
-
-            <p class="auth-description">
-                Create your account using your email
-                and a 3-word phrase.
-            </p>
-
-
-            <div class="form-group">
-
-                <label for="signupEmail">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="signupEmail"
-                    placeholder="you@example.com"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="signupPhrase">
-                    3-Word Phrase
-                </label>
-
-                <input
-                    type="text"
-                    id="signupPhrase"
-                    placeholder="blue sky market"
-                    required
-                >
-
-                <small>
-                    Your phrase must contain exactly 3 words.
-                </small>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="auth-btn"
-            >
-                Create Account
-            </button>
-
-        </form>
-
-
-        <!-- LOGIN -->
-
-        <form
-            id="loginForm"
-            style="display:none;"
-        >
-
-            <h2>
-                Welcome Back
-            </h2>
-
-            <p class="auth-description">
-                Login using your email and 3-word phrase.
-            </p>
-
-
-            <div class="form-group">
-
-                <label for="loginEmail">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="loginEmail"
-                    placeholder="you@example.com"
-                    required
-                >
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="loginPhrase">
-                    3-Word Phrase
-                </label>
-
-                <input
-                    type="text"
-                    id="loginPhrase"
-                    placeholder="Your 3-word phrase"
-                    required
-                >
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="auth-btn"
-            >
-                Login
-            </button>
-
-        </form>
-
-
-        <div id="authMessage"></div>
-
     </div>
 
-</div>
 
-
-<script src="script.js"></script>
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
 
 </body>
 </html>
+
+Important: keep the updated "script.js" from my previous message. The IDs in this HTML now match it exactly, especially:
+
+requestForm
+productName
+budget
+description
+fullName
+country
+state
+city
+phoneCode
+phone
+whatsappCode
+whatsappNumber
+
+The WhatsApp destination is hardcoded in "script.js" as "2349040071415", so it won't accidentally use the customer's WhatsApp number as the destination.
