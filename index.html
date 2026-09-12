@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RequestHub — Global Delivery</title>
-    <meta name="description" content="Request international delivery services with RequestHub.">
+    <title>RequestHub</title>
+    <meta name="description" content="Request international delivery services from anywhere in the world.">
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -13,236 +13,440 @@
 <body>
 
 <header class="navbar">
-    <a href="#home" class="logo">📦 RequestHub</a>
+    <div class="logo">
+        📦 <span>RequestHub</span>
+    </div>
 
     <nav>
         <a href="#home">Home</a>
-        <a href="#request">Delivery</a>
+        <a href="#delivery">Delivery</a>
         <a href="#how">How It Works</a>
     </nav>
 
-    <button id="accountButton" class="account-button">
-        👤 Account
+    <button id="accountButton" class="account-btn">
+        Account
     </button>
 </header>
 
 
 <main>
 
-<!-- HERO -->
-<section class="hero" id="home">
+<section id="home" class="hero">
 
     <div class="hero-badge">
         🌍 INTERNATIONAL DELIVERY
     </div>
 
     <h1>
-        Send Anything.<br>
-        <span>Anywhere.</span>
+        Send anywhere.<br>
+        <span>Receive anywhere.</span>
     </h1>
 
     <p>
-        Request international delivery from one country to another.
-        Provide your shipment details and we'll receive your request
-        instantly.
+        Request international delivery services quickly and easily.
+        Tell us where the item is coming from or where you need it delivered.
     </p>
 
-    <a href="#request" class="hero-button">
-        Start a Delivery Request →
+    <a href="#delivery" class="hero-btn">
+        Start a Request →
     </a>
 
 </section>
 
 
-<!-- DELIVERY REQUEST -->
-<section class="request-section" id="request">
+<section id="delivery" class="delivery-section">
 
     <div class="section-heading">
         <span>DELIVERY REQUEST</span>
-        <h2>Tell us about your shipment</h2>
-        <p>Complete the information below to submit your request.</p>
+        <h2>Tell us what you need</h2>
+        <p>Choose your delivery type and complete the information below.</p>
     </div>
+
 
     <form id="requestForm">
 
+        <!-- REQUEST TYPE -->
+
+        <div class="request-type-card">
+
+            <h3>What do you need?</h3>
+
+            <div class="request-types">
+
+                <button
+                    type="button"
+                    class="request-type active"
+                    data-type="send-receive"
+                >
+                    <span>📦</span>
+
+                    <strong>Send & Receive</strong>
+
+                    <small>
+                        Send an item from one place to another location.
+                    </small>
+                </button>
+
+
+                <button
+                    type="button"
+                    class="request-type"
+                    data-type="receive-only"
+                >
+                    <span>📥</span>
+
+                    <strong>Receive Only</strong>
+
+                    <small>
+                        Have an item delivered to your location.
+                    </small>
+                </button>
+
+            </div>
+
+        </div>
+
+        <input
+            type="hidden"
+            id="requestType"
+            value="send-receive"
+        >
+
+
+        <!-- SHIPMENT -->
+
         <div class="form-card">
 
-            <h3>📦 Shipment Details</h3>
+            <div class="card-title">
+                <span>📦</span>
 
-            <label for="shipment">What are you sending?</label>
-            <input
-                type="text"
-                id="shipment"
-                placeholder="Example: Documents, clothing, electronics"
-                required
-            >
+                <div>
+                    <h3>Shipment Details</h3>
+                    <p>Tell us about the item.</p>
+                </div>
+            </div>
 
-            <label for="description">Description</label>
-            <textarea
-                id="description"
-                placeholder="Describe the item or shipment"
-                required
-            ></textarea>
 
-            <div class="fee-box">
-                <span>International delivery fee</span>
-                <strong>$1,000 USD</strong>
+            <div class="field">
+
+                <label for="shipment">
+                    What are you sending or receiving?
+                </label>
+
+                <input
+                    type="text"
+                    id="shipment"
+                    placeholder="Example: Documents, clothing, electronics"
+                    required
+                >
+
+            </div>
+
+
+            <div class="field">
+
+                <label for="description">
+                    Description
+                </label>
+
+                <textarea
+                    id="description"
+                    rows="4"
+                    placeholder="Provide additional information about the item..."
+                    required
+                ></textarea>
+
             </div>
 
         </div>
 
 
         <!-- SENDER -->
-        <div class="form-card">
 
-            <h3>📤 Sender Information</h3>
+        <div class="form-card" id="senderCard">
 
-            <label for="senderName">Full Name</label>
-            <input
-                type="text"
-                id="senderName"
-                placeholder="Sender's full name"
-                required
-            >
+            <div class="card-title">
 
-            <label for="senderCountry">Country</label>
-            <select id="senderCountry" required>
-                <option value="">Select country</option>
-            </select>
+                <span>📤</span>
 
-            <label for="senderState">State / Region</label>
-            <input
-                type="text"
-                id="senderState"
-                placeholder="State / Region"
-                required
-            >
+                <div>
+                    <h3>Sending Information</h3>
+                    <p>Where is the item coming from?</p>
+                </div>
 
-            <label for="senderCity">City</label>
-            <input
-                type="text"
-                id="senderCity"
-                placeholder="City"
-                required
-            >
-
-            <label>Phone Number</label>
-
-            <div class="phone-row">
-                <select id="senderPhoneCode" required>
-                    <option value="">Code</option>
-                </select>
-
-                <input
-                    type="tel"
-                    id="senderPhone"
-                    placeholder="Phone number"
-                    required
-                >
             </div>
 
-            <label>WhatsApp Number</label>
 
-            <div class="phone-row">
-                <select id="senderWhatsAppCode" required>
-                    <option value="">Code</option>
-                </select>
+            <div class="form-grid">
 
-                <input
-                    type="tel"
-                    id="senderWhatsApp"
-                    placeholder="WhatsApp number"
-                    required
-                >
-            </div>
+                <div class="field full">
 
-        </div>
+                    <label for="senderName">
+                        Sender Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="senderName"
+                        placeholder="Full name"
+                        required
+                    >
+
+                </div>
 
 
-        <!-- RECIPIENT -->
-        <div class="form-card">
+                <div class="field">
 
-            <h3>📥 Recipient Information</h3>
+                    <label for="senderCountry">
+                        Country
+                    </label>
 
-            <label for="recipientName">Full Name</label>
-            <input
-                type="text"
-                id="recipientName"
-                placeholder="Recipient's full name"
-                required
-            >
+                    <select id="senderCountry" required>
+                        <option value="">Select country</option>
+                    </select>
 
-            <label for="recipientCountry">Country</label>
-            <select id="recipientCountry" required>
-                <option value="">Select country</option>
-            </select>
+                </div>
 
-            <label for="recipientState">State / Region</label>
-            <input
-                type="text"
-                id="recipientState"
-                placeholder="State / Region"
-                required
-            >
 
-            <label for="recipientCity">City</label>
-            <input
-                type="text"
-                id="recipientCity"
-                placeholder="City"
-                required
-            >
+                <div class="field">
 
-            <label>Phone Number</label>
+                    <label for="senderState">
+                        State / Region
+                    </label>
 
-            <div class="phone-row">
-                <select id="recipientPhoneCode" required>
-                    <option value="">Code</option>
-                </select>
+                    <input
+                        type="text"
+                        id="senderState"
+                        placeholder="State / Region"
+                        required
+                    >
 
-                <input
-                    type="tel"
-                    id="recipientPhone"
-                    placeholder="Phone number"
-                    required
-                >
-            </div>
+                </div>
 
-            <label>WhatsApp Number</label>
 
-            <div class="phone-row">
-                <select id="recipientWhatsAppCode" required>
-                    <option value="">Code</option>
-                </select>
+                <div class="field">
 
-                <input
-                    type="tel"
-                    id="recipientWhatsApp"
-                    placeholder="WhatsApp number"
-                    required
-                >
+                    <label for="senderCity">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="senderCity"
+                        placeholder="City"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Phone
+                    </label>
+
+                    <div class="phone-row">
+
+                        <select id="senderPhoneCode"></select>
+
+                        <input
+                            type="tel"
+                            id="senderPhone"
+                            placeholder="Phone number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        WhatsApp
+                    </label>
+
+                    <div class="phone-row">
+
+                        <select id="senderWhatsAppCode"></select>
+
+                        <input
+                            type="tel"
+                            id="senderWhatsApp"
+                            placeholder="WhatsApp number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
             </div>
 
         </div>
 
 
-        <!-- TOTAL -->
-        <div class="total-box">
+        <!-- RECEIVER -->
+
+        <div class="form-card" id="recipientCard">
+
+            <div class="card-title">
+
+                <span>📥</span>
+
+                <div>
+                    <h3 id="recipientTitle">
+                        Receiving Information
+                    </h3>
+
+                    <p id="recipientSubtitle">
+                        Where should the item be delivered?
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="form-grid">
+
+                <div class="field full">
+
+                    <label for="recipientName">
+                        Receiver Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="recipientName"
+                        placeholder="Full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="recipientCountry">
+                        Country
+                    </label>
+
+                    <select id="recipientCountry" required>
+                        <option value="">Select country</option>
+                    </select>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="recipientState">
+                        State / Region
+                    </label>
+
+                    <input
+                        type="text"
+                        id="recipientState"
+                        placeholder="State / Region"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="recipientCity">
+                        City
+                    </label>
+
+                    <input
+                        type="text"
+                        id="recipientCity"
+                        placeholder="City"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        Phone
+                    </label>
+
+                    <div class="phone-row">
+
+                        <select id="recipientPhoneCode"></select>
+
+                        <input
+                            type="tel"
+                            id="recipientPhone"
+                            placeholder="Phone number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="field">
+
+                    <label>
+                        WhatsApp
+                    </label>
+
+                    <div class="phone-row">
+
+                        <select id="recipientWhatsAppCode"></select>
+
+                        <input
+                            type="tel"
+                            id="recipientWhatsApp"
+                            placeholder="WhatsApp number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- PRICE -->
+
+        <div class="price-card">
+
             <div>
-                <span>Total Delivery Fee</span>
-                <small>Fixed international delivery charge</small>
+
+                <small>DELIVERY SERVICE FEE</small>
+
+                <h2>$1,000 <span>USD</span></h2>
+
             </div>
 
-            <strong>$1,000 USD</strong>
+            <span class="fixed-label">
+                FIXED FEE
+            </span>
+
         </div>
 
-        <button type="submit" class="submit-button">
-            📱 Send Delivery Request via WhatsApp
+
+        <button type="submit" class="submit-btn">
+            💬 Send Delivery Request
         </button>
 
+
         <p class="form-note">
-            Your request will open WhatsApp with all the information
-            automatically prepared.
+            Your completed request will open WhatsApp with the information
+            already filled in.
         </p>
 
     </form>
@@ -250,38 +454,55 @@
 </section>
 
 
-<!-- HOW IT WORKS -->
-<section class="how-section" id="how">
+<section id="how" class="how-section">
 
     <div class="section-heading">
+
         <span>HOW IT WORKS</span>
-        <h2>Simple international delivery</h2>
+
+        <h2>Simple from start to finish</h2>
+
     </div>
+
 
     <div class="steps">
 
         <div class="step">
+
             <div>1</div>
-            <h3>Submit Request</h3>
+
+            <h3>Choose</h3>
+
             <p>
-                Enter the sender, recipient and shipment information.
+                Choose Send & Receive or Receive Only.
             </p>
+
         </div>
 
+
         <div class="step">
+
             <div>2</div>
-            <h3>Request Received</h3>
+
+            <h3>Provide Details</h3>
+
             <p>
-                Your completed request is sent to our WhatsApp.
+                Enter the shipment and location information.
             </p>
+
         </div>
 
+
         <div class="step">
+
             <div>3</div>
-            <h3>Delivery Process</h3>
+
+            <h3>Send Request</h3>
+
             <p>
-                We'll review the request and contact you about the next steps.
+                Your request opens in WhatsApp ready to send.
             </p>
+
         </div>
 
     </div>
@@ -292,41 +513,61 @@
 
 
 <footer>
-    <strong>📦 RequestHub</strong>
-    <p>Global delivery made simple.</p>
-    <small>© 2026 RequestHub. All rights reserved.</small>
+
+    <div class="logo">
+        📦 RequestHub
+    </div>
+
+    <p>
+        International delivery request service.
+    </p>
+
+    <p class="copyright">
+        © 2026 RequestHub. All rights reserved.
+    </p>
+
 </footer>
 
 
-<!-- ACCOUNT MODAL -->
-<div id="authModal" class="auth-modal">
+<!-- AUTH MODAL -->
 
-    <div id="modalOverlay" class="modal-overlay"></div>
+<div id="authModal" class="modal">
 
-    <div class="modal-content">
+    <div class="modal-overlay" id="modalOverlay"></div>
 
-        <button id="closeAuth" class="close-auth">
-            &times;
+    <div class="modal-box">
+
+        <button id="closeAuth" class="close-btn">
+            ×
         </button>
 
 
         <!-- SIGNUP -->
+
         <div id="signupView">
 
-            <h2>Create Account</h2>
+            <div class="modal-header">
 
-            <p class="auth-subtitle">
-                Create your RequestHub account
-            </p>
+                <div class="modal-icon">
+                    👤
+                </div>
+
+                <h2>Create Account</h2>
+
+                <p>
+                    Create an account using your phone number.
+                </p>
+
+            </div>
+
 
             <form id="signupForm">
 
-                <label>Phone Number *</label>
+                <label>Phone Number</label>
 
                 <div class="phone-row">
-                    <select id="signupPhoneCode" required>
-                        <option value="">Country code</option>
-                    </select>
+
+                    <select id="signupPhoneCode"></select>
 
                     <input
                         type="tel"
@@ -334,10 +575,11 @@
                         placeholder="Phone number"
                         required
                     >
+
                 </div>
 
 
-                <label>Password *</label>
+                <label>Password</label>
 
                 <input
                     type="password"
@@ -348,7 +590,7 @@
                 >
 
 
-                <label>Confirm Password *</label>
+                <label>Confirm Password</label>
 
                 <input
                     type="password"
@@ -359,32 +601,47 @@
                 >
 
 
-                <button type="submit" class="auth-submit">
+                <button class="auth-submit" type="submit">
                     Create Account
                 </button>
 
             </form>
 
+
             <p id="signupMessage" class="auth-message"></p>
 
-            <p class="auth-switch">
+
+            <p class="switch-auth">
+
                 Already have an account?
+
                 <button type="button" id="goLogin">
                     Login
                 </button>
+
             </p>
 
         </div>
 
 
         <!-- LOGIN -->
-        <div id="loginView" style="display:none;">
 
-            <h2>Welcome Back</h2>
+        <div id="loginView" class="hidden">
 
-            <p class="auth-subtitle">
-                Login to your RequestHub account
-            </p>
+            <div class="modal-header">
+
+                <div class="modal-icon">
+                    🔐
+                </div>
+
+                <h2>Login</h2>
+
+                <p>
+                    Login with your phone number and password.
+                </p>
+
+            </div>
+
 
             <form id="loginForm">
 
@@ -392,9 +649,7 @@
 
                 <div class="phone-row">
 
-                    <select id="loginPhoneCode" required>
-                        <option value="">Country code</option>
-                    </select>
+                    <select id="loginPhoneCode"></select>
 
                     <input
                         type="tel"
@@ -416,44 +671,65 @@
                 >
 
 
-                <button type="submit" class="auth-submit">
+                <button class="auth-submit" type="submit">
                     Login
                 </button>
 
             </form>
 
+
             <p id="loginMessage" class="auth-message"></p>
 
-            <p class="auth-switch">
+
+            <p class="switch-auth">
+
                 Don't have an account?
 
                 <button type="button" id="goSignup">
                     Create Account
                 </button>
+
             </p>
 
         </div>
 
 
         <!-- ACCOUNT -->
-        <div id="accountView" style="display:none;">
 
-            <h2>Your Account</h2>
+        <div id="accountView" class="hidden">
 
-            <div class="account-info">
+            <div class="modal-header">
+
+                <div class="modal-icon">
+                    👤
+                </div>
+
+                <h2>Your Account</h2>
 
                 <p>
-                    <strong>Phone</strong>
-                    <span id="accountPhone"></span>
+                    You are currently logged in.
                 </p>
 
             </div>
 
+
+            <div class="account-info">
+
+                <span>PHONE NUMBER</span>
+
+                <strong id="accountPhone">
+                    —
+                </strong>
+
+            </div>
+
+
             <button
+                type="button"
                 id="logoutButton"
-                class="logout-button"
+                class="logout-btn"
             >
-                Logout
+                Log Out
             </button>
 
         </div>
@@ -463,9 +739,7 @@
 </div>
 
 
-<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
 <script src="script.js"></script>
 
 </body>
