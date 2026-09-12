@@ -7,21 +7,14 @@
 
     <title>RequestHub | International Delivery</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
-<!-- =====================================
-     NAVBAR
-===================================== -->
-
 <header class="navbar">
-
     <div class="nav-container">
 
         <a href="#home" class="logo">
@@ -29,19 +22,9 @@
         </a>
 
         <nav class="nav-links">
-
-            <a href="#home">
-                Home
-            </a>
-
-            <a href="#request">
-                Delivery
-            </a>
-
-            <a href="#how-it-works">
-                How It Works
-            </a>
-
+            <a href="#home">Home</a>
+            <a href="#request">Delivery</a>
+            <a href="#how-it-works">How It Works</a>
         </nav>
 
         <button
@@ -53,13 +36,12 @@
         </button>
 
     </div>
-
 </header>
 
 
-<!-- =====================================
+<!-- =====================================================
      HERO
-===================================== -->
+===================================================== -->
 
 <section class="hero" id="home">
 
@@ -92,9 +74,9 @@
 </section>
 
 
-<!-- =====================================
-     DELIVERY REQUEST
-===================================== -->
+<!-- =====================================================
+     REQUEST
+===================================================== -->
 
 <section
     class="request-section"
@@ -123,16 +105,14 @@
 
         <form id="requestForm">
 
-            <!-- =================================
-                 SHIPMENT DETAILS
-            ================================== -->
+
+            <!-- SHIPMENT -->
 
             <div class="form-section">
 
                 <h3>
                     📦 Shipment Details
                 </h3>
-
 
                 <div class="form-group">
 
@@ -168,8 +148,6 @@
                 </div>
 
 
-                <!-- $1,000 FIXED FEE -->
-
                 <div class="delivery-fee-box">
 
                     <span>
@@ -185,9 +163,10 @@
             </div>
 
 
-            <!-- =================================
-                 SENDER INFORMATION
-            ================================== -->
+
+            <!-- =================================================
+                 SENDER
+            ================================================== -->
 
             <div class="form-section">
 
@@ -336,9 +315,10 @@
             </div>
 
 
-            <!-- =================================
-                 RECIPIENT INFORMATION
-            ================================== -->
+
+            <!-- =================================================
+                 RECIPIENT
+            ================================================== -->
 
             <div class="form-section">
 
@@ -487,9 +467,8 @@
             </div>
 
 
-            <!-- =================================
-                 TOTAL FEE
-            ================================== -->
+
+            <!-- TOTAL -->
 
             <div class="delivery-fee-box">
 
@@ -507,10 +486,6 @@
             <br>
 
 
-            <!-- =================================
-                 SUBMIT
-            ================================== -->
-
             <button
                 type="submit"
                 class="submit-btn"
@@ -525,9 +500,10 @@
 </section>
 
 
-<!-- =====================================
+
+<!-- =====================================================
      HOW IT WORKS
-===================================== -->
+===================================================== -->
 
 <section
     class="how-section"
@@ -554,7 +530,6 @@
 
     <div class="steps-container">
 
-
         <div class="step-card">
 
             <div class="step-number">
@@ -566,8 +541,8 @@
             </h3>
 
             <p>
-                Enter the shipment, sender and recipient
-                information.
+                Enter the shipment, sender and
+                recipient information.
             </p>
 
         </div>
@@ -584,8 +559,8 @@
             </h3>
 
             <p>
-                Your completed delivery information is
-                prepared for WhatsApp.
+                Your completed delivery information
+                is prepared for WhatsApp.
             </p>
 
         </div>
@@ -613,23 +588,24 @@
 </section>
 
 
-<!-- =====================================
+
+<!-- =====================================================
      FOOTER
-===================================== -->
+===================================================== -->
 
 <footer>
 
     <p>
-        © 2026 RequestHub.
-        International Delivery Services.
+        © 2026 RequestHub. International Delivery Services.
     </p>
 
 </footer>
 
 
-<!-- =====================================
+
+<!-- =====================================================
      AUTH MODAL
-===================================== -->
+===================================================== -->
 
 <div
     id="authModal"
@@ -653,9 +629,7 @@
         </button>
 
 
-        <!-- ================================
-             SIGN UP
-        ================================= -->
+        <!-- SIGNUP -->
 
         <div
             id="signupView"
@@ -665,6 +639,7 @@
             <h2>
                 Create Account
             </h2>
+
 
             <form id="signupForm">
 
@@ -729,9 +704,8 @@
         </div>
 
 
-        <!-- ================================
-             LOGIN
-        ================================= -->
+
+        <!-- LOGIN -->
 
         <div
             id="loginView"
@@ -741,6 +715,7 @@
             <h2>
                 Login
             </h2>
+
 
             <form id="loginForm">
 
@@ -805,9 +780,8 @@
         </div>
 
 
-        <!-- ================================
-             ACCOUNT
-        ================================= -->
+
+        <!-- ACCOUNT -->
 
         <div
             id="accountView"
@@ -817,6 +791,7 @@
             <h2>
                 My Account
             </h2>
+
 
             <div class="account-info">
 
@@ -846,9 +821,301 @@
 </div>
 
 
-<!-- =====================================
-     JAVASCRIPT
-===================================== -->
+
+<!-- =====================================================
+     COMPLETE COUNTRY LIST
+===================================================== -->
+
+<script>
+
+const countryCodes = [
+
+["Afghanistan","+93","🇦🇫"],
+["Albania","+355","🇦🇱"],
+["Algeria","+213","🇩🇿"],
+["Andorra","+376","🇦🇩"],
+["Angola","+244","🇦🇴"],
+["Antigua and Barbuda","+1","🇦🇬"],
+["Argentina","+54","🇦🇷"],
+["Armenia","+374","🇦🇲"],
+["Australia","+61","🇦🇺"],
+["Austria","+43","🇦🇹"],
+["Azerbaijan","+994","🇦🇿"],
+
+["Bahamas","+1","🇧🇸"],
+["Bahrain","+973","🇧🇭"],
+["Bangladesh","+880","🇧🇩"],
+["Barbados","+1","🇧🇧"],
+["Belarus","+375","🇧🇾"],
+["Belgium","+32","🇧🇪"],
+["Belize","+501","🇧🇿"],
+["Benin","+229","🇧🇯"],
+["Bhutan","+975","🇧🇹"],
+["Bolivia","+591","🇧🇴"],
+["Bosnia and Herzegovina","+387","🇧🇦"],
+["Botswana","+267","🇧🇼"],
+["Brazil","+55","🇧🇷"],
+["Brunei","+673","🇧🇳"],
+["Bulgaria","+359","🇧🇬"],
+["Burkina Faso","+226","🇧🇫"],
+["Burundi","+257","🇧🇮"],
+
+["Cabo Verde","+238","🇨🇻"],
+["Cambodia","+855","🇰🇭"],
+["Cameroon","+237","🇨🇲"],
+["Canada","+1","🇨🇦"],
+["Central African Republic","+236","🇨🇫"],
+["Chad","+235","🇹🇩"],
+["Chile","+56","🇨🇱"],
+["China","+86","🇨🇳"],
+["Colombia","+57","🇨🇴"],
+["Comoros","+269","🇰🇲"],
+["Congo","+242","🇨🇬"],
+["Costa Rica","+506","🇨🇷"],
+["Croatia","+385","🇭🇷"],
+["Cuba","+53","🇨🇺"],
+["Cyprus","+357","🇨🇾"],
+["Czech Republic","+420","🇨🇿"],
+
+["Democratic Republic of the Congo","+243","🇨🇩"],
+["Denmark","+45","🇩🇰"],
+["Djibouti","+253","🇩🇯"],
+["Dominica","+1","🇩🇲"],
+["Dominican Republic","+1","🇩🇴"],
+
+["Ecuador","+593","🇪🇨"],
+["Egypt","+20","🇪🇬"],
+["El Salvador","+503","🇸🇻"],
+["Equatorial Guinea","+240","🇬🇶"],
+["Eritrea","+291","🇪🇷"],
+["Estonia","+372","🇪🇪"],
+["Eswatini","+268","🇸🇿"],
+["Ethiopia","+251","🇪🇹"],
+
+["Fiji","+679","🇫🇯"],
+["Finland","+358","🇫🇮"],
+["France","+33","🇫🇷"],
+
+["Gabon","+241","🇬🇦"],
+["Gambia","+220","🇬🇲"],
+["Georgia","+995","🇬🇪"],
+["Germany","+49","🇩🇪"],
+["Ghana","+233","🇬🇭"],
+["Gibraltar","+350","🇬🇮"],
+["Greece","+30","🇬🇷"],
+["Greenland","+299","🇬🇱"],
+["Grenada","+1","🇬🇩"],
+["Guadeloupe","+590","🇬🇵"],
+["Guam","+1","🇬🇺"],
+["Guatemala","+502","🇬🇹"],
+["Guinea","+224","🇬🇳"],
+["Guinea-Bissau","+245","🇬🇼"],
+["Guyana","+592","🇬🇾"],
+
+["Haiti","+509","🇭🇹"],
+["Honduras","+504","🇭🇳"],
+["Hong Kong","+852","🇭🇰"],
+["Hungary","+36","🇭🇺"],
+
+["Iceland","+354","🇮🇸"],
+["India","+91","🇮🇳"],
+["Indonesia","+62","🇮🇩"],
+["Iran","+98","🇮🇷"],
+["Iraq","+964","🇮🇶"],
+["Ireland","+353","🇮🇪"],
+["Isle of Man","+44","🇮🇲"],
+["Israel","+972","🇮🇱"],
+["Italy","+39","🇮🇹"],
+["Ivory Coast","+225","🇨🇮"],
+
+["Jamaica","+1","🇯🇲"],
+["Japan","+81","🇯🇵"],
+["Jersey","+44","🇯🇪"],
+["Jordan","+962","🇯🇴"],
+
+["Kazakhstan","+7","🇰🇿"],
+["Kenya","+254","🇰🇪"],
+["Kiribati","+686","🇰🇮"],
+["Kosovo","+383","🇽🇰"],
+["Kuwait","+965","🇰🇼"],
+["Kyrgyzstan","+996","🇰🇬"],
+
+["Laos","+856","🇱🇦"],
+["Latvia","+371","🇱🇻"],
+["Lebanon","+961","🇱🇧"],
+["Lesotho","+266","🇱🇸"],
+["Liberia","+231","🇱🇷"],
+["Libya","+218","🇱🇾"],
+["Liechtenstein","+423","🇱🇮"],
+["Lithuania","+370","🇱🇹"],
+["Luxembourg","+352","🇱🇺"],
+
+["Macau","+853","🇲🇴"],
+["Madagascar","+261","🇲🇬"],
+["Malawi","+265","🇲🇼"],
+["Malaysia","+60","🇲🇾"],
+["Maldives","+960","🇲🇻"],
+["Mali","+223","🇲🇱"],
+["Malta","+356","🇲🇹"],
+["Marshall Islands","+692","🇲🇭"],
+["Martinique","+596","🇲🇶"],
+["Mauritania","+222","🇲🇷"],
+["Mauritius","+230","🇲🇺"],
+["Mayotte","+262","🇾🇹"],
+["Mexico","+52","🇲🇽"],
+["Micronesia","+691","🇫🇲"],
+["Moldova","+373","🇲🇩"],
+["Monaco","+377","🇲🇨"],
+["Mongolia","+976","🇲🇳"],
+["Montenegro","+382","🇲🇪"],
+["Montserrat","+1","🇲🇸"],
+["Morocco","+212","🇲🇦"],
+["Mozambique","+258","🇲🇿"],
+["Myanmar","+95","🇲🇲"],
+
+["Namibia","+264","🇳🇦"],
+["Nauru","+674","🇳🇷"],
+["Nepal","+977","🇳🇵"],
+["Netherlands","+31","🇳🇱"],
+["New Caledonia","+687","🇳🇨"],
+["New Zealand","+64","🇳🇿"],
+["Nicaragua","+505","🇳🇮"],
+["Niger","+227","🇳🇪"],
+["Nigeria","+234","🇳🇬"],
+["Niue","+683","🇳🇺"],
+["North Korea","+850","🇰🇵"],
+["North Macedonia","+389","🇲🇰"],
+["Northern Mariana Islands","+1","🇲🇵"],
+["Norway","+47","🇳🇴"],
+
+["Oman","+968","🇴🇲"],
+
+["Pakistan","+92","🇵🇰"],
+["Palau","+680","🇵🇼"],
+["Palestine","+970","🇵🇸"],
+["Panama","+507","🇵🇦"],
+["Papua New Guinea","+675","🇵🇬"],
+["Paraguay","+595","🇵🇾"],
+["Peru","+51","🇵🇪"],
+["Philippines","+63","🇵🇭"],
+["Pitcairn Islands","+64","🇵🇳"],
+["Poland","+48","🇵🇱"],
+["Portugal","+351","🇵🇹"],
+["Puerto Rico","+1","🇵🇷"],
+
+["Qatar","+974","🇶🇦"],
+
+["Republic of the Congo","+242","🇨🇬"],
+["Reunion","+262","🇷🇪"],
+["Romania","+40","🇷🇴"],
+["Russia","+7","🇷🇺"],
+["Rwanda","+250","🇷🇼"],
+
+["Saint Barthelemy","+590","🇧🇱"],
+["Saint Helena","+290","🇸🇭"],
+["Saint Kitts and Nevis","+1","🇰🇳"],
+["Saint Lucia","+1","🇱🇨"],
+["Saint Martin","+590","🇲🇫"],
+["Saint Pierre and Miquelon","+508","🇵🇲"],
+["Saint Vincent and the Grenadines","+1","🇻🇨"],
+["Samoa","+685","🇼🇸"],
+["San Marino","+378","🇸🇲"],
+["Sao Tome and Principe","+239","🇸🇹"],
+["Saudi Arabia","+966","🇸🇦"],
+["Senegal","+221","🇸🇳"],
+["Serbia","+381","🇷🇸"],
+["Seychelles","+248","🇸🇨"],
+["Sierra Leone","+232","🇸🇱"],
+["Singapore","+65","🇸🇬"],
+["Sint Maarten","+1","🇸🇽"],
+["Slovakia","+421","🇸🇰"],
+["Slovenia","+386","🇸🇮"],
+["Solomon Islands","+677","🇸🇧"],
+["Somalia","+252","🇸🇴"],
+["South Africa","+27","🇿🇦"],
+["South Korea","+82","🇰🇷"],
+["South Sudan","+211","🇸🇸"],
+["Spain","+34","🇪🇸"],
+["Sri Lanka","+94","🇱🇰"],
+["Sudan","+249","🇸🇩"],
+["Suriname","+597","🇸🇷"],
+["Sweden","+46","🇸🇪"],
+["Switzerland","+41","🇨🇭"],
+["Syria","+963","🇸🇾"],
+
+["Taiwan","+886","🇹🇼"],
+["Tajikistan","+992","🇹🇯"],
+["Tanzania","+255","🇹🇿"],
+["Thailand","+66","🇹🇭"],
+["Timor-Leste","+670","🇹🇱"],
+["Togo","+228","🇹🇬"],
+["Tokelau","+690","🇹🇰"],
+["Tonga","+676","🇹🇴"],
+["Trinidad and Tobago","+1","🇹🇹"],
+["Tunisia","+216","🇹🇳"],
+["Turkey","+90","🇹🇷"],
+["Turkmenistan","+993","🇹🇲"],
+["Turks and Caicos Islands","+1","🇹🇨"],
+["Tuvalu","+688","🇹🇻"],
+
+["Uganda","+256","🇺🇬"],
+["Ukraine","+380","🇺🇦"],
+["United Arab Emirates","+971","🇦🇪"],
+["United Kingdom","+44","🇬🇧"],
+["United States","+1","🇺🇸"],
+["Uruguay","+598","🇺🇾"],
+["Uzbekistan","+998","🇺🇿"],
+
+["Vanuatu","+678","🇻🇺"],
+["Vatican City","+39","🇻🇦"],
+["Venezuela","+58","🇻🇪"],
+["Vietnam","+84","🇻🇳"],
+["Virgin Islands British","+1","🇻🇬"],
+["Virgin Islands U.S.","+1","🇻🇮"],
+
+["Wallis and Futuna","+681","🇼🇫"],
+
+["Yemen","+967","🇾🇪"],
+
+["Zambia","+260","🇿🇲"],
+["Zimbabwe","+263","🇿🇼"]
+];
+
+function loadCountryCodes() {
+    const dropdowns = [
+        "senderPhoneCode",
+        "senderWhatsAppCode",
+        "recipientPhoneCode",
+        "recipientWhatsAppCode"
+    ];
+
+    dropdowns.forEach(function(id) {
+        const select = document.getElementById(id);
+        if (!select) return;
+
+        select.innerHTML = "";
+
+        const first = document.createElement("option");
+        first.value = "";
+        first.textContent = "Country code";
+        select.appendChild(first);
+
+        countryCodes.forEach(function(country) {
+            const option = document.createElement("option");
+            option.value = country[1];
+            option.textContent =
+                country[2] + " " + country[0] + " (" + country[1] + ")";
+            select.appendChild(option);
+        });
+
+        select.value = "+234";
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    loadCountryCodes();
+});
+</script>
 
 <script src="script.js"></script>
 
