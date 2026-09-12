@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RequestHub</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="nav">
+    <div class="logo">📦 RequestHub</div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#delivery">Receive</a>
+        <a href="#how">How It Works</a>
+    </nav>
+
+    <button id="accountButton">👤 Account</button>
+</header>
+
+
+<section id="home" class="hero">
+
+    <div class="badge">🌍 INTERNATIONAL DELIVERY</div>
+
+    <h1>
+        Receive anywhere.<br>
+        <span>We make it simple.</span>
+    </h1>
+
+    <p>
+        Request an international delivery by providing
+        your receiving information and shipment details.
+    </p>
+
+    <a href="#delivery" class="heroBtn">
+        Start a Request →
+    </a>
+
+</section>
+
+
+<section id="delivery" class="section">
+
+    <div class="heading">
+        <b>RECEIVE</b>
+        <h2>Receive an item</h2>
+        <p>Enter your delivery information below.</p>
+    </div>
+
+
+    <form id="requestForm">
+
+        <!-- ITEM -->
+
+        <div class="card">
+
+            <h3>📦 Item Details</h3>
+
+            <label>What are you receiving?</label>
+
+            <input
+                id="shipment"
+                type="text"
+                placeholder="Example: Documents, clothing, electronics"
+                required
+            >
+
+            <label>Description</label>
+
+            <textarea
+                id="description"
+                placeholder="Describe the item..."
+                required
+            ></textarea>
+
+        </div>
+
+
+        <!-- RECEIVING -->
+
+        <div class="card">
+
+            <h3>📥 Receiving Information</h3>
+
+            <div class="grid">
+
+                <div>
+                    <label>Full Name</label>
+                    <input
+                        id="recipientName"
+                        placeholder="Your full name"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label>Country</label>
+
+                    <select
+                        id="recipientCountry"
+                        required
+                    >
+                        <option value="">
+                            Select country
+                        </option>
+                    </select>
+                </div>
+
+
+                <div>
+                    <label>State / Region</label>
+
+                    <input
+                        id="recipientState"
+                        placeholder="State / Region"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label>City</label>
+
+                    <input
+                        id="recipientCity"
+                        placeholder="City"
+                        required
+                    >
+                </div>
+
+
+                <div>
+                    <label>Phone</label>
+
+                    <div class="phone">
+
+                        <select
+                            id="recipientPhoneCode"
+                            required
+                        ></select>
+
+                        <input
+                            id="recipientPhone"
+                            type="tel"
+                            placeholder="Phone number"
+                            required
+                        >
+
+                    </div>
+                </div>
+
+
+                <div>
+                    <label>WhatsApp</label>
+
+                    <div class="phone">
+
+                        <select
+                            id="recipientWhatsAppCode"
+                            required
+                        ></select>
+
+                        <input
+                            id="recipientWhatsApp"
+                            type="tel"
+                            placeholder="WhatsApp number"
+                            required
+                        >
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- FEE -->
+
+        <div class="fee">
+
+            <div>
+                <small>FIXED DELIVERY FEE</small>
+
+                <h2>
+                    $1,000 <span>USD</span>
+                </h2>
+            </div>
+
+            <b>FIXED</b>
+
+        </div>
+
+
+        <button
+            class="submit"
+            type="submit"
+        >
+            💬 Send Request
+        </button>
+
+        <p class="note">
+            Your request will open in WhatsApp.
+        </p>
+
+    </form>
+
+</section>
+
+
+<section id="how" class="section">
+
+    <div class="heading">
+        <b>HOW IT WORKS</b>
+        <h2>Simple and quick</h2>
+    </div>
+
+    <div class="steps">
+
+        <div>
+            <strong>1</strong>
+            <h3>Enter Details</h3>
+            <p>
+                Tell us what you are receiving.
+            </p>
+        </div>
+
+        <div>
+            <strong>2</strong>
+            <h3>Add Location</h3>
+            <p>
+                Enter your country, city and phone.
+            </p>
+        </div>
+
+        <div>
+            <strong>3</strong>
+            <h3>Send Request</h3>
+            <p>
+                Your completed request opens in WhatsApp.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+
+    <h3>📦 RequestHub</h3>
+
+    <p>
+        International receiving service.
+    </p>
+
+    <small>
+        © 2026 RequestHub
+    </small>
+
+</footer>
+
+
+<!-- =========================
+     ACCOUNT MODAL
+========================= -->
+
+<div id="authModal" class="modal">
+
+    <div id="modalOverlay" class="overlay"></div>
+
+    <div class="modalBox">
+
+        <button
+            id="closeAuth"
+            class="close"
+        >
+            ×
+        </button>
+
+
+        <!-- SIGN UP -->
+
+        <div id="signupView">
+
+            <h2>👤 Create Account</h2>
+
+            <p>
+                Create an account with your phone number.
+            </p>
+
+
+            <form id="signupForm">
+
+                <label>Phone Number</label>
+
+                <div class="phone">
+
+                    <select
+                        id="signupPhoneCode"
+                        required
+                    ></select>
+
+                    <input
+                        id="signupPhone"
+                        type="tel"
+                        placeholder="Phone number"
+                        required
+                    >
+
+                </div>
+
+
+                <label>Password</label>
+
+                <input
+                    id="signupPassword"
+                    type="password"
+                    placeholder="Password"
+                    minlength="6"
+                    required
+                >
+
+
+                <label>Confirm Password</label>
+
+                <input
+                    id="signupConfirmPassword"
+                    type="password"
+                    placeholder="Confirm password"
+                    minlength="6"
+                    required
+                >
+
+
+                <button
+                    class="authBtn"
+                    type="submit"
+                >
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p id="signupMessage"></p>
+
+
+            <div class="switch">
+
+                Already have an account?
+
+                <button id="goLogin">
+                    Login
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <div id="loginView" class="hidden">
+
+            <h2>🔐 Login</h2>
+
+            <p>
+                Login with your phone number and password.
+            </p>
+
+
+            <form id="loginForm">
+
+                <label>Phone Number</label>
+
+                <div class="phone">
+
+                    <select
+                        id="loginPhoneCode"
+                        required
+                    ></select>
+
+                    <input
+                        id="loginPhone"
+                        type="tel"
+                        placeholder="Phone number"
+                        required
+                    >
+
+                </div>
+
+
+                <label>Password</label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Password"
+                    required
+                >
+
+
+                <button
+                    class="authBtn"
+                    type="submit"
+                >
+                    Login
+                </button>
+
+            </form>
+
+
+            <p id="loginMessage"></p>
+
+
+            <div class="switch">
+
+                Don't have an account?
+
+                <button id="goSignup">
+                    Create Account
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ACCOUNT -->
+
+        <div id="accountView" class="hidden">
+
+            <h2>👤 Your Account</h2>
+
+            <p>You are logged in.</p>
+
+
+            <div class="accountInfo">
+
+                <small>PHONE NUMBER</small>
+
+                <strong id="accountPhone">
+                    —
+                </strong>
+
+            </div>
+
+
+            <button
+                id="logoutButton"
+                class="logout"
+            >
+                Log Out
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
