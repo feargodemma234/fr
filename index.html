@@ -1,14 +1,121 @@
-<section class="request-section" id="request">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="section-heading">
-        <span>INTERNATIONAL DELIVERY</span>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <h2>Send a package anywhere.</h2>
+    <title>RequestHub | International Delivery</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+
+<body>
+
+<!-- =====================================
+     NAVBAR
+===================================== -->
+
+<header class="navbar">
+
+    <div class="nav-container">
+
+        <a href="#home" class="logo">
+            📦 RequestHub
+        </a>
+
+        <nav class="nav-links">
+
+            <a href="#home">
+                Home
+            </a>
+
+            <a href="#request">
+                Delivery
+            </a>
+
+            <a href="#how-it-works">
+                How It Works
+            </a>
+
+        </nav>
+
+        <button
+            type="button"
+            id="accountButton"
+            class="account-button"
+        >
+            Sign Up / Login
+        </button>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================
+     HERO
+===================================== -->
+
+<section class="hero" id="home">
+
+    <div class="hero-container">
+
+        <div class="hero-badge">
+            🌍 INTERNATIONAL DELIVERY
+        </div>
+
+        <h1>
+            Send packages<br>
+            anywhere in the world.
+        </h1>
 
         <p>
-            Enter the shipment, sender and recipient details below
-            to create your delivery request.
+            Create an international delivery request by
+            providing your shipment, sender and recipient
+            information.
         </p>
+
+        <a
+            href="#request"
+            class="hero-button"
+        >
+            Start Delivery Request
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     DELIVERY REQUEST
+===================================== -->
+
+<section
+    class="request-section"
+    id="request"
+>
+
+    <div class="section-heading">
+
+        <span>
+            INTERNATIONAL DELIVERY
+        </span>
+
+        <h2>
+            Send a package anywhere.
+        </h2>
+
+        <p>
+            Enter the shipment, sender and recipient
+            details below to create your delivery request.
+        </p>
+
     </div>
 
 
@@ -16,10 +123,16 @@
 
         <form id="requestForm">
 
-            <!-- SHIPMENT -->
+            <!-- =================================
+                 SHIPMENT DETAILS
+            ================================== -->
+
             <div class="form-section">
 
-                <h3>📦 Shipment Details</h3>
+                <h3>
+                    📦 Shipment Details
+                </h3>
+
 
                 <div class="form-group">
 
@@ -30,6 +143,7 @@
                     <input
                         type="text"
                         id="shipment"
+                        name="shipment"
                         placeholder="Example: Documents, clothing, electronics"
                         required
                     >
@@ -45,6 +159,7 @@
 
                     <textarea
                         id="description"
+                        name="description"
                         rows="5"
                         placeholder="Describe what is inside the package..."
                         required
@@ -53,21 +168,33 @@
                 </div>
 
 
+                <!-- $1,000 FIXED FEE -->
+
                 <div class="delivery-fee-box">
 
-                    <span>Delivery Fee</span>
+                    <span>
+                        International Delivery Fee
+                    </span>
 
-                    <strong>$1,000 USD</strong>
+                    <strong>
+                        $1,000 USD
+                    </strong>
 
                 </div>
 
             </div>
 
 
-            <!-- SENDER -->
+            <!-- =================================
+                 SENDER INFORMATION
+            ================================== -->
+
             <div class="form-section">
 
-                <h3>📤 Sender Information</h3>
+                <h3>
+                    📤 Sender Information
+                </h3>
+
 
                 <div class="form-group">
 
@@ -78,6 +205,7 @@
                     <input
                         type="text"
                         id="senderName"
+                        name="senderName"
                         placeholder="Sender's full name"
                         required
                     >
@@ -94,6 +222,7 @@
                     <input
                         type="text"
                         id="senderCountry"
+                        name="senderCountry"
                         placeholder="Example: United Kingdom"
                         required
                     >
@@ -112,6 +241,7 @@
                         <input
                             type="text"
                             id="senderState"
+                            name="senderState"
                             placeholder="State / Region"
                             required
                         >
@@ -128,6 +258,7 @@
                         <input
                             type="text"
                             id="senderCity"
+                            name="senderCity"
                             placeholder="City"
                             required
                         >
@@ -137,9 +268,11 @@
                 </div>
 
 
+                <!-- SENDER PHONE -->
+
                 <div class="form-group">
 
-                    <label>
+                    <label for="senderPhone">
                         Phone Number
                     </label>
 
@@ -147,6 +280,7 @@
 
                         <select
                             id="senderPhoneCode"
+                            name="senderPhoneCode"
                             required
                         >
                             <option value="">
@@ -157,6 +291,7 @@
                         <input
                             type="tel"
                             id="senderPhone"
+                            name="senderPhone"
                             placeholder="Phone number"
                             required
                         >
@@ -166,9 +301,11 @@
                 </div>
 
 
+                <!-- SENDER WHATSAPP -->
+
                 <div class="form-group">
 
-                    <label>
+                    <label for="senderWhatsApp">
                         WhatsApp Number
                     </label>
 
@@ -176,6 +313,7 @@
 
                         <select
                             id="senderWhatsAppCode"
+                            name="senderWhatsAppCode"
                             required
                         >
                             <option value="">
@@ -186,6 +324,7 @@
                         <input
                             type="tel"
                             id="senderWhatsApp"
+                            name="senderWhatsApp"
                             placeholder="WhatsApp number"
                             required
                         >
@@ -197,10 +336,16 @@
             </div>
 
 
-            <!-- RECIPIENT -->
+            <!-- =================================
+                 RECIPIENT INFORMATION
+            ================================== -->
+
             <div class="form-section">
 
-                <h3>📥 Recipient Information</h3>
+                <h3>
+                    📥 Recipient Information
+                </h3>
+
 
                 <div class="form-group">
 
@@ -211,6 +356,7 @@
                     <input
                         type="text"
                         id="recipientName"
+                        name="recipientName"
                         placeholder="Recipient's full name"
                         required
                     >
@@ -227,6 +373,7 @@
                     <input
                         type="text"
                         id="recipientCountry"
+                        name="recipientCountry"
                         placeholder="Example: United States"
                         required
                     >
@@ -245,6 +392,7 @@
                         <input
                             type="text"
                             id="recipientState"
+                            name="recipientState"
                             placeholder="State / Region"
                             required
                         >
@@ -261,6 +409,7 @@
                         <input
                             type="text"
                             id="recipientCity"
+                            name="recipientCity"
                             placeholder="City"
                             required
                         >
@@ -270,9 +419,11 @@
                 </div>
 
 
+                <!-- RECIPIENT PHONE -->
+
                 <div class="form-group">
 
-                    <label>
+                    <label for="recipientPhone">
                         Phone Number
                     </label>
 
@@ -280,6 +431,7 @@
 
                         <select
                             id="recipientPhoneCode"
+                            name="recipientPhoneCode"
                             required
                         >
                             <option value="">
@@ -290,6 +442,7 @@
                         <input
                             type="tel"
                             id="recipientPhone"
+                            name="recipientPhone"
                             placeholder="Phone number"
                             required
                         >
@@ -299,9 +452,11 @@
                 </div>
 
 
+                <!-- RECIPIENT WHATSAPP -->
+
                 <div class="form-group">
 
-                    <label>
+                    <label for="recipientWhatsApp">
                         WhatsApp Number
                     </label>
 
@@ -309,6 +464,7 @@
 
                         <select
                             id="recipientWhatsAppCode"
+                            name="recipientWhatsAppCode"
                             required
                         >
                             <option value="">
@@ -319,6 +475,7 @@
                         <input
                             type="tel"
                             id="recipientWhatsApp"
+                            name="recipientWhatsApp"
                             placeholder="WhatsApp number"
                             required
                         >
@@ -330,11 +487,35 @@
             </div>
 
 
+            <!-- =================================
+                 TOTAL FEE
+            ================================== -->
+
+            <div class="delivery-fee-box">
+
+                <span>
+                    Total Delivery Fee
+                </span>
+
+                <strong>
+                    $1,000 USD
+                </strong>
+
+            </div>
+
+
+            <br>
+
+
+            <!-- =================================
+                 SUBMIT
+            ================================== -->
+
             <button
                 type="submit"
                 class="submit-btn"
             >
-                Send Delivery Request via WhatsApp
+                💬 Send Delivery Request via WhatsApp
             </button>
 
         </form>
@@ -342,3 +523,334 @@
     </div>
 
 </section>
+
+
+<!-- =====================================
+     HOW IT WORKS
+===================================== -->
+
+<section
+    class="how-section"
+    id="how-it-works"
+>
+
+    <div class="section-heading">
+
+        <span>
+            HOW IT WORKS
+        </span>
+
+        <h2>
+            Simple delivery requests.
+        </h2>
+
+        <p>
+            Submit your information and contact us
+            about your international delivery.
+        </p>
+
+    </div>
+
+
+    <div class="steps-container">
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                01
+            </div>
+
+            <h3>
+                Create Request
+            </h3>
+
+            <p>
+                Enter the shipment, sender and recipient
+                information.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                02
+            </div>
+
+            <h3>
+                Send Request
+            </h3>
+
+            <p>
+                Your completed delivery information is
+                prepared for WhatsApp.
+            </p>
+
+        </div>
+
+
+        <div class="step-card">
+
+            <div class="step-number">
+                03
+            </div>
+
+            <h3>
+                Arrange Delivery
+            </h3>
+
+            <p>
+                Discuss the delivery request and
+                arrangements through WhatsApp.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================
+     FOOTER
+===================================== -->
+
+<footer>
+
+    <p>
+        © 2026 RequestHub.
+        International Delivery Services.
+    </p>
+
+</footer>
+
+
+<!-- =====================================
+     AUTH MODAL
+===================================== -->
+
+<div
+    id="authModal"
+    class="modal"
+>
+
+    <div
+        id="modalOverlay"
+        class="modal-overlay"
+    ></div>
+
+
+    <div class="modal-content">
+
+        <button
+            type="button"
+            id="closeAuth"
+            class="close-modal"
+        >
+            ×
+        </button>
+
+
+        <!-- ================================
+             SIGN UP
+        ================================= -->
+
+        <div
+            id="signupView"
+            class="auth-view active"
+        >
+
+            <h2>
+                Create Account
+            </h2>
+
+            <form id="signupForm">
+
+                <div class="form-group">
+
+                    <label for="signupEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="signupEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="signupPhrase">
+                        3-Word Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="signupPhrase"
+                        placeholder="Enter exactly 3 words"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <p
+                id="signupMessage"
+                class="message"
+            ></p>
+
+
+            <div class="auth-switch">
+
+                Already have an account?
+
+                <button
+                    type="button"
+                    id="goLogin"
+                >
+                    Login
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             LOGIN
+        ================================= -->
+
+        <div
+            id="loginView"
+            class="auth-view"
+        >
+
+            <h2>
+                Login
+            </h2>
+
+            <form id="loginForm">
+
+                <div class="form-group">
+
+                    <label for="loginEmail">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="loginEmail"
+                        placeholder="Enter your email"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="loginPhrase">
+                        3-Word Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="loginPhrase"
+                        placeholder="Enter your 3-word password"
+                        required
+                    >
+
+                </div>
+
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <p
+                id="loginMessage"
+                class="message"
+            ></p>
+
+
+            <div class="auth-switch">
+
+                Don't have an account?
+
+                <button
+                    type="button"
+                    id="goSignup"
+                >
+                    Create Account
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- ================================
+             ACCOUNT
+        ================================= -->
+
+        <div
+            id="accountView"
+            class="auth-view"
+        >
+
+            <h2>
+                My Account
+            </h2>
+
+            <div class="account-info">
+
+                <p>
+                    Logged in as:
+                </p>
+
+                <p id="accountEmail">
+                    —
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="logoutButton"
+                class="logout-button"
+            >
+                Log Out
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================
+     JAVASCRIPT
+===================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
