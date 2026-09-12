@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>RequestHub</title>
-    <meta name="description" content="Request international delivery services from anywhere in the world.">
-
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RequestHub</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="navbar">
-    <div class="logo">
-        📦 <span>RequestHub</span>
-    </div>
+<header class="nav">
+    <div class="logo">📦 RequestHub</div>
 
     <nav>
         <a href="#home">Home</a>
@@ -23,83 +18,70 @@
         <a href="#how">How It Works</a>
     </nav>
 
-    <button id="accountButton" class="account-btn">
-        Account
-    </button>
+    <button id="accountButton">👤 Account</button>
 </header>
 
 
-<main>
-
 <section id="home" class="hero">
+    <div class="badge">🌍 INTERNATIONAL DELIVERY</div>
 
-    <div class="hero-badge">
-        🌍 INTERNATIONAL DELIVERY
-    </div>
-
-    <h1>
-        Send anywhere.<br>
-        <span>Receive anywhere.</span>
-    </h1>
+    <h1>Send anywhere.<br><span>Receive anywhere.</span></h1>
 
     <p>
-        Request international delivery services quickly and easily.
-        Tell us where the item is coming from or where you need it delivered.
+        Request international delivery services quickly
+        and easily from anywhere in the world.
     </p>
 
-    <a href="#delivery" class="hero-btn">
-        Start a Request →
-    </a>
-
+    <a href="#delivery" class="heroBtn">Start a Request →</a>
 </section>
 
 
-<section id="delivery" class="delivery-section">
+<section id="delivery" class="section">
 
-    <div class="section-heading">
-        <span>DELIVERY REQUEST</span>
-        <h2>Tell us what you need</h2>
-        <p>Choose your delivery type and complete the information below.</p>
+    <div class="heading">
+        <b>DELIVERY REQUEST</b>
+        <h2>What do you need?</h2>
+        <p>Choose a delivery option below.</p>
     </div>
 
 
     <form id="requestForm">
 
-        <!-- REQUEST TYPE -->
+        <!-- TYPE -->
 
-        <div class="request-type-card">
+        <div class="card">
 
-            <h3>What do you need?</h3>
+            <h3>Choose delivery type</h3>
 
-            <div class="request-types">
+            <div class="types">
 
                 <button
                     type="button"
-                    class="request-type active"
-                    data-type="send-receive"
-                >
+                    class="type active"
+                    data-type="send-receive">
+
                     <span>📦</span>
-
                     <strong>Send & Receive</strong>
-
                     <small>
-                        Send an item from one place to another location.
+                        Send an item from one location
+                        to another.
                     </small>
+
                 </button>
 
 
                 <button
                     type="button"
-                    class="request-type"
-                    data-type="receive-only"
-                >
+                    class="type"
+                    data-type="receive-only">
+
                     <span>📥</span>
-
                     <strong>Receive Only</strong>
-
                     <small>
-                        Have an item delivered to your location.
+                        Have an item delivered
+                        to your location.
                     </small>
+
                 </button>
 
             </div>
@@ -113,174 +95,76 @@
         >
 
 
-        <!-- SHIPMENT -->
+        <!-- ITEM -->
 
-        <div class="form-card">
+        <div class="card">
 
-            <div class="card-title">
-                <span>📦</span>
+            <h3>📦 Item Details</h3>
 
-                <div>
-                    <h3>Shipment Details</h3>
-                    <p>Tell us about the item.</p>
-                </div>
-            </div>
+            <label>What are you sending or receiving?</label>
 
-
-            <div class="field">
-
-                <label for="shipment">
-                    What are you sending or receiving?
-                </label>
-
-                <input
-                    type="text"
-                    id="shipment"
-                    placeholder="Example: Documents, clothing, electronics"
-                    required
-                >
-
-            </div>
+            <input
+                id="shipment"
+                placeholder="Example: Documents"
+                required
+            >
 
 
-            <div class="field">
+            <label>Description</label>
 
-                <label for="description">
-                    Description
-                </label>
-
-                <textarea
-                    id="description"
-                    rows="4"
-                    placeholder="Provide additional information about the item..."
-                    required
-                ></textarea>
-
-            </div>
+            <textarea
+                id="description"
+                placeholder="Describe the item..."
+                required
+            ></textarea>
 
         </div>
 
 
         <!-- SENDER -->
 
-        <div class="form-card" id="senderCard">
+        <div class="card" id="senderCard">
 
-            <div class="card-title">
+            <h3>📤 Sending Information</h3>
 
-                <span>📤</span>
+            <div class="grid">
 
                 <div>
-                    <h3>Sending Information</h3>
-                    <p>Where is the item coming from?</p>
+                    <label>Name</label>
+                    <input id="senderName" required>
                 </div>
 
-            </div>
-
-
-            <div class="form-grid">
-
-                <div class="field full">
-
-                    <label for="senderName">
-                        Sender Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="senderName"
-                        placeholder="Full name"
-                        required
-                    >
-
+                <div>
+                    <label>Country</label>
+                    <select id="senderCountry" required></select>
                 </div>
 
-
-                <div class="field">
-
-                    <label for="senderCountry">
-                        Country
-                    </label>
-
-                    <select id="senderCountry" required>
-                        <option value="">Select country</option>
-                    </select>
-
+                <div>
+                    <label>State / Region</label>
+                    <input id="senderState" required>
                 </div>
 
-
-                <div class="field">
-
-                    <label for="senderState">
-                        State / Region
-                    </label>
-
-                    <input
-                        type="text"
-                        id="senderState"
-                        placeholder="State / Region"
-                        required
-                    >
-
+                <div>
+                    <label>City</label>
+                    <input id="senderCity" required>
                 </div>
 
+                <div>
+                    <label>Phone</label>
 
-                <div class="field">
-
-                    <label for="senderCity">
-                        City
-                    </label>
-
-                    <input
-                        type="text"
-                        id="senderCity"
-                        placeholder="City"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        Phone
-                    </label>
-
-                    <div class="phone-row">
-
+                    <div class="phone">
                         <select id="senderPhoneCode"></select>
-
-                        <input
-                            type="tel"
-                            id="senderPhone"
-                            placeholder="Phone number"
-                            required
-                        >
-
+                        <input id="senderPhone" required>
                     </div>
-
                 </div>
 
+                <div>
+                    <label>WhatsApp</label>
 
-                <div class="field">
-
-                    <label>
-                        WhatsApp
-                    </label>
-
-                    <div class="phone-row">
-
+                    <div class="phone">
                         <select id="senderWhatsAppCode"></select>
-
-                        <input
-                            type="tel"
-                            id="senderWhatsApp"
-                            placeholder="WhatsApp number"
-                            required
-                        >
-
+                        <input id="senderWhatsApp" required>
                     </div>
-
                 </div>
 
             </div>
@@ -290,129 +174,48 @@
 
         <!-- RECEIVER -->
 
-        <div class="form-card" id="recipientCard">
+        <div class="card">
 
-            <div class="card-title">
+            <h3>📥 Receiving Information</h3>
 
-                <span>📥</span>
+            <div class="grid">
 
                 <div>
-                    <h3 id="recipientTitle">
-                        Receiving Information
-                    </h3>
-
-                    <p id="recipientSubtitle">
-                        Where should the item be delivered?
-                    </p>
+                    <label>Name</label>
+                    <input id="recipientName" required>
                 </div>
 
-            </div>
-
-
-            <div class="form-grid">
-
-                <div class="field full">
-
-                    <label for="recipientName">
-                        Receiver Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="recipientName"
-                        placeholder="Full name"
-                        required
-                    >
-
+                <div>
+                    <label>Country</label>
+                    <select id="recipientCountry" required></select>
                 </div>
 
-
-                <div class="field">
-
-                    <label for="recipientCountry">
-                        Country
-                    </label>
-
-                    <select id="recipientCountry" required>
-                        <option value="">Select country</option>
-                    </select>
-
+                <div>
+                    <label>State / Region</label>
+                    <input id="recipientState" required>
                 </div>
 
-
-                <div class="field">
-
-                    <label for="recipientState">
-                        State / Region
-                    </label>
-
-                    <input
-                        type="text"
-                        id="recipientState"
-                        placeholder="State / Region"
-                        required
-                    >
-
+                <div>
+                    <label>City</label>
+                    <input id="recipientCity" required>
                 </div>
 
+                <div>
+                    <label>Phone</label>
 
-                <div class="field">
-
-                    <label for="recipientCity">
-                        City
-                    </label>
-
-                    <input
-                        type="text"
-                        id="recipientCity"
-                        placeholder="City"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="field">
-
-                    <label>
-                        Phone
-                    </label>
-
-                    <div class="phone-row">
-
+                    <div class="phone">
                         <select id="recipientPhoneCode"></select>
-
-                        <input
-                            type="tel"
-                            id="recipientPhone"
-                            placeholder="Phone number"
-                            required
-                        >
-
+                        <input id="recipientPhone" required>
                     </div>
-
                 </div>
 
+                <div>
+                    <label>WhatsApp</label>
 
-                <div class="field">
-
-                    <label>
-                        WhatsApp
-                    </label>
-
-                    <div class="phone-row">
-
+                    <div class="phone">
                         <select id="recipientWhatsAppCode"></select>
-
-                        <input
-                            type="tel"
-                            id="recipientWhatsApp"
-                            placeholder="WhatsApp number"
-                            required
-                        >
-
+                        <input id="recipientWhatsApp" required>
                     </div>
-
                 </div>
 
             </div>
@@ -420,33 +223,24 @@
         </div>
 
 
-        <!-- PRICE -->
+        <!-- FEE -->
 
-        <div class="price-card">
-
+        <div class="fee">
             <div>
-
-                <small>DELIVERY SERVICE FEE</small>
-
+                <small>FIXED DELIVERY FEE</small>
                 <h2>$1,000 <span>USD</span></h2>
-
             </div>
 
-            <span class="fixed-label">
-                FIXED FEE
-            </span>
-
+            <b>FIXED</b>
         </div>
 
 
-        <button type="submit" class="submit-btn">
-            💬 Send Delivery Request
+        <button class="submit" type="submit">
+            💬 Send Request
         </button>
 
-
-        <p class="form-note">
-            Your completed request will open WhatsApp with the information
-            already filled in.
+        <p class="note">
+            Your request will open in WhatsApp.
         </p>
 
     </form>
@@ -454,137 +248,82 @@
 </section>
 
 
-<section id="how" class="how-section">
+<section id="how" class="section">
 
-    <div class="section-heading">
-
-        <span>HOW IT WORKS</span>
-
-        <h2>Simple from start to finish</h2>
-
+    <div class="heading">
+        <b>HOW IT WORKS</b>
+        <h2>Simple and quick</h2>
     </div>
-
 
     <div class="steps">
 
-        <div class="step">
-
-            <div>1</div>
-
+        <div>
+            <strong>1</strong>
             <h3>Choose</h3>
-
-            <p>
-                Choose Send & Receive or Receive Only.
-            </p>
-
+            <p>Select Send & Receive or Receive Only.</p>
         </div>
 
-
-        <div class="step">
-
-            <div>2</div>
-
-            <h3>Provide Details</h3>
-
-            <p>
-                Enter the shipment and location information.
-            </p>
-
+        <div>
+            <strong>2</strong>
+            <h3>Fill Details</h3>
+            <p>Enter the delivery information.</p>
         </div>
 
-
-        <div class="step">
-
-            <div>3</div>
-
-            <h3>Send Request</h3>
-
-            <p>
-                Your request opens in WhatsApp ready to send.
-            </p>
-
+        <div>
+            <strong>3</strong>
+            <h3>Send</h3>
+            <p>Send the completed request through WhatsApp.</p>
         </div>
 
     </div>
 
 </section>
 
-</main>
-
 
 <footer>
-
-    <div class="logo">
-        📦 RequestHub
-    </div>
-
-    <p>
-        International delivery request service.
-    </p>
-
-    <p class="copyright">
-        © 2026 RequestHub. All rights reserved.
-    </p>
-
+    <h3>📦 RequestHub</h3>
+    <p>International delivery request service.</p>
+    <small>© 2026 RequestHub</small>
 </footer>
 
 
-<!-- AUTH MODAL -->
+<!-- ACCOUNT MODAL -->
 
 <div id="authModal" class="modal">
 
-    <div class="modal-overlay" id="modalOverlay"></div>
+    <div id="modalOverlay" class="overlay"></div>
 
-    <div class="modal-box">
+    <div class="modalBox">
 
-        <button id="closeAuth" class="close-btn">
-            ×
-        </button>
+        <button id="closeAuth" class="close">×</button>
 
 
         <!-- SIGNUP -->
 
         <div id="signupView">
 
-            <div class="modal-header">
-
-                <div class="modal-icon">
-                    👤
-                </div>
-
-                <h2>Create Account</h2>
-
-                <p>
-                    Create an account using your phone number.
-                </p>
-
-            </div>
-
+            <h2>👤 Create Account</h2>
+            <p>Create an account with your phone number.</p>
 
             <form id="signupForm">
 
                 <label>Phone Number</label>
 
-                <div class="phone-row">
-
+                <div class="phone">
                     <select id="signupPhoneCode"></select>
-
                     <input
-                        type="tel"
                         id="signupPhone"
-                        placeholder="Phone number"
+                        type="tel"
                         required
                     >
-
                 </div>
 
 
                 <label>Password</label>
 
                 <input
-                    type="password"
                     id="signupPassword"
-                    placeholder="Password"
+                    type="password"
                     minlength="6"
                     required
                 >
@@ -593,33 +332,25 @@
                 <label>Confirm Password</label>
 
                 <input
-                    type="password"
                     id="signupConfirmPassword"
-                    placeholder="Confirm password"
+                    type="password"
                     minlength="6"
                     required
                 >
 
 
-                <button class="auth-submit" type="submit">
+                <button class="authBtn">
                     Create Account
                 </button>
 
             </form>
 
+            <p id="signupMessage"></p>
 
-            <p id="signupMessage" class="auth-message"></p>
-
-
-            <p class="switch-auth">
-
+            <div class="switch">
                 Already have an account?
-
-                <button type="button" id="goLogin">
-                    Login
-                </button>
-
-            </p>
+                <button id="goLogin">Login</button>
+            </div>
 
         </div>
 
@@ -628,68 +359,44 @@
 
         <div id="loginView" class="hidden">
 
-            <div class="modal-header">
-
-                <div class="modal-icon">
-                    🔐
-                </div>
-
-                <h2>Login</h2>
-
-                <p>
-                    Login with your phone number and password.
-                </p>
-
-            </div>
-
+            <h2>🔐 Login</h2>
+            <p>Login with your phone and password.</p>
 
             <form id="loginForm">
 
                 <label>Phone Number</label>
 
-                <div class="phone-row">
-
+                <div class="phone">
                     <select id="loginPhoneCode"></select>
-
                     <input
-                        type="tel"
                         id="loginPhone"
-                        placeholder="Phone number"
+                        type="tel"
                         required
                     >
-
                 </div>
 
 
                 <label>Password</label>
 
                 <input
-                    type="password"
                     id="loginPassword"
-                    placeholder="Password"
+                    type="password"
                     required
                 >
 
 
-                <button class="auth-submit" type="submit">
+                <button class="authBtn">
                     Login
                 </button>
 
             </form>
 
+            <p id="loginMessage"></p>
 
-            <p id="loginMessage" class="auth-message"></p>
-
-
-            <p class="switch-auth">
-
+            <div class="switch">
                 Don't have an account?
-
-                <button type="button" id="goSignup">
-                    Create Account
-                </button>
-
-            </p>
+                <button id="goSignup">Create Account</button>
+            </div>
 
         </div>
 
@@ -698,37 +405,14 @@
 
         <div id="accountView" class="hidden">
 
-            <div class="modal-header">
+            <h2>👤 Your Account</h2>
 
-                <div class="modal-icon">
-                    👤
-                </div>
-
-                <h2>Your Account</h2>
-
-                <p>
-                    You are currently logged in.
-                </p>
-
+            <div class="accountInfo">
+                <small>PHONE NUMBER</small>
+                <strong id="accountPhone">—</strong>
             </div>
 
-
-            <div class="account-info">
-
-                <span>PHONE NUMBER</span>
-
-                <strong id="accountPhone">
-                    —
-                </strong>
-
-            </div>
-
-
-            <button
-                type="button"
-                id="logoutButton"
-                class="logout-btn"
-            >
+            <button id="logoutButton" class="logout">
                 Log Out
             </button>
 
