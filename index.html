@@ -1,623 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>RequestHub | International Delivery</title>
+    <title>RequestHub — Global Delivery</title>
+    <meta name="description" content="Request international delivery services with RequestHub.">
 
     <link rel="stylesheet" href="style.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 
 <body>
 
 <header class="navbar">
-    <div class="nav-container">
+    <a href="#home" class="logo">📦 RequestHub</a>
 
-        <a href="#home" class="logo">
-            📦 RequestHub
-        </a>
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#request">Delivery</a>
+        <a href="#how">How It Works</a>
+    </nav>
 
-        <nav class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#request">Delivery</a>
-            <a href="#how-it-works">How It Works</a>
-        </nav>
-
-        <button
-            type="button"
-            id="accountButton"
-            class="account-button"
-        >
-            Sign Up / Login
-        </button>
-
-    </div>
+    <button id="accountButton" class="account-button">
+        👤 Account
+    </button>
 </header>
 
 
-<!-- =====================================================
-     HERO
-===================================================== -->
+<main>
 
+<!-- HERO -->
 <section class="hero" id="home">
 
-    <div class="hero-container">
-
-        <div class="hero-badge">
-            🌍 INTERNATIONAL DELIVERY
-        </div>
-
-        <h1>
-            Send packages<br>
-            anywhere in the world.
-        </h1>
-
-        <p>
-            Create an international delivery request by
-            providing your shipment, sender and recipient
-            information.
-        </p>
-
-        <a
-            href="#request"
-            class="hero-button"
-        >
-            Start Delivery Request
-        </a>
-
+    <div class="hero-badge">
+        🌍 INTERNATIONAL DELIVERY
     </div>
 
-</section>
-
-
-<!-- =====================================================
-     REQUEST
-===================================================== -->
-
-<section
-    class="request-section"
-    id="request"
->
-
-    <div class="section-heading">
-
-        <span>
-            INTERNATIONAL DELIVERY
-        </span>
-
-        <h2>
-            Send a package anywhere.
-        </h2>
-
-        <p>
-            Enter the shipment, sender and recipient
-            details below to create your delivery request.
-        </p>
-
-    </div>
-
-
-    <div class="request-card">
-
-        <form id="requestForm">
-
-
-            <!-- SHIPMENT -->
-
-            <div class="form-section">
-
-                <h3>
-                    📦 Shipment Details
-                </h3>
-
-                <div class="form-group">
-
-                    <label for="shipment">
-                        What are you sending?
-                    </label>
-
-                    <input
-                        type="text"
-                        id="shipment"
-                        name="shipment"
-                        placeholder="Example: Documents, clothing, electronics"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="description">
-                        Description
-                    </label>
-
-                    <textarea
-                        id="description"
-                        name="description"
-                        rows="5"
-                        placeholder="Describe what is inside the package..."
-                        required
-                    ></textarea>
-
-                </div>
-
-
-                <div class="delivery-fee-box">
-
-                    <span>
-                        International Delivery Fee
-                    </span>
-
-                    <strong>
-                        $1,000 USD
-                    </strong>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 SENDER
-            ================================================== -->
-
-            <div class="form-section">
-
-                <h3>
-                    📤 Sender Information
-                </h3>
-
-
-                <div class="form-group">
-
-                    <label for="senderName">
-                        Full Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="senderName"
-                        name="senderName"
-                        placeholder="Sender's full name"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="senderCountry">
-                        Country
-                    </label>
-
-                    <input
-                        type="text"
-                        id="senderCountry"
-                        name="senderCountry"
-                        placeholder="Example: United Kingdom"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label for="senderState">
-                            State / Region
-                        </label>
-
-                        <input
-                            type="text"
-                            id="senderState"
-                            name="senderState"
-                            placeholder="State / Region"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="senderCity">
-                            City
-                        </label>
-
-                        <input
-                            type="text"
-                            id="senderCity"
-                            name="senderCity"
-                            placeholder="City"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- SENDER PHONE -->
-
-                <div class="form-group">
-
-                    <label for="senderPhone">
-                        Phone Number
-                    </label>
-
-                    <div class="phone-input">
-
-                        <select
-                            id="senderPhoneCode"
-                            name="senderPhoneCode"
-                            required
-                        >
-                            <option value="">
-                                Country code
-                            </option>
-                        </select>
-
-                        <input
-                            type="tel"
-                            id="senderPhone"
-                            name="senderPhone"
-                            placeholder="Phone number"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- SENDER WHATSAPP -->
-
-                <div class="form-group">
-
-                    <label for="senderWhatsApp">
-                        WhatsApp Number
-                    </label>
-
-                    <div class="phone-input">
-
-                        <select
-                            id="senderWhatsAppCode"
-                            name="senderWhatsAppCode"
-                            required
-                        >
-                            <option value="">
-                                Country code
-                            </option>
-                        </select>
-
-                        <input
-                            type="tel"
-                            id="senderWhatsApp"
-                            name="senderWhatsApp"
-                            placeholder="WhatsApp number"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 RECIPIENT
-            ================================================== -->
-
-            <div class="form-section">
-
-                <h3>
-                    📥 Recipient Information
-                </h3>
-
-
-                <div class="form-group">
-
-                    <label for="recipientName">
-                        Full Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="recipientName"
-                        name="recipientName"
-                        placeholder="Recipient's full name"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="recipientCountry">
-                        Country
-                    </label>
-
-                    <input
-                        type="text"
-                        id="recipientCountry"
-                        name="recipientCountry"
-                        placeholder="Example: United States"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label for="recipientState">
-                            State / Region
-                        </label>
-
-                        <input
-                            type="text"
-                            id="recipientState"
-                            name="recipientState"
-                            placeholder="State / Region"
-                            required
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="recipientCity">
-                            City
-                        </label>
-
-                        <input
-                            type="text"
-                            id="recipientCity"
-                            name="recipientCity"
-                            placeholder="City"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- RECIPIENT PHONE -->
-
-                <div class="form-group">
-
-                    <label for="recipientPhone">
-                        Phone Number
-                    </label>
-
-                    <div class="phone-input">
-
-                        <select
-                            id="recipientPhoneCode"
-                            name="recipientPhoneCode"
-                            required
-                        >
-                            <option value="">
-                                Country code
-                            </option>
-                        </select>
-
-                        <input
-                            type="tel"
-                            id="recipientPhone"
-                            name="recipientPhone"
-                            placeholder="Phone number"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-
-                <!-- RECIPIENT WHATSAPP -->
-
-                <div class="form-group">
-
-                    <label for="recipientWhatsApp">
-                        WhatsApp Number
-                    </label>
-
-                    <div class="phone-input">
-
-                        <select
-                            id="recipientWhatsAppCode"
-                            name="recipientWhatsAppCode"
-                            required
-                        >
-                            <option value="">
-                                Country code
-                            </option>
-                        </select>
-
-                        <input
-                            type="tel"
-                            id="recipientWhatsApp"
-                            name="recipientWhatsApp"
-                            placeholder="WhatsApp number"
-                            required
-                        >
-
-                    </div>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- TOTAL -->
-
-            <div class="delivery-fee-box">
-
-                <span>
-                    Total Delivery Fee
-                </span>
-
-                <strong>
-                    $1,000 USD
-                </strong>
-
-            </div>
-
-
-            <br>
-
-
-            <button
-                type="submit"
-                class="submit-btn"
-            >
-                💬 Send Delivery Request via WhatsApp
-            </button>
-
-        </form>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     HOW IT WORKS
-===================================================== -->
-
-<section
-    class="how-section"
-    id="how-it-works"
->
-
-    <div class="section-heading">
-
-        <span>
-            HOW IT WORKS
-        </span>
-
-        <h2>
-            Simple delivery requests.
-        </h2>
-
-        <p>
-            Submit your information and contact us
-            about your international delivery.
-        </p>
-
-    </div>
-
-
-    <div class="steps-container">
-
-        <div class="step-card">
-
-            <div class="step-number">
-                01
-            </div>
-
-            <h3>
-                Create Request
-            </h3>
-
-            <p>
-                Enter the shipment, sender and
-                recipient information.
-            </p>
-
-        </div>
-
-
-        <div class="step-card">
-
-            <div class="step-number">
-                02
-            </div>
-
-            <h3>
-                Send Request
-            </h3>
-
-            <p>
-                Your completed delivery information
-                is prepared for WhatsApp.
-            </p>
-
-        </div>
-
-
-        <div class="step-card">
-
-            <div class="step-number">
-                03
-            </div>
-
-            <h3>
-                Arrange Delivery
-            </h3>
-
-            <p>
-                Discuss the delivery request and
-                arrangements through WhatsApp.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
-
-<footer>
+    <h1>
+        Send Anything.<br>
+        <span>Anywhere.</span>
+    </h1>
 
     <p>
-        © 2026 RequestHub. International Delivery Services.
+        Request international delivery from one country to another.
+        Provide your shipment details and we'll receive your request
+        instantly.
     </p>
 
+    <a href="#request" class="hero-button">
+        Start a Delivery Request →
+    </a>
+
+</section>
+
+
+<!-- DELIVERY REQUEST -->
+<section class="request-section" id="request">
+
+    <div class="section-heading">
+        <span>DELIVERY REQUEST</span>
+        <h2>Tell us about your shipment</h2>
+        <p>Complete the information below to submit your request.</p>
+    </div>
+
+    <form id="requestForm">
+
+        <div class="form-card">
+
+            <h3>📦 Shipment Details</h3>
+
+            <label for="shipment">What are you sending?</label>
+            <input
+                type="text"
+                id="shipment"
+                placeholder="Example: Documents, clothing, electronics"
+                required
+            >
+
+            <label for="description">Description</label>
+            <textarea
+                id="description"
+                placeholder="Describe the item or shipment"
+                required
+            ></textarea>
+
+            <div class="fee-box">
+                <span>International delivery fee</span>
+                <strong>$1,000 USD</strong>
+            </div>
+
+        </div>
+
+
+        <!-- SENDER -->
+        <div class="form-card">
+
+            <h3>📤 Sender Information</h3>
+
+            <label for="senderName">Full Name</label>
+            <input
+                type="text"
+                id="senderName"
+                placeholder="Sender's full name"
+                required
+            >
+
+            <label for="senderCountry">Country</label>
+            <select id="senderCountry" required>
+                <option value="">Select country</option>
+            </select>
+
+            <label for="senderState">State / Region</label>
+            <input
+                type="text"
+                id="senderState"
+                placeholder="State / Region"
+                required
+            >
+
+            <label for="senderCity">City</label>
+            <input
+                type="text"
+                id="senderCity"
+                placeholder="City"
+                required
+            >
+
+            <label>Phone Number</label>
+
+            <div class="phone-row">
+                <select id="senderPhoneCode" required>
+                    <option value="">Code</option>
+                </select>
+
+                <input
+                    type="tel"
+                    id="senderPhone"
+                    placeholder="Phone number"
+                    required
+                >
+            </div>
+
+            <label>WhatsApp Number</label>
+
+            <div class="phone-row">
+                <select id="senderWhatsAppCode" required>
+                    <option value="">Code</option>
+                </select>
+
+                <input
+                    type="tel"
+                    id="senderWhatsApp"
+                    placeholder="WhatsApp number"
+                    required
+                >
+            </div>
+
+        </div>
+
+
+        <!-- RECIPIENT -->
+        <div class="form-card">
+
+            <h3>📥 Recipient Information</h3>
+
+            <label for="recipientName">Full Name</label>
+            <input
+                type="text"
+                id="recipientName"
+                placeholder="Recipient's full name"
+                required
+            >
+
+            <label for="recipientCountry">Country</label>
+            <select id="recipientCountry" required>
+                <option value="">Select country</option>
+            </select>
+
+            <label for="recipientState">State / Region</label>
+            <input
+                type="text"
+                id="recipientState"
+                placeholder="State / Region"
+                required
+            >
+
+            <label for="recipientCity">City</label>
+            <input
+                type="text"
+                id="recipientCity"
+                placeholder="City"
+                required
+            >
+
+            <label>Phone Number</label>
+
+            <div class="phone-row">
+                <select id="recipientPhoneCode" required>
+                    <option value="">Code</option>
+                </select>
+
+                <input
+                    type="tel"
+                    id="recipientPhone"
+                    placeholder="Phone number"
+                    required
+                >
+            </div>
+
+            <label>WhatsApp Number</label>
+
+            <div class="phone-row">
+                <select id="recipientWhatsAppCode" required>
+                    <option value="">Code</option>
+                </select>
+
+                <input
+                    type="tel"
+                    id="recipientWhatsApp"
+                    placeholder="WhatsApp number"
+                    required
+                >
+            </div>
+
+        </div>
+
+
+        <!-- TOTAL -->
+        <div class="total-box">
+            <div>
+                <span>Total Delivery Fee</span>
+                <small>Fixed international delivery charge</small>
+            </div>
+
+            <strong>$1,000 USD</strong>
+        </div>
+
+        <button type="submit" class="submit-button">
+            📱 Send Delivery Request via WhatsApp
+        </button>
+
+        <p class="form-note">
+            Your request will open WhatsApp with all the information
+            automatically prepared.
+        </p>
+
+    </form>
+
+</section>
+
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+
+    <div class="section-heading">
+        <span>HOW IT WORKS</span>
+        <h2>Simple international delivery</h2>
+    </div>
+
+    <div class="steps">
+
+        <div class="step">
+            <div>1</div>
+            <h3>Submit Request</h3>
+            <p>
+                Enter the sender, recipient and shipment information.
+            </p>
+        </div>
+
+        <div class="step">
+            <div>2</div>
+            <h3>Request Received</h3>
+            <p>
+                Your completed request is sent to our WhatsApp.
+            </p>
+        </div>
+
+        <div class="step">
+            <div>3</div>
+            <h3>Delivery Process</h3>
+            <p>
+                We'll review the request and contact you about the next steps.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+<footer>
+    <strong>📦 RequestHub</strong>
+    <p>Global delivery made simple.</p>
+    <small>© 2026 RequestHub. All rights reserved.</small>
 </footer>
 
 
-
-<!-- ACCOUNT BUTTON -->
-<button id="accountButton" class="account-button">Account</button>
-
-<!-- AUTH MODAL -->
+<!-- ACCOUNT MODAL -->
 <div id="authModal" class="auth-modal">
+
     <div id="modalOverlay" class="modal-overlay"></div>
 
     <div class="modal-content">
 
-        <button id="closeAuth" class="close-auth">&times;</button>
+        <button id="closeAuth" class="close-auth">
+            &times;
+        </button>
 
-        <!-- SIGN UP -->
+
+        <!-- SIGNUP -->
         <div id="signupView">
 
             <h2>Create Account</h2>
+
             <p class="auth-subtitle">
                 Create your RequestHub account
             </p>
@@ -639,13 +336,6 @@
                     >
                 </div>
 
-                <label>Email <span>(optional)</span></label>
-
-                <input
-                    type="email"
-                    id="signupEmail"
-                    placeholder="Email address (optional)"
-                >
 
                 <label>Password *</label>
 
@@ -657,6 +347,7 @@
                     required
                 >
 
+
                 <label>Confirm Password *</label>
 
                 <input
@@ -666,6 +357,7 @@
                     minlength="6"
                     required
                 >
+
 
                 <button type="submit" class="auth-submit">
                     Create Account
@@ -677,7 +369,9 @@
 
             <p class="auth-switch">
                 Already have an account?
-                <button type="button" id="goLogin">Login</button>
+                <button type="button" id="goLogin">
+                    Login
+                </button>
             </p>
 
         </div>
@@ -694,14 +388,23 @@
 
             <form id="loginForm">
 
-                <label>Phone number or Email</label>
+                <label>Phone Number</label>
 
-                <input
-                    type="text"
-                    id="loginIdentifier"
-                    placeholder="Phone number or email"
-                    required
-                >
+                <div class="phone-row">
+
+                    <select id="loginPhoneCode" required>
+                        <option value="">Country code</option>
+                    </select>
+
+                    <input
+                        type="tel"
+                        id="loginPhone"
+                        placeholder="Phone number"
+                        required
+                    >
+
+                </div>
+
 
                 <label>Password</label>
 
@@ -711,6 +414,7 @@
                     placeholder="Password"
                     required
                 >
+
 
                 <button type="submit" class="auth-submit">
                     Login
@@ -722,7 +426,10 @@
 
             <p class="auth-switch">
                 Don't have an account?
-                <button type="button" id="goSignup">Create Account</button>
+
+                <button type="button" id="goSignup">
+                    Create Account
+                </button>
             </p>
 
         </div>
@@ -740,317 +447,24 @@
                     <span id="accountPhone"></span>
                 </p>
 
-                <p>
-                    <strong>Email</strong>
-                    <span id="accountEmail"></span>
-                </p>
-
             </div>
 
-            <button id="logoutButton" class="logout-button">
+            <button
+                id="logoutButton"
+                class="logout-button"
+            >
                 Logout
             </button>
 
         </div>
 
     </div>
+
 </div>
 
 
-<!-- =====================================================
-     COMPLETE COUNTRY LIST
-===================================================== -->
-
-<script>
-
-const countryCodes = [
-
-["Afghanistan","+93","🇦🇫"],
-["Albania","+355","🇦🇱"],
-["Algeria","+213","🇩🇿"],
-["Andorra","+376","🇦🇩"],
-["Angola","+244","🇦🇴"],
-["Antigua and Barbuda","+1","🇦🇬"],
-["Argentina","+54","🇦🇷"],
-["Armenia","+374","🇦🇲"],
-["Australia","+61","🇦🇺"],
-["Austria","+43","🇦🇹"],
-["Azerbaijan","+994","🇦🇿"],
-
-["Bahamas","+1","🇧🇸"],
-["Bahrain","+973","🇧🇭"],
-["Bangladesh","+880","🇧🇩"],
-["Barbados","+1","🇧🇧"],
-["Belarus","+375","🇧🇾"],
-["Belgium","+32","🇧🇪"],
-["Belize","+501","🇧🇿"],
-["Benin","+229","🇧🇯"],
-["Bhutan","+975","🇧🇹"],
-["Bolivia","+591","🇧🇴"],
-["Bosnia and Herzegovina","+387","🇧🇦"],
-["Botswana","+267","🇧🇼"],
-["Brazil","+55","🇧🇷"],
-["Brunei","+673","🇧🇳"],
-["Bulgaria","+359","🇧🇬"],
-["Burkina Faso","+226","🇧🇫"],
-["Burundi","+257","🇧🇮"],
-
-["Cabo Verde","+238","🇨🇻"],
-["Cambodia","+855","🇰🇭"],
-["Cameroon","+237","🇨🇲"],
-["Canada","+1","🇨🇦"],
-["Central African Republic","+236","🇨🇫"],
-["Chad","+235","🇹🇩"],
-["Chile","+56","🇨🇱"],
-["China","+86","🇨🇳"],
-["Colombia","+57","🇨🇴"],
-["Comoros","+269","🇰🇲"],
-["Congo","+242","🇨🇬"],
-["Costa Rica","+506","🇨🇷"],
-["Croatia","+385","🇭🇷"],
-["Cuba","+53","🇨🇺"],
-["Cyprus","+357","🇨🇾"],
-["Czech Republic","+420","🇨🇿"],
-
-["Democratic Republic of the Congo","+243","🇨🇩"],
-["Denmark","+45","🇩🇰"],
-["Djibouti","+253","🇩🇯"],
-["Dominica","+1","🇩🇲"],
-["Dominican Republic","+1","🇩🇴"],
-
-["Ecuador","+593","🇪🇨"],
-["Egypt","+20","🇪🇬"],
-["El Salvador","+503","🇸🇻"],
-["Equatorial Guinea","+240","🇬🇶"],
-["Eritrea","+291","🇪🇷"],
-["Estonia","+372","🇪🇪"],
-["Eswatini","+268","🇸🇿"],
-["Ethiopia","+251","🇪🇹"],
-
-["Fiji","+679","🇫🇯"],
-["Finland","+358","🇫🇮"],
-["France","+33","🇫🇷"],
-
-["Gabon","+241","🇬🇦"],
-["Gambia","+220","🇬🇲"],
-["Georgia","+995","🇬🇪"],
-["Germany","+49","🇩🇪"],
-["Ghana","+233","🇬🇭"],
-["Gibraltar","+350","🇬🇮"],
-["Greece","+30","🇬🇷"],
-["Greenland","+299","🇬🇱"],
-["Grenada","+1","🇬🇩"],
-["Guadeloupe","+590","🇬🇵"],
-["Guam","+1","🇬🇺"],
-["Guatemala","+502","🇬🇹"],
-["Guinea","+224","🇬🇳"],
-["Guinea-Bissau","+245","🇬🇼"],
-["Guyana","+592","🇬🇾"],
-
-["Haiti","+509","🇭🇹"],
-["Honduras","+504","🇭🇳"],
-["Hong Kong","+852","🇭🇰"],
-["Hungary","+36","🇭🇺"],
-
-["Iceland","+354","🇮🇸"],
-["India","+91","🇮🇳"],
-["Indonesia","+62","🇮🇩"],
-["Iran","+98","🇮🇷"],
-["Iraq","+964","🇮🇶"],
-["Ireland","+353","🇮🇪"],
-["Isle of Man","+44","🇮🇲"],
-["Israel","+972","🇮🇱"],
-["Italy","+39","🇮🇹"],
-["Ivory Coast","+225","🇨🇮"],
-
-["Jamaica","+1","🇯🇲"],
-["Japan","+81","🇯🇵"],
-["Jersey","+44","🇯🇪"],
-["Jordan","+962","🇯🇴"],
-
-["Kazakhstan","+7","🇰🇿"],
-["Kenya","+254","🇰🇪"],
-["Kiribati","+686","🇰🇮"],
-["Kosovo","+383","🇽🇰"],
-["Kuwait","+965","🇰🇼"],
-["Kyrgyzstan","+996","🇰🇬"],
-
-["Laos","+856","🇱🇦"],
-["Latvia","+371","🇱🇻"],
-["Lebanon","+961","🇱🇧"],
-["Lesotho","+266","🇱🇸"],
-["Liberia","+231","🇱🇷"],
-["Libya","+218","🇱🇾"],
-["Liechtenstein","+423","🇱🇮"],
-["Lithuania","+370","🇱🇹"],
-["Luxembourg","+352","🇱🇺"],
-
-["Macau","+853","🇲🇴"],
-["Madagascar","+261","🇲🇬"],
-["Malawi","+265","🇲🇼"],
-["Malaysia","+60","🇲🇾"],
-["Maldives","+960","🇲🇻"],
-["Mali","+223","🇲🇱"],
-["Malta","+356","🇲🇹"],
-["Marshall Islands","+692","🇲🇭"],
-["Martinique","+596","🇲🇶"],
-["Mauritania","+222","🇲🇷"],
-["Mauritius","+230","🇲🇺"],
-["Mayotte","+262","🇾🇹"],
-["Mexico","+52","🇲🇽"],
-["Micronesia","+691","🇫🇲"],
-["Moldova","+373","🇲🇩"],
-["Monaco","+377","🇲🇨"],
-["Mongolia","+976","🇲🇳"],
-["Montenegro","+382","🇲🇪"],
-["Montserrat","+1","🇲🇸"],
-["Morocco","+212","🇲🇦"],
-["Mozambique","+258","🇲🇿"],
-["Myanmar","+95","🇲🇲"],
-
-["Namibia","+264","🇳🇦"],
-["Nauru","+674","🇳🇷"],
-["Nepal","+977","🇳🇵"],
-["Netherlands","+31","🇳🇱"],
-["New Caledonia","+687","🇳🇨"],
-["New Zealand","+64","🇳🇿"],
-["Nicaragua","+505","🇳🇮"],
-["Niger","+227","🇳🇪"],
-["Nigeria","+234","🇳🇬"],
-["Niue","+683","🇳🇺"],
-["North Korea","+850","🇰🇵"],
-["North Macedonia","+389","🇲🇰"],
-["Northern Mariana Islands","+1","🇲🇵"],
-["Norway","+47","🇳🇴"],
-
-["Oman","+968","🇴🇲"],
-
-["Pakistan","+92","🇵🇰"],
-["Palau","+680","🇵🇼"],
-["Palestine","+970","🇵🇸"],
-["Panama","+507","🇵🇦"],
-["Papua New Guinea","+675","🇵🇬"],
-["Paraguay","+595","🇵🇾"],
-["Peru","+51","🇵🇪"],
-["Philippines","+63","🇵🇭"],
-["Pitcairn Islands","+64","🇵🇳"],
-["Poland","+48","🇵🇱"],
-["Portugal","+351","🇵🇹"],
-["Puerto Rico","+1","🇵🇷"],
-
-["Qatar","+974","🇶🇦"],
-
-["Republic of the Congo","+242","🇨🇬"],
-["Reunion","+262","🇷🇪"],
-["Romania","+40","🇷🇴"],
-["Russia","+7","🇷🇺"],
-["Rwanda","+250","🇷🇼"],
-
-["Saint Barthelemy","+590","🇧🇱"],
-["Saint Helena","+290","🇸🇭"],
-["Saint Kitts and Nevis","+1","🇰🇳"],
-["Saint Lucia","+1","🇱🇨"],
-["Saint Martin","+590","🇲🇫"],
-["Saint Pierre and Miquelon","+508","🇵🇲"],
-["Saint Vincent and the Grenadines","+1","🇻🇨"],
-["Samoa","+685","🇼🇸"],
-["San Marino","+378","🇸🇲"],
-["Sao Tome and Principe","+239","🇸🇹"],
-["Saudi Arabia","+966","🇸🇦"],
-["Senegal","+221","🇸🇳"],
-["Serbia","+381","🇷🇸"],
-["Seychelles","+248","🇸🇨"],
-["Sierra Leone","+232","🇸🇱"],
-["Singapore","+65","🇸🇬"],
-["Sint Maarten","+1","🇸🇽"],
-["Slovakia","+421","🇸🇰"],
-["Slovenia","+386","🇸🇮"],
-["Solomon Islands","+677","🇸🇧"],
-["Somalia","+252","🇸🇴"],
-["South Africa","+27","🇿🇦"],
-["South Korea","+82","🇰🇷"],
-["South Sudan","+211","🇸🇸"],
-["Spain","+34","🇪🇸"],
-["Sri Lanka","+94","🇱🇰"],
-["Sudan","+249","🇸🇩"],
-["Suriname","+597","🇸🇷"],
-["Sweden","+46","🇸🇪"],
-["Switzerland","+41","🇨🇭"],
-["Syria","+963","🇸🇾"],
-
-["Taiwan","+886","🇹🇼"],
-["Tajikistan","+992","🇹🇯"],
-["Tanzania","+255","🇹🇿"],
-["Thailand","+66","🇹🇭"],
-["Timor-Leste","+670","🇹🇱"],
-["Togo","+228","🇹🇬"],
-["Tokelau","+690","🇹🇰"],
-["Tonga","+676","🇹🇴"],
-["Trinidad and Tobago","+1","🇹🇹"],
-["Tunisia","+216","🇹🇳"],
-["Turkey","+90","🇹🇷"],
-["Turkmenistan","+993","🇹🇲"],
-["Turks and Caicos Islands","+1","🇹🇨"],
-["Tuvalu","+688","🇹🇻"],
-
-["Uganda","+256","🇺🇬"],
-["Ukraine","+380","🇺🇦"],
-["United Arab Emirates","+971","🇦🇪"],
-["United Kingdom","+44","🇬🇧"],
-["United States","+1","🇺🇸"],
-["Uruguay","+598","🇺🇾"],
-["Uzbekistan","+998","🇺🇿"],
-
-["Vanuatu","+678","🇻🇺"],
-["Vatican City","+39","🇻🇦"],
-["Venezuela","+58","🇻🇪"],
-["Vietnam","+84","🇻🇳"],
-["Virgin Islands British","+1","🇻🇬"],
-["Virgin Islands U.S.","+1","🇻🇮"],
-
-["Wallis and Futuna","+681","🇼🇫"],
-
-["Yemen","+967","🇾🇪"],
-
-["Zambia","+260","🇿🇲"],
-["Zimbabwe","+263","🇿🇼"]
-];
-
-function loadCountryCodes() {
-    const dropdowns = [
-        "senderPhoneCode",
-        "senderWhatsAppCode",
-        "recipientPhoneCode",
-        "recipientWhatsAppCode"
-    ];
-
-    dropdowns.forEach(function(id) {
-        const select = document.getElementById(id);
-        if (!select) return;
-
-        select.innerHTML = "";
-
-        const first = document.createElement("option");
-        first.value = "";
-        first.textContent = "Country code";
-        select.appendChild(first);
-
-        countryCodes.forEach(function(country) {
-            const option = document.createElement("option");
-            option.value = country[1];
-            option.textContent =
-                country[2] + " " + country[0] + " (" + country[1] + ")";
-            select.appendChild(option);
-        });
-
-        select.value = "+234";
-    });
-}
-
-document.addEventListener("DOMContentLoaded", function() {
-    loadCountryCodes();
-});
-</script>
+<!-- SUPABASE -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <script src="script.js"></script>
 
