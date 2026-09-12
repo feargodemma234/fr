@@ -1,12 +1,5 @@
 /* =========================================================
-   REQUESTHUB
-   FULL SCRIPT
-   INTERNATIONAL DELIVERY
-========================================================= */
-
-
-/* =========================================================
-   SUPABASE
+   REQUESTHUB - FULL SCRIPT
 ========================================================= */
 
 const SUPABASE_URL =
@@ -15,32 +8,34 @@ const SUPABASE_URL =
 const SUPABASE_KEY =
     "sb_publishable_-jFClaoda0zrYZ1V7q3qcg_tKNVPfdO";
 
-
-let supabaseClient = null;
-
-if (window.supabase) {
-    supabaseClient = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-    );
-}
-
-
-/* =========================================================
-   SETTINGS
-========================================================= */
-
-const RECEIVING_WHATSAPP = "2349040071415";
+const WHATSAPP_NUMBER = "2349040071415";
 
 const DELIVERY_FEE = "$1,000 USD";
 
 
 /* =========================================================
-   COUNTRY CALLING CODES
+   SUPABASE
+========================================================= */
+
+let supabaseClient = null;
+
+try {
+    if (window.supabase) {
+        supabaseClient = window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+    }
+} catch (error) {
+    console.error("Supabase error:", error);
+}
+
+
+/* =========================================================
+   COUNTRY CODES
 ========================================================= */
 
 const countries = [
-
     ["Afghanistan", "+93", "🇦🇫"],
     ["Albania", "+355", "🇦🇱"],
     ["Algeria", "+213", "🇩🇿"],
@@ -260,41 +255,45 @@ const countries = [
 
     ["Zambia", "+260", "🇿🇲"],
     ["Zimbabwe", "+263", "🇿🇼"]
-
 ];
 
 
 /* =========================================================
-   POPULATE COUNTRY DROPDOWNS
+   COUNTRY DROPDOWNS
 ========================================================= */
 
 function populateCountryCodes() {
 
-    const dropdownIds = [
+    const ids = [
         "senderPhoneCode",
         "senderWhatsAppCode",
         "recipientPhoneCode",
         "recipientWhatsAppCode"
     ];
 
-    dropdownIds.forEach(function (id) {
+    ids.forEach(function (id) {
 
         const select = document.getElementById(id);
 
-        if (!select) return;
+        if (!select) {
+            console.warn("Dropdown not found:", id);
+            return;
+        }
 
+        /* Remove existing options */
         select.innerHTML = "";
 
-        const defaultOption = document.createElement("option");
+        /* Default option */
+        const defaultOption =
+            document.createElement("option");
 
         defaultOption.value = "";
-
-        defaultOption.textContent =
-            "Country code";
+        defaultOption.textContent = "Country code";
 
         select.appendChild(defaultOption);
 
 
+        /* Add countries */
         countries.forEach(function (country) {
 
             const option =
@@ -315,8 +314,7 @@ function populateCountryCodes() {
         });
 
 
-        /* Nigeria default */
-
+        /* Nigeria is selected by default */
         select.value = "+234";
 
     });
@@ -325,46 +323,37 @@ function populateCountryCodes() {
 
 
 /* =========================================================
-   PHONE NUMBER
+   FULL PHONE NUMBER
 ========================================================= */
 
-function cleanPhoneNumber(number) {
-
-    return String(number || "")
-        .replace(/\D/g, "");
-
-}
-
-
-function createFullPhoneNumber(codeId, phoneId) {
-
-    const codeElement =
-        document.getElementById(codeId);
-
-    const phoneElement =
-        document.getElementById(phoneId);
-
-    if (!codeElement || !phoneElement) {
-        return "";
-    }
+function getFullNumber(codeId, numberId) {
 
     const code =
-        codeElement.value.replace("+", "");
+        document.getElementById(codeId);
 
     const number =
-        cleanPhoneNumber(phoneElement.value);
+        document.getElementById(numberId);
 
     if (!code || !number) {
         return "";
     }
 
-    return "+" + code + number;
+    let countryCode =
+        code.value.replace(/\D/g, "");
 
+    let phone =
+        number.value.replace(/\D/g, "");
+
+    if (!countryCode || !phone) {
+        return "";
+    }
+
+    return "+" + countryCode + phone;
 }
 
 
 /* =========================================================
-   AUTH MODAL
+   AUTH ELEMENTS
 ========================================================= */
 
 const authModal =
@@ -382,21 +371,92 @@ const accountButton =
 
 function openAuth() {
 
-    if (!authModal) return;
+    if (authModal) {
+        authModal.classList.add("active");
+    }
 
-    authModal.classList.add("active");
+}
+
+
+function closeAuthWindow() {
+
+    if (authModal) {
+        authModal.classList.remove("active");
+    }
 
 }
 
 
-function closeAuthModal() {
+/* =========================================================
+   AUTH VIEWS
+========================================================= */
 
-    if (!authModal) return;
+function showView(view) {
 
-    authModal.classList.remove("active");
+    const signup =
+        document.getElementById("signupView");
+
+    const login =
+        document.getElementById("loginView");
+
+    const account =
+        document.getElementById("accountView");
+
+
+    [signup, login, account].forEach(function (element) {
+
+        if (element) {
+            element.style.display = "none";
+            element.classList.remove("active");
+        }
+
+    });
+
+
+    if (view === "signup" && signup) {
+
+        signup.style.display = "block";
+        signup.classList.add("active");
+
+    }
+
+
+    if (view === "login" && login) {
+
+        login.style.display = "block";
+        login.classList.add("active");
+
+    }
+
+
+    if (view === "account" && account) {
+
+        account.style.display = "block";
+        account.classList.add("active");
+
+    }
 
 }
 
+
+function showSignup() {
+    showView("signup");
+}
+
+
+function showLogin() {
+    showView("login");
+}
+
+
+function showAccount() {
+    showView("account");
+}
+
+
+/* =========================================================
+   OPEN ACCOUNT
+========================================================= */
 
 if (accountButton) {
 
@@ -406,10 +466,13 @@ if (accountButton) {
 
             if (!supabaseClient) {
 
+                showSignup();
                 openAuth();
 
                 return;
+
             }
+
 
             const result =
                 await supabaseClient.auth.getSession();
@@ -417,7 +480,16 @@ if (accountButton) {
             const session =
                 result.data.session;
 
+
             if (session) {
+
+                const emailElement =
+                    document.getElementById("accountEmail");
+
+                if (emailElement) {
+                    emailElement.textContent =
+                        session.user.email || "Account";
+                }
 
                 showAccount();
 
@@ -439,7 +511,7 @@ if (closeAuth) {
 
     closeAuth.addEventListener(
         "click",
-        closeAuthModal
+        closeAuthWindow
     );
 
 }
@@ -449,7 +521,7 @@ if (modalOverlay) {
 
     modalOverlay.addEventListener(
         "click",
-        closeAuthModal
+        closeAuthWindow
     );
 
 }
@@ -460,7 +532,7 @@ document.addEventListener(
     function (event) {
 
         if (event.key === "Escape") {
-            closeAuthModal();
+            closeAuthWindow();
         }
 
     }
@@ -468,101 +540,7 @@ document.addEventListener(
 
 
 /* =========================================================
-   AUTH VIEWS
-========================================================= */
-
-function showSignup() {
-
-    const signup =
-        document.getElementById("signupView");
-
-    const login =
-        document.getElementById("loginView");
-
-    const account =
-        document.getElementById("accountView");
-
-
-    if (signup) {
-        signup.style.display = "block";
-        signup.classList.add("active");
-    }
-
-    if (login) {
-        login.style.display = "none";
-        login.classList.remove("active");
-    }
-
-    if (account) {
-        account.style.display = "none";
-        account.classList.remove("active");
-    }
-
-}
-
-
-function showLogin() {
-
-    const signup =
-        document.getElementById("signupView");
-
-    const login =
-        document.getElementById("loginView");
-
-    const account =
-        document.getElementById("accountView");
-
-
-    if (signup) {
-        signup.style.display = "none";
-        signup.classList.remove("active");
-    }
-
-    if (login) {
-        login.style.display = "block";
-        login.classList.add("active");
-    }
-
-    if (account) {
-        account.style.display = "none";
-        account.classList.remove("active");
-    }
-
-}
-
-
-function showAccount() {
-
-    const signup =
-        document.getElementById("signupView");
-
-    const login =
-        document.getElementById("loginView");
-
-    const account =
-        document.getElementById("accountView");
-
-
-    if (signup) {
-        signup.style.display = "none";
-        signup.classList.remove("active");
-    }
-
-    if (login) {
-        login.style.display = "none";
-        login.classList.remove("active");
-    }
-
-    if (account) {
-        account.style.display = "block";
-        account.classList.add("active");
-    }
-
-}
-
-
-/* =========================================================
-   SWITCH AUTH
+   SWITCH LOGIN / SIGNUP
 ========================================================= */
 
 const goLogin =
@@ -629,19 +607,18 @@ if (signupForm) {
                 );
 
 
-            const wordCount =
+            const words =
                 phrase
                     .split(/\s+/)
-                    .filter(Boolean)
-                    .length;
+                    .filter(Boolean);
 
 
-            if (wordCount !== 3) {
+            if (words.length !== 3) {
 
                 if (message) {
 
                     message.textContent =
-                        "Your password must contain exactly 3 words.";
+                        "Password must contain exactly 3 words.";
 
                     message.className =
                         "message error-message";
@@ -649,6 +626,7 @@ if (signupForm) {
                 }
 
                 return;
+
             }
 
 
@@ -665,13 +643,14 @@ if (signupForm) {
                 }
 
                 return;
+
             }
 
 
             if (message) {
 
                 message.textContent =
-                    "Creating your account...";
+                    "Creating account...";
 
                 message.className =
                     "message";
@@ -693,9 +672,9 @@ if (signupForm) {
                 }
 
 
-                if (message) {
+                if (result.data.session) {
 
-                    if (result.data.session) {
+                    if (message) {
 
                         message.textContent =
                             "Account created successfully.";
@@ -703,15 +682,18 @@ if (signupForm) {
                         message.className =
                             "message success-message";
 
-                        setTimeout(function () {
+                    }
 
-                            showAccount();
+                    updateAccountButton();
 
-                            updateAccountButton();
+                    setTimeout(
+                        showAccount,
+                        500
+                    );
 
-                        }, 700);
+                } else {
 
-                    } else {
+                    if (message) {
 
                         message.textContent =
                             "Account created. Check your email to confirm your account, then log in.";
@@ -724,6 +706,8 @@ if (signupForm) {
                 }
 
             } catch (error) {
+
+                console.error(error);
 
                 if (message) {
 
@@ -794,6 +778,7 @@ if (loginForm) {
                 }
 
                 return;
+
             }
 
 
@@ -837,14 +822,29 @@ if (loginForm) {
                 updateAccountButton();
 
 
-                setTimeout(function () {
+                const accountEmail =
+                    document.getElementById(
+                        "accountEmail"
+                    );
 
-                    showAccount();
 
-                }, 400);
+                if (accountEmail) {
+
+                    accountEmail.textContent =
+                        result.data.user.email;
+
+                }
+
+
+                setTimeout(
+                    showAccount,
+                    500
+                );
 
 
             } catch (error) {
+
+                console.error(error);
 
                 if (message) {
 
@@ -866,12 +866,13 @@ if (loginForm) {
 
 
 /* =========================================================
-   UPDATE ACCOUNT BUTTON
+   ACCOUNT BUTTON
 ========================================================= */
 
 async function updateAccountButton() {
 
     if (!accountButton) return;
+
 
     if (!supabaseClient) {
 
@@ -897,10 +898,12 @@ async function updateAccountButton() {
             accountButton.textContent =
                 "My Account";
 
+
             const accountEmail =
                 document.getElementById(
                     "accountEmail"
                 );
+
 
             if (accountEmail) {
 
@@ -916,12 +919,4 @@ async function updateAccountButton() {
 
         }
 
-    } catch (error) {
-
-        accountButton.textContent =
-            "Sign Up / Login";
-
-    }
-
-}
-
+ 
