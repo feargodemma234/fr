@@ -1,922 +1,131 @@
-/* =========================================================
-   REQUESTHUB - FULL SCRIPT
-========================================================= */
+document.addEventListener("DOMContentLoaded", function () {
 
-const SUPABASE_URL =
-    "https://igikusqecnenjwbjooc4.supabase.co";
+    const form = document.getElementById("requestForm");
 
-const SUPABASE_KEY =
-    "sb_publishable_-jFClaoda0zrYZ1V7q3qcg_tKNVPfdO";
+    if (!form) return;
 
-const WHATSAPP_NUMBER = "2349040071415";
+    form.addEventListener("submit", function (event) {
+        // STOP the page from refreshing
+        event.preventDefault();
 
-const DELIVERY_FEE = "$1,000 USD";
+        // Get all form values
+        const shipment = document.getElementById("shipment")?.value.trim() || "";
+        const description = document.getElementById("description")?.value.trim() || "";
 
+        const senderName = document.getElementById("senderName")?.value.trim() || "";
+        const senderCountry = document.getElementById("senderCountry")?.value || "";
+        const senderState = document.getElementById("senderState")?.value.trim() || "";
+        const senderCity = document.getElementById("senderCity")?.value.trim() || "";
 
-/* =========================================================
-   SUPABASE
-========================================================= */
+        const senderPhoneCode = document.getElementById("senderPhoneCode")?.value || "";
+        const senderPhone = document.getElementById("senderPhone")?.value.trim() || "";
 
-let supabaseClient = null;
+        const senderWhatsAppCode =
+            document.getElementById("senderWhatsAppCode")?.value || "";
+        const senderWhatsApp =
+            document.getElementById("senderWhatsApp")?.value.trim() || "";
 
-try {
-    if (window.supabase) {
-        supabaseClient = window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        );
-    }
-} catch (error) {
-    console.error("Supabase error:", error);
-}
+        const recipientName =
+            document.getElementById("recipientName")?.value.trim() || "";
+        const recipientCountry =
+            document.getElementById("recipientCountry")?.value || "";
+        const recipientState =
+            document.getElementById("recipientState")?.value.trim() || "";
+        const recipientCity =
+            document.getElementById("recipientCity")?.value.trim() || "";
 
+        const recipientPhoneCode =
+            document.getElementById("recipientPhoneCode")?.value || "";
+        const recipientPhone =
+            document.getElementById("recipientPhone")?.value.trim() || "";
 
-/* =========================================================
-   COUNTRY CODES
-========================================================= */
+        const recipientWhatsAppCode =
+            document.getElementById("recipientWhatsAppCode")?.value || "";
+        const recipientWhatsApp =
+            document.getElementById("recipientWhatsApp")?.value.trim() || "";
 
-const countries = [
-    ["Afghanistan", "+93", "🇦🇫"],
-    ["Albania", "+355", "🇦🇱"],
-    ["Algeria", "+213", "🇩🇿"],
-    ["Andorra", "+376", "🇦🇩"],
-    ["Angola", "+244", "🇦🇴"],
-    ["Antigua and Barbuda", "+1", "🇦🇬"],
-    ["Argentina", "+54", "🇦🇷"],
-    ["Armenia", "+374", "🇦🇲"],
-    ["Australia", "+61", "🇦🇺"],
-    ["Austria", "+43", "🇦🇹"],
-    ["Azerbaijan", "+994", "🇦🇿"],
+        // Build WhatsApp message
+        const message = `
+📦 *INTERNATIONAL DELIVERY REQUEST*
 
-    ["Bahamas", "+1", "🇧🇸"],
-    ["Bahrain", "+973", "🇧🇭"],
-    ["Bangladesh", "+880", "🇧🇩"],
-    ["Barbados", "+1", "🇧🇧"],
-    ["Belarus", "+375", "🇧🇾"],
-    ["Belgium", "+32", "🇧🇪"],
-    ["Belize", "+501", "🇧🇿"],
-    ["Benin", "+229", "🇧🇯"],
-    ["Bhutan", "+975", "🇧🇹"],
-    ["Bolivia", "+591", "🇧🇴"],
-    ["Bosnia and Herzegovina", "+387", "🇧🇦"],
-    ["Botswana", "+267", "🇧🇼"],
-    ["Brazil", "+55", "🇧🇷"],
-    ["Brunei", "+673", "🇧🇳"],
-    ["Bulgaria", "+359", "🇧🇬"],
-    ["Burkina Faso", "+226", "🇧🇫"],
-    ["Burundi", "+257", "🇧🇮"],
+━━━━━━━━━━━━━━━━━━
 
-    ["Cabo Verde", "+238", "🇨🇻"],
-    ["Cambodia", "+855", "🇰🇭"],
-    ["Cameroon", "+237", "🇨🇲"],
-    ["Canada", "+1", "🇨🇦"],
-    ["Central African Republic", "+236", "🇨🇫"],
-    ["Chad", "+235", "🇹🇩"],
-    ["Chile", "+56", "🇨🇱"],
-    ["China", "+86", "🇨🇳"],
-    ["Colombia", "+57", "🇨🇴"],
-    ["Comoros", "+269", "🇰🇲"],
-    ["Congo", "+242", "🇨🇬"],
-    ["Costa Rica", "+506", "🇨🇷"],
-    ["Croatia", "+385", "🇭🇷"],
-    ["Cuba", "+53", "🇨🇺"],
-    ["Cyprus", "+357", "🇨🇾"],
-    ["Czech Republic", "+420", "🇨🇿"],
+📋 *SHIPMENT DETAILS*
 
-    ["Democratic Republic of the Congo", "+243", "🇨🇩"],
-    ["Denmark", "+45", "🇩🇰"],
-    ["Djibouti", "+253", "🇩🇯"],
-    ["Dominica", "+1", "🇩🇲"],
-    ["Dominican Republic", "+1", "🇩🇴"],
+Item:
+${shipment}
 
-    ["Ecuador", "+593", "🇪🇨"],
-    ["Egypt", "+20", "🇪🇬"],
-    ["El Salvador", "+503", "🇸🇻"],
-    ["Equatorial Guinea", "+240", "🇬🇶"],
-    ["Eritrea", "+291", "🇪🇷"],
-    ["Estonia", "+372", "🇪🇪"],
-    ["Eswatini", "+268", "🇸🇿"],
-    ["Ethiopia", "+251", "🇪🇹"],
+Description:
+${description}
 
-    ["Fiji", "+679", "🇫🇯"],
-    ["Finland", "+358", "🇫🇮"],
-    ["France", "+33", "🇫🇷"],
+━━━━━━━━━━━━━━━━━━
 
-    ["Gabon", "+241", "🇬🇦"],
-    ["Gambia", "+220", "🇬🇲"],
-    ["Georgia", "+995", "🇬🇪"],
-    ["Germany", "+49", "🇩🇪"],
-    ["Ghana", "+233", "🇬🇭"],
-    ["Greece", "+30", "🇬🇷"],
-    ["Grenada", "+1", "🇬🇩"],
-    ["Guatemala", "+502", "🇬🇹"],
-    ["Guinea", "+224", "🇬🇳"],
-    ["Guinea-Bissau", "+245", "🇬🇼"],
-    ["Guyana", "+592", "🇬🇾"],
+👤 *SENDER INFORMATION*
 
-    ["Haiti", "+509", "🇭🇹"],
-    ["Honduras", "+504", "🇭🇳"],
-    ["Hungary", "+36", "🇭🇺"],
+Name:
+${senderName}
 
-    ["Iceland", "+354", "🇮🇸"],
-    ["India", "+91", "🇮🇳"],
-    ["Indonesia", "+62", "🇮🇩"],
-    ["Iran", "+98", "🇮🇷"],
-    ["Iraq", "+964", "🇮🇶"],
-    ["Ireland", "+353", "🇮🇪"],
-    ["Israel", "+972", "🇮🇱"],
-    ["Italy", "+39", "🇮🇹"],
-    ["Ivory Coast", "+225", "🇨🇮"],
+Country:
+${senderCountry}
 
-    ["Jamaica", "+1", "🇯🇲"],
-    ["Japan", "+81", "🇯🇵"],
-    ["Jordan", "+962", "🇯🇴"],
+State:
+${senderState}
 
-    ["Kazakhstan", "+7", "🇰🇿"],
-    ["Kenya", "+254", "🇰🇪"],
-    ["Kiribati", "+686", "🇰🇮"],
-    ["Kuwait", "+965", "🇰🇼"],
-    ["Kyrgyzstan", "+996", "🇰🇬"],
+City:
+${senderCity}
 
-    ["Laos", "+856", "🇱🇦"],
-    ["Latvia", "+371", "🇱🇻"],
-    ["Lebanon", "+961", "🇱🇧"],
-    ["Lesotho", "+266", "🇱🇸"],
-    ["Liberia", "+231", "🇱🇷"],
-    ["Libya", "+218", "🇱🇾"],
-    ["Liechtenstein", "+423", "🇱🇮"],
-    ["Lithuania", "+370", "🇱🇹"],
-    ["Luxembourg", "+352", "🇱🇺"],
+Phone:
+${senderPhoneCode} ${senderPhone}
 
-    ["Madagascar", "+261", "🇲🇬"],
-    ["Malawi", "+265", "🇲🇼"],
-    ["Malaysia", "+60", "🇲🇾"],
-    ["Maldives", "+960", "🇲🇻"],
-    ["Mali", "+223", "🇲🇱"],
-    ["Malta", "+356", "🇲🇹"],
-    ["Marshall Islands", "+692", "🇲🇭"],
-    ["Mauritania", "+222", "🇲🇷"],
-    ["Mauritius", "+230", "🇲🇺"],
-    ["Mexico", "+52", "🇲🇽"],
-    ["Micronesia", "+691", "🇫🇲"],
-    ["Moldova", "+373", "🇲🇩"],
-    ["Monaco", "+377", "🇲🇨"],
-    ["Mongolia", "+976", "🇲🇳"],
-    ["Montenegro", "+382", "🇲🇪"],
-    ["Morocco", "+212", "🇲🇦"],
-    ["Mozambique", "+258", "🇲🇿"],
-    ["Myanmar", "+95", "🇲🇲"],
+WhatsApp:
+${senderWhatsAppCode} ${senderWhatsApp}
 
-    ["Namibia", "+264", "🇳🇦"],
-    ["Nauru", "+674", "🇳🇷"],
-    ["Nepal", "+977", "🇳🇵"],
-    ["Netherlands", "+31", "🇳🇱"],
-    ["New Zealand", "+64", "🇳🇿"],
-    ["Nicaragua", "+505", "🇳🇮"],
-    ["Niger", "+227", "🇳🇪"],
-    ["Nigeria", "+234", "🇳🇬"],
-    ["North Korea", "+850", "🇰🇵"],
-    ["North Macedonia", "+389", "🇲🇰"],
-    ["Norway", "+47", "🇳🇴"],
+━━━━━━━━━━━━━━━━━━
 
-    ["Oman", "+968", "🇴🇲"],
+📍 *RECIPIENT INFORMATION*
 
-    ["Pakistan", "+92", "🇵🇰"],
-    ["Palau", "+680", "🇵🇼"],
-    ["Palestine", "+970", "🇵🇸"],
-    ["Panama", "+507", "🇵🇦"],
-    ["Papua New Guinea", "+675", "🇵🇬"],
-    ["Paraguay", "+595", "🇵🇾"],
-    ["Peru", "+51", "🇵🇪"],
-    ["Philippines", "+63", "🇵🇭"],
-    ["Poland", "+48", "🇵🇱"],
-    ["Portugal", "+351", "🇵🇹"],
+Name:
+${recipientName}
 
-    ["Qatar", "+974", "🇶🇦"],
+Country:
+${recipientCountry}
 
-    ["Romania", "+40", "🇷🇴"],
-    ["Russia", "+7", "🇷🇺"],
-    ["Rwanda", "+250", "🇷🇼"],
+State:
+${recipientState}
 
-    ["Saint Kitts and Nevis", "+1", "🇰🇳"],
-    ["Saint Lucia", "+1", "🇱🇨"],
-    ["Saint Vincent and the Grenadines", "+1", "🇻🇨"],
-    ["Samoa", "+685", "🇼🇸"],
-    ["San Marino", "+378", "🇸🇲"],
-    ["Sao Tome and Principe", "+239", "🇸🇹"],
-    ["Saudi Arabia", "+966", "🇸🇦"],
-    ["Senegal", "+221", "🇸🇳"],
-    ["Serbia", "+381", "🇷🇸"],
-    ["Seychelles", "+248", "🇸🇨"],
-    ["Sierra Leone", "+232", "🇸🇱"],
-    ["Singapore", "+65", "🇸🇬"],
-    ["Slovakia", "+421", "🇸🇰"],
-    ["Slovenia", "+386", "🇸🇮"],
-    ["Solomon Islands", "+677", "🇸🇧"],
-    ["Somalia", "+252", "🇸🇴"],
-    ["South Africa", "+27", "🇿🇦"],
-    ["South Korea", "+82", "🇰🇷"],
-    ["South Sudan", "+211", "🇸🇸"],
-    ["Spain", "+34", "🇪🇸"],
-    ["Sri Lanka", "+94", "🇱🇰"],
-    ["Sudan", "+249", "🇸🇩"],
-    ["Suriname", "+597", "🇸🇷"],
-    ["Sweden", "+46", "🇸🇪"],
-    ["Switzerland", "+41", "🇨🇭"],
-    ["Syria", "+963", "🇸🇾"],
+City:
+${recipientCity}
 
-    ["Taiwan", "+886", "🇹🇼"],
-    ["Tajikistan", "+992", "🇹🇯"],
-    ["Tanzania", "+255", "🇹🇿"],
-    ["Thailand", "+66", "🇹🇭"],
-    ["Timor-Leste", "+670", "🇹🇱"],
-    ["Togo", "+228", "🇹🇬"],
-    ["Tonga", "+676", "🇹🇴"],
-    ["Trinidad and Tobago", "+1", "🇹🇹"],
-    ["Tunisia", "+216", "🇹🇳"],
-    ["Turkey", "+90", "🇹🇷"],
-    ["Turkmenistan", "+993", "🇹🇲"],
-    ["Tuvalu", "+688", "🇹🇻"],
+Phone:
+${recipientPhoneCode} ${recipientPhone}
 
-    ["Uganda", "+256", "🇺🇬"],
-    ["Ukraine", "+380", "🇺🇦"],
-    ["United Arab Emirates", "+971", "🇦🇪"],
-    ["United Kingdom", "+44", "🇬🇧"],
-    ["United States", "+1", "🇺🇸"],
-    ["Uruguay", "+598", "🇺🇾"],
-    ["Uzbekistan", "+998", "🇺🇿"],
+WhatsApp:
+${recipientWhatsAppCode} ${recipientWhatsApp}
 
-    ["Vanuatu", "+678", "🇻🇺"],
-    ["Vatican City", "+39", "🇻🇦"],
-    ["Venezuela", "+58", "🇻🇪"],
-    ["Vietnam", "+84", "🇻🇳"],
+━━━━━━━━━━━━━━━━━━
 
-    ["Yemen", "+967", "🇾🇪"],
+💰 *DELIVERY FEE*
 
-    ["Zambia", "+260", "🇿🇲"],
-    ["Zimbabwe", "+263", "🇿🇼"]
-];
+International Delivery Fee:
+$1,000 USD
 
+━━━━━━━━━━━━━━━━━━
 
-/* =========================================================
-   COUNTRY DROPDOWNS
-========================================================= */
+Please review this delivery request.
+`.trim();
 
-function populateCountryCodes() {
+        // Your receiving WhatsApp number
+        const whatsappNumber = "2349040071415";
 
-    const ids = [
-        "senderPhoneCode",
-        "senderWhatsAppCode",
-        "recipientPhoneCode",
-        "recipientWhatsAppCode"
-    ];
+        // Encode message safely
+        const whatsappURL =
+            "https://wa.me/" +
+            whatsappNumber +
+            "?text=" +
+            encodeURIComponent(message);
 
-    ids.forEach(function (id) {
-
-        const select = document.getElementById(id);
-
-        if (!select) {
-            console.warn("Dropdown not found:", id);
-            return;
-        }
-
-        /* Remove existing options */
-        select.innerHTML = "";
-
-        /* Default option */
-        const defaultOption =
-            document.createElement("option");
-
-        defaultOption.value = "";
-        defaultOption.textContent = "Country code";
-
-        select.appendChild(defaultOption);
-
-
-        /* Add countries */
-        countries.forEach(function (country) {
-
-            const option =
-                document.createElement("option");
-
-            option.value = country[1];
-
-            option.textContent =
-                country[2] +
-                " " +
-                country[0] +
-                " (" +
-                country[1] +
-                ")";
-
-            select.appendChild(option);
-
-        });
-
-
-        /* Nigeria is selected by default */
-        select.value = "+234";
-
+        // Open WhatsApp
+        window.location.href = whatsappURL;
     });
 
-}
-
-
-/* =========================================================
-   FULL PHONE NUMBER
-========================================================= */
-
-function getFullNumber(codeId, numberId) {
-
-    const code =
-        document.getElementById(codeId);
-
-    const number =
-        document.getElementById(numberId);
-
-    if (!code || !number) {
-        return "";
-    }
-
-    let countryCode =
-        code.value.replace(/\D/g, "");
-
-    let phone =
-        number.value.replace(/\D/g, "");
-
-    if (!countryCode || !phone) {
-        return "";
-    }
-
-    return "+" + countryCode + phone;
-}
-
-
-/* =========================================================
-   AUTH ELEMENTS
-========================================================= */
-
-const authModal =
-    document.getElementById("authModal");
-
-const modalOverlay =
-    document.getElementById("modalOverlay");
-
-const closeAuth =
-    document.getElementById("closeAuth");
-
-const accountButton =
-    document.getElementById("accountButton");
-
-
-function openAuth() {
-
-    if (authModal) {
-        authModal.classList.add("active");
-    }
-
-}
-
-
-function closeAuthWindow() {
-
-    if (authModal) {
-        authModal.classList.remove("active");
-    }
-
-}
-
-
-/* =========================================================
-   AUTH VIEWS
-========================================================= */
-
-function showView(view) {
-
-    const signup =
-        document.getElementById("signupView");
-
-    const login =
-        document.getElementById("loginView");
-
-    const account =
-        document.getElementById("accountView");
-
-
-    [signup, login, account].forEach(function (element) {
-
-        if (element) {
-            element.style.display = "none";
-            element.classList.remove("active");
-        }
-
-    });
-
-
-    if (view === "signup" && signup) {
-
-        signup.style.display = "block";
-        signup.classList.add("active");
-
-    }
-
-
-    if (view === "login" && login) {
-
-        login.style.display = "block";
-        login.classList.add("active");
-
-    }
-
-
-    if (view === "account" && account) {
-
-        account.style.display = "block";
-        account.classList.add("active");
-
-    }
-
-}
-
-
-function showSignup() {
-    showView("signup");
-}
-
-
-function showLogin() {
-    showView("login");
-}
-
-
-function showAccount() {
-    showView("account");
-}
-
-
-/* =========================================================
-   OPEN ACCOUNT
-========================================================= */
-
-if (accountButton) {
-
-    accountButton.addEventListener(
-        "click",
-        async function () {
-
-            if (!supabaseClient) {
-
-                showSignup();
-                openAuth();
-
-                return;
-
-            }
-
-
-            const result =
-                await supabaseClient.auth.getSession();
-
-            const session =
-                result.data.session;
-
-
-            if (session) {
-
-                const emailElement =
-                    document.getElementById("accountEmail");
-
-                if (emailElement) {
-                    emailElement.textContent =
-                        session.user.email || "Account";
-                }
-
-                showAccount();
-
-            } else {
-
-                showSignup();
-
-            }
-
-            openAuth();
-
-        }
-    );
-
-}
-
-
-if (closeAuth) {
-
-    closeAuth.addEventListener(
-        "click",
-        closeAuthWindow
-    );
-
-}
-
-
-if (modalOverlay) {
-
-    modalOverlay.addEventListener(
-        "click",
-        closeAuthWindow
-    );
-
-}
-
-
-document.addEventListener(
-    "keydown",
-    function (event) {
-
-        if (event.key === "Escape") {
-            closeAuthWindow();
-        }
-
-    }
-);
-
-
-/* =========================================================
-   SWITCH LOGIN / SIGNUP
-========================================================= */
-
-const goLogin =
-    document.getElementById("goLogin");
-
-const goSignup =
-    document.getElementById("goSignup");
-
-
-if (goLogin) {
-
-    goLogin.addEventListener(
-        "click",
-        showLogin
-    );
-
-}
-
-
-if (goSignup) {
-
-    goSignup.addEventListener(
-        "click",
-        showSignup
-    );
-
-}
-
-
-/* =========================================================
-   SIGN UP
-========================================================= */
-
-const signupForm =
-    document.getElementById("signupForm");
-
-
-if (signupForm) {
-
-    signupForm.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
-
-
-            const email =
-                document
-                    .getElementById("signupEmail")
-                    .value
-                    .trim();
-
-
-            const phrase =
-                document
-                    .getElementById("signupPhrase")
-                    .value
-                    .trim();
-
-
-            const message =
-                document.getElementById(
-                    "signupMessage"
-                );
-
-
-            const words =
-                phrase
-                    .split(/\s+/)
-                    .filter(Boolean);
-
-
-            if (words.length !== 3) {
-
-                if (message) {
-
-                    message.textContent =
-                        "Password must contain exactly 3 words.";
-
-                    message.className =
-                        "message error-message";
-
-                }
-
-                return;
-
-            }
-
-
-            if (!supabaseClient) {
-
-                if (message) {
-
-                    message.textContent =
-                        "Account service is unavailable.";
-
-                    message.className =
-                        "message error-message";
-
-                }
-
-                return;
-
-            }
-
-
-            if (message) {
-
-                message.textContent =
-                    "Creating account...";
-
-                message.className =
-                    "message";
-
-            }
-
-
-            try {
-
-                const result =
-                    await supabaseClient.auth.signUp({
-                        email: email,
-                        password: phrase
-                    });
-
-
-                if (result.error) {
-                    throw result.error;
-                }
-
-
-                if (result.data.session) {
-
-                    if (message) {
-
-                        message.textContent =
-                            "Account created successfully.";
-
-                        message.className =
-                            "message success-message";
-
-                    }
-
-                    updateAccountButton();
-
-                    setTimeout(
-                        showAccount,
-                        500
-                    );
-
-                } else {
-
-                    if (message) {
-
-                        message.textContent =
-                            "Account created. Check your email to confirm your account, then log in.";
-
-                        message.className =
-                            "message success-message";
-
-                    }
-
-                }
-
-            } catch (error) {
-
-                console.error(error);
-
-                if (message) {
-
-                    message.textContent =
-                        error.message ||
-                        "Unable to create account.";
-
-                    message.className =
-                        "message error-message";
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   LOGIN
-========================================================= */
-
-const loginForm =
-    document.getElementById("loginForm");
-
-
-if (loginForm) {
-
-    loginForm.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
-
-
-            const email =
-                document
-                    .getElementById("loginEmail")
-                    .value
-                    .trim();
-
-
-            const phrase =
-                document
-                    .getElementById("loginPhrase")
-                    .value
-                    .trim();
-
-
-            const message =
-                document.getElementById(
-                    "loginMessage"
-                );
-
-
-            if (!supabaseClient) {
-
-                if (message) {
-
-                    message.textContent =
-                        "Account service is unavailable.";
-
-                    message.className =
-                        "message error-message";
-
-                }
-
-                return;
-
-            }
-
-
-            if (message) {
-
-                message.textContent =
-                    "Logging in...";
-
-                message.className =
-                    "message";
-
-            }
-
-
-            try {
-
-                const result =
-                    await supabaseClient.auth
-                        .signInWithPassword({
-                            email: email,
-                            password: phrase
-                        });
-
-
-                if (result.error) {
-                    throw result.error;
-                }
-
-
-                if (message) {
-
-                    message.textContent =
-                        "Login successful.";
-
-                    message.className =
-                        "message success-message";
-
-                }
-
-
-                updateAccountButton();
-
-
-                const accountEmail =
-                    document.getElementById(
-                        "accountEmail"
-                    );
-
-
-                if (accountEmail) {
-
-                    accountEmail.textContent =
-                        result.data.user.email;
-
-                }
-
-
-                setTimeout(
-                    showAccount,
-                    500
-                );
-
-
-            } catch (error) {
-
-                console.error(error);
-
-                if (message) {
-
-                    message.textContent =
-                        error.message ||
-                        "Login failed.";
-
-                    message.className =
-                        "message error-message";
-
-                }
-
-            }
-
-        }
-    );
-
-}
-
-
-/* =========================================================
-   ACCOUNT BUTTON
-========================================================= */
-
-async function updateAccountButton() {
-
-    if (!accountButton) return;
-
-
-    if (!supabaseClient) {
-
-        accountButton.textContent =
-            "Sign Up / Login";
-
-        return;
-
-    }
-
-
-    try {
-
-        const result =
-            await supabaseClient.auth.getSession();
-
-        const session =
-            result.data.session;
-
-
-        if (session) {
-
-            accountButton.textContent =
-                "My Account";
-
-
-            const accountEmail =
-                document.getElementById(
-                    "accountEmail"
-                );
-
-
-            if (accountEmail) {
-
-                accountEmail.textContent =
-                    session.user.email || "Account";
-
-            }
-
-        } else {
-
-            accountButton.textContent =
-                "Sign Up / Login";
-
-        }
-
- 
+});
