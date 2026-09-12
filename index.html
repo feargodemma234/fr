@@ -1,35 +1,344 @@
-.delivery-fee-box {
-    margin-top: 20px;
-    padding: 20px;
-    border-radius: 14px;
-    background: #eef5ff;
-    border: 1px solid #cfe0ff;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-}
+<section class="request-section" id="request">
 
-.delivery-fee-box span {
-    font-size: 15px;
-    font-weight: 600;
-    color: #334155;
-}
+    <div class="section-heading">
+        <span>INTERNATIONAL DELIVERY</span>
 
-.delivery-fee-box strong {
-    font-size: 22px;
-    color: #1769e0;
-}
+        <h2>Send a package anywhere.</h2>
 
-@media (max-width: 600px) {
+        <p>
+            Enter the shipment, sender and recipient details below
+            to create your delivery request.
+        </p>
+    </div>
 
-    .delivery-fee-box {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 
-    .delivery-fee-box strong {
-        font-size: 20px;
-    }
+    <div class="request-card">
 
-}
+        <form id="requestForm">
+
+            <!-- SHIPMENT -->
+            <div class="form-section">
+
+                <h3>📦 Shipment Details</h3>
+
+                <div class="form-group">
+
+                    <label for="shipment">
+                        What are you sending?
+                    </label>
+
+                    <input
+                        type="text"
+                        id="shipment"
+                        placeholder="Example: Documents, clothing, electronics"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="description"
+                        rows="5"
+                        placeholder="Describe what is inside the package..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <div class="delivery-fee-box">
+
+                    <span>Delivery Fee</span>
+
+                    <strong>$1,000 USD</strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- SENDER -->
+            <div class="form-section">
+
+                <h3>📤 Sender Information</h3>
+
+                <div class="form-group">
+
+                    <label for="senderName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="senderName"
+                        placeholder="Sender's full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="senderCountry">
+                        Country
+                    </label>
+
+                    <input
+                        type="text"
+                        id="senderCountry"
+                        placeholder="Example: United Kingdom"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="senderState">
+                            State / Region
+                        </label>
+
+                        <input
+                            type="text"
+                            id="senderState"
+                            placeholder="State / Region"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="senderCity">
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            id="senderCity"
+                            placeholder="City"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <div class="phone-input">
+
+                        <select
+                            id="senderPhoneCode"
+                            required
+                        >
+                            <option value="">
+                                Country code
+                            </option>
+                        </select>
+
+                        <input
+                            type="tel"
+                            id="senderPhone"
+                            placeholder="Phone number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        WhatsApp Number
+                    </label>
+
+                    <div class="phone-input">
+
+                        <select
+                            id="senderWhatsAppCode"
+                            required
+                        >
+                            <option value="">
+                                Country code
+                            </option>
+                        </select>
+
+                        <input
+                            type="tel"
+                            id="senderWhatsApp"
+                            placeholder="WhatsApp number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECIPIENT -->
+            <div class="form-section">
+
+                <h3>📥 Recipient Information</h3>
+
+                <div class="form-group">
+
+                    <label for="recipientName">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="recipientName"
+                        placeholder="Recipient's full name"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="recipientCountry">
+                        Country
+                    </label>
+
+                    <input
+                        type="text"
+                        id="recipientCountry"
+                        placeholder="Example: United States"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="recipientState">
+                            State / Region
+                        </label>
+
+                        <input
+                            type="text"
+                            id="recipientState"
+                            placeholder="State / Region"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label for="recipientCity">
+                            City
+                        </label>
+
+                        <input
+                            type="text"
+                            id="recipientCity"
+                            placeholder="City"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        Phone Number
+                    </label>
+
+                    <div class="phone-input">
+
+                        <select
+                            id="recipientPhoneCode"
+                            required
+                        >
+                            <option value="">
+                                Country code
+                            </option>
+                        </select>
+
+                        <input
+                            type="tel"
+                            id="recipientPhone"
+                            placeholder="Phone number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        WhatsApp Number
+                    </label>
+
+                    <div class="phone-input">
+
+                        <select
+                            id="recipientWhatsAppCode"
+                            required
+                        >
+                            <option value="">
+                                Country code
+                            </option>
+                        </select>
+
+                        <input
+                            type="tel"
+                            id="recipientWhatsApp"
+                            placeholder="WhatsApp number"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="submit-btn"
+            >
+                Send Delivery Request via WhatsApp
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
