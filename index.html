@@ -603,223 +603,158 @@
 
 
 
-<!-- =====================================================
-     AUTH MODAL
-===================================================== -->
+<!-- ACCOUNT BUTTON -->
+<button id="accountButton" class="account-button">Account</button>
 
-<div
-    id="authModal"
-    class="modal"
->
-
-    <div
-        id="modalOverlay"
-        class="modal-overlay"
-    ></div>
-
+<!-- AUTH MODAL -->
+<div id="authModal" class="auth-modal">
+    <div id="modalOverlay" class="modal-overlay"></div>
 
     <div class="modal-content">
 
-        <button
-            type="button"
-            id="closeAuth"
-            class="close-modal"
-        >
-            ×
-        </button>
+        <button id="closeAuth" class="close-auth">&times;</button>
 
+        <!-- SIGN UP -->
+        <div id="signupView">
 
-        <!-- SIGNUP -->
-
-        <div
-            id="signupView"
-            class="auth-view active"
-        >
-
-            <h2>
-                Create Account
-            </h2>
-
+            <h2>Create Account</h2>
+            <p class="auth-subtitle">
+                Create your RequestHub account
+            </p>
 
             <form id="signupForm">
 
-                <div class="form-group">
+                <label>Phone Number *</label>
 
-                    <label for="signupEmail">
-                        Email
-                    </label>
-
-                    <input
-                        type="email"
-                        id="signupEmail"
-                        placeholder="Enter your email"
-                        required
-                    >
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="signupPhrase">
-                        3-Word Password
-                    </label>
+                <div class="phone-row">
+                    <select id="signupPhoneCode" required>
+                        <option value="">Country code</option>
+                    </select>
 
                     <input
-                        type="password"
-                        id="signupPhrase"
-                        placeholder="Enter exactly 3 words"
+                        type="tel"
+                        id="signupPhone"
+                        placeholder="Phone number"
                         required
                     >
-
                 </div>
 
+                <label>Email <span>(optional)</span></label>
 
-                <button type="submit">
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="Email address (optional)"
+                >
+
+                <label>Password *</label>
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Password"
+                    minlength="6"
+                    required
+                >
+
+                <label>Confirm Password *</label>
+
+                <input
+                    type="password"
+                    id="signupConfirmPassword"
+                    placeholder="Confirm password"
+                    minlength="6"
+                    required
+                >
+
+                <button type="submit" class="auth-submit">
                     Create Account
                 </button>
 
             </form>
 
+            <p id="signupMessage" class="auth-message"></p>
 
-            <p
-                id="signupMessage"
-                class="message"
-            ></p>
-
-
-            <div class="auth-switch">
-
+            <p class="auth-switch">
                 Already have an account?
-
-                <button
-                    type="button"
-                    id="goLogin"
-                >
-                    Login
-                </button>
-
-            </div>
+                <button type="button" id="goLogin">Login</button>
+            </p>
 
         </div>
-
 
 
         <!-- LOGIN -->
+        <div id="loginView" style="display:none;">
 
-        <div
-            id="loginView"
-            class="auth-view"
-        >
+            <h2>Welcome Back</h2>
 
-            <h2>
-                Login
-            </h2>
-
+            <p class="auth-subtitle">
+                Login to your RequestHub account
+            </p>
 
             <form id="loginForm">
 
-                <div class="form-group">
+                <label>Phone number or Email</label>
 
-                    <label for="loginEmail">
-                        Email
-                    </label>
+                <input
+                    type="text"
+                    id="loginIdentifier"
+                    placeholder="Phone number or email"
+                    required
+                >
 
-                    <input
-                        type="email"
-                        id="loginEmail"
-                        placeholder="Enter your email"
-                        required
-                    >
+                <label>Password</label>
 
-                </div>
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Password"
+                    required
+                >
 
-
-                <div class="form-group">
-
-                    <label for="loginPhrase">
-                        3-Word Password
-                    </label>
-
-                    <input
-                        type="password"
-                        id="loginPhrase"
-                        placeholder="Enter your 3-word password"
-                        required
-                    >
-
-                </div>
-
-
-                <button type="submit">
+                <button type="submit" class="auth-submit">
                     Login
                 </button>
 
             </form>
 
+            <p id="loginMessage" class="auth-message"></p>
 
-            <p
-                id="loginMessage"
-                class="message"
-            ></p>
-
-
-            <div class="auth-switch">
-
+            <p class="auth-switch">
                 Don't have an account?
-
-                <button
-                    type="button"
-                    id="goSignup"
-                >
-                    Create Account
-                </button>
-
-            </div>
+                <button type="button" id="goSignup">Create Account</button>
+            </p>
 
         </div>
 
 
-
         <!-- ACCOUNT -->
+        <div id="accountView" style="display:none;">
 
-        <div
-            id="accountView"
-            class="auth-view"
-        >
-
-            <h2>
-                My Account
-            </h2>
-
+            <h2>Your Account</h2>
 
             <div class="account-info">
 
                 <p>
-                    Logged in as:
+                    <strong>Phone</strong>
+                    <span id="accountPhone"></span>
                 </p>
 
-                <p id="accountEmail">
-                    —
+                <p>
+                    <strong>Email</strong>
+                    <span id="accountEmail"></span>
                 </p>
 
             </div>
 
-
-            <button
-                type="button"
-                id="logoutButton"
-                class="logout-button"
-            >
-                Log Out
+            <button id="logoutButton" class="logout-button">
+                Logout
             </button>
 
         </div>
 
     </div>
-
 </div>
-
 
 
 <!-- =====================================================
