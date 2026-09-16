@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>RequestHub</title>
+  <title>FedEx Stores</title>
 
   <link rel="stylesheet" href="style.css">
 </head>
@@ -14,7 +14,7 @@
 <header class="header">
 
   <div class="logo">
-    📦 <span>RequestHub</span>
+    📦 <span>FedEx Stores</span>
   </div>
 
   <nav>
@@ -83,13 +83,32 @@
       >
 
 
-      <label for="recipientCountry">
+      <label for="recipientCountrySearch">
         Country
       </label>
 
-      <select id="recipientCountry" required>
-        <option value="">Select country</option>
-      </select>
+      <div class="combo" id="countryCombo">
+
+        <input
+          id="recipientCountrySearch"
+          type="text"
+          placeholder="Search country..."
+          autocomplete="off"
+          required
+        >
+
+        <input
+          id="recipientCountry"
+          type="hidden"
+        >
+
+        <div
+          id="countryList"
+          class="combo-list"
+          role="listbox"
+        ></div>
+
+      </div>
 
 
       <label for="recipientState">
@@ -236,7 +255,7 @@
 <footer>
 
   <p>
-    © 2026 RequestHub. All rights reserved.
+    © 2026 FedEx Stores. All rights reserved.
   </p>
 
 </footer>
